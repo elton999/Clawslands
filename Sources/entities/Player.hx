@@ -1,5 +1,6 @@
 package entities;
 
+import kha.math.FastMatrix3;
 import kha.Image;
 import kha.Assets;
 import kha.Color;
@@ -17,7 +18,7 @@ class Player extends Actor{
 	public override function start() {
 		
 		this.scene.AllActors.push(this);
-		this.size = new Point(16, 32);
+		this.size = new Point(10, 32);
 		this.gravity2D = new Vector2(0, -200);
 		this.velocityDecrecent = 2000;
 		this.tag = "player";
@@ -37,7 +38,8 @@ class Player extends Actor{
 			this.scene.camera.follow = this;
 		
 		super.update(DeltaTime);
-		this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
+		this.AnimationController(DeltaTime);
+		//this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
 		this.jump();
 	}
 
@@ -53,13 +55,28 @@ class Player extends Actor{
 		this.move(DeltaTime);
 	}
 
+	public var mright:Bool = true;
+
 	var animation:Animation;
 	public override function render(g2:Graphics) {
 		super.render(g2);
 		// g2.color = Color.Red;
 		// g2.fillRect(this.Position.x, this.Position.y, 16, 32);
 		// g2.color = Color.White;
-		g2.drawSubImage(this.Sprite, this.Position.x - 23, this.Position.y - 16, this.animation.body.x, this.animation.body.y, this.animation.body.width, this.animation.body.height);
+		// g2.pushTransformation(g2.transformation.multmat(FastMatrix3.translation(this.Position.x - 23, this.Position.y - 16)).multmat(FastMatrix3.rotation(0)).multmat(FastMatrix3.translation(-this.Position.x + 23, -this.Position.y + 16)));
+		// g2.drawSubImage(this.Sprite, this.Position.x - 23, this.Position.y - 16, this.animation.body.x, this.animation.body.y, this.animation.body.width, this.animation.body.height);
+		g2.drawScaledSubImage(
+			this.Sprite, 
+			this.animation.body.x, 
+			this.animation.body.y, 
+			this.animation.body.width, 
+			this.animation.body.height,
+			this.mright ? this.Position.x - 27 : this.Position.x + 37, 
+			this.Position.y - 16, 
+			this.mright ? this.animation.body.width : -this.animation.body.width, 
+			this.animation.body.height
+			);
+		
 	}
 
 	// Jump
@@ -151,6 +168,22 @@ class Player extends Actor{
 		}
 	}
 	// End Controllers
+
+
+	// animation
+	public function AnimationController(DeltaTime:Float){
+		if(this.cLeft)
+			this.mright = false;
+		if(this.cRight)
+			this.mright = true;
+
+		if(this.velocity.x != 0)
+			this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
+		else
+			this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
+
+	}
+	// end animation
 
 	public var isGrounded:Bool = false;
 	private function checkGrounded():Void{
