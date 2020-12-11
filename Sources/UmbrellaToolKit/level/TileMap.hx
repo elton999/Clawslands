@@ -155,7 +155,7 @@ class TileMap{
 							xx++;
 						}
 						
-						this.removeCollisionInfo( y, y + Std.int(_size.x / 8), x, x + Std.int(_size.y / 8) - 1);
+						this.removeCollisionInfo( y, y + Std.int(_size.x / 8) - 1, x, x + Std.int(_size.y / 8) - 1);
 						this.addCollisionLayer(_tag, _size, _position);
 
 						var tile:Tile = new Tile();
