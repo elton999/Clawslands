@@ -2,10 +2,10 @@ package entities.enemies;
 
 import kha.Color;
 import kha.math.Vector2;
-import umbrellatoolkit.collision.Actor;
+import entities.enemies.Enemy;
 import umbrellatoolkit.helpers.Point;
 
-class Troll extends Actor{
+class Troll extends Enemy{
 	public override function start(){
 		this.scene.AllActors.push(this);
 		this.size = new Point(16, 32);

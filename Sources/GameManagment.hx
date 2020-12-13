@@ -23,6 +23,8 @@ class GameManagment {
 		// Set Assets
 		this.AssetsManagment.add(Player, "player", LayersScene.PLAYER);
 		this.AssetsManagment.add(Troll, "troll", LayersScene.ENEMIES);
+		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
+		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);
 		this.AssetsManagment.add(MovePlatform, "move platform", LayersScene.MIDDLEGROUND);
 	}
 

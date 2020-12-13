@@ -75,8 +75,7 @@ class Player extends Actor{
 			this.Position.y - 16, 
 			this.mright ? this.animation.body.width : -this.animation.body.width, 
 			this.animation.body.height
-			);
-		
+		);
 	}
 
 	// Jump

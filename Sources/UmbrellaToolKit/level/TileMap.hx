@@ -122,7 +122,7 @@ class TileMap{
 				for(tiley in tilex){
 					if(tiley != "0"){
 						var _tag = tiley;
-						var _position:Vector2 = new Vector2(y*8 - 8, x*8);
+						var _position:Vector2 = new Vector2(y*8, x*8);
 						var _size:Point = new Point(8,8);
 
 						// check width
