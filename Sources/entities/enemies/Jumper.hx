@@ -1,10 +1,10 @@
 package entities.enemies;
 
-import umbrellatoolkit.collision.Solid;
 import kha.Color;
 import kha.math.Vector2;
 import kha.graphics2.Graphics;
 import umbrellatoolkit.helpers.Point;
+import umbrellatoolkit.collision.Solid;
 
 class Jumper extends Enemy{
 	public override function start() {
