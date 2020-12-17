@@ -34,21 +34,19 @@ class GameManagment {
 		if(!this.LoadScene){
 			this.Scene.scene = new Scene();
 			this.Scene.scene.cameraLerpSpeed = 8;
-			this.Scene.scene.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.AssetsManagment);
+			this.Scene.scene.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_complete_json", this.AssetsManagment);
 			this.LoadScene = true;
 		}
 
-		if(this.Scene.scene != null){
+		if(this.Scene.scene != null)
 			this.Scene.scene.update(this.DeltaTime.delta);
-		}
 
 		this.DeltaTime.update();
 	}
 
 	public function updateData():Void{
-		if(this.Scene.scene != null){
+		if(this.Scene.scene != null)
 			this.Scene.scene.updateData(this.DeltaTimeUpdateData.delta);
-		}
 		this.DeltaTimeUpdateData.update();
 	}
 

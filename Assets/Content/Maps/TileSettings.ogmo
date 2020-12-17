@@ -15,8 +15,16 @@
   "compactExport": false,
   "externalScript": "",
   "playCommand": "",
-  "entityTags": ["player", "enemies", "solids", " actor"],
+  "entityTags": ["player", "enemies", "solids", " actor", "hit box"],
   "layers": [
+    {
+      "definition": "grid",
+      "name": "areas",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "21136911",
+      "arrayMode": 1,
+      "legend": {"0": "#00000000", "1": "#ff0000ff", "2": "#64ff00ff", "3": "#df00ffff", "4": "#ffcc00ff", "5": "#0084ffff", "6": "#00ffd6ff"}
+    },
     {
       "definition": "grid",
       "name": "collision layer",
@@ -46,6 +54,14 @@
       "name": "move platforms",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "36944788",
+      "requiredTags": [],
+      "excludedTags": []
+    },
+    {
+      "definition": "entity",
+      "name": "hit box",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "18048814",
       "requiredTags": [],
       "excludedTags": []
     },
@@ -248,7 +264,7 @@
       "canSetColor": false,
       "hasNodes": true,
       "nodeLimit": 0,
-      "nodeDisplay": 2,
+      "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": ["enemies", " actor"],
       "values": [
@@ -290,6 +306,83 @@
       "nodeGhost": true,
       "tags": ["enemies", " actor"],
       "values": []
+    },
+    {
+      "exportID": "18034064",
+      "name": "exit room",
+      "limit": -1,
+      "size": {"x": 8, "y": 8},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#1fff00ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": true,
+      "resizeableY": true,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["hit box"],
+      "values": [
+        {"name": "room", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100},
+        {"name": "door", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100}
+      ]
+    },
+    {
+      "exportID": "18073798",
+      "name": "player spaw",
+      "limit": -1,
+      "size": {"x": 10, "y": 32},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#717befff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 8, "y": 8},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["player"],
+      "values": [
+        {"name": "room", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100}
+      ]
     }
   ],
   "tilesets": []

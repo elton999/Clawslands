@@ -17,7 +17,7 @@ class MovePlatform extends Solid{
 
 		this.positionNodes.push(new Vector2(this.Position.x, this.Position.y));
 
-		this.intialPosition = this.positions[0];
+		this.intialPosition = this.positions;
 		this.valeus.speed = 1;
 	}
 
@@ -27,38 +27,38 @@ class MovePlatform extends Solid{
 
 		if(!back){
 			if(this.positionNodes[0].x == this.positionNodes[1].x){
-				if(this.positionNodes[0].y > this.positions[0].y)
+				if(this.positionNodes[0].y > this.positions.y)
 					move(0, this.valeus.speed);
 				else
 					move(0, -this.valeus.speed);
 
-				if(this.positions[0].y == this.positionNodes[0].y)
+				if(this.positions.y == this.positionNodes[0].y)
 					back = !back;
 			} else {
-				if(this.positionNodes[0].x > this.positions[0].x)
+				if(this.positionNodes[0].x > this.positions.x)
 					move(this.valeus.speed, 0);
 				else
 					move(-this.valeus.speed, 0);
 
-				if(this.positions[0].x == this.positionNodes[0].x)
+				if(this.positions.x == this.positionNodes[0].x)
 					back = !back;
 			}
 		} else {
 			if(this.positionNodes[0].x == this.positionNodes[1].x){
-				if(this.positionNodes[1].y > this.positions[0].y)
+				if(this.positionNodes[1].y > this.positions.y)
 					move(0, this.valeus.speed);
 				else
 					move(0, -this.valeus.speed);
 
-				if(this.positions[0].y == this.positionNodes[1].y)
+				if(this.positions.y == this.positionNodes[1].y)
 					back = !back;
 			} else {
-				if(this.positionNodes[1].x > this.positions[0].x)
+				if(this.positionNodes[1].x > this.positions.x)
 					move(this.valeus.speed, 0);
 				else
 					move(-this.valeus.speed, 0);
 
-				if(this.positions[0].x == this.positionNodes[1].x)
+				if(this.positions.x == this.positionNodes[1].x)
 					back = !back;
 			}
 		}
@@ -69,7 +69,7 @@ class MovePlatform extends Solid{
 		super.render(g2);
 
 		g2.color = Color.Blue;
-		g2.fillRect(this.positions[0].x, this.positions[0].y, this.sizes[0].x, this.sizes[0].y);
+		g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
 		g2.color = Color.White;
 	}
 

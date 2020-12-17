@@ -91,7 +91,7 @@ class TileMap{
 	}
 
 	public function addCollisionLayer(tag:String, size:Point, position:Vector2){
-		var _find:Bool = false;
+		/*var _find:Bool = false;
 		var i = 0;
 		while(i < this._Scene.AllSolids.length){
 			if(this._Scene.AllSolids[i].tag == tag){
@@ -106,7 +106,11 @@ class TileMap{
 			_collision.tag = tag;
 			_collision.add(size, position);
 			this._Scene.AllSolids.push(_collision);
-		}
+		}*/
+		var _collision:Solid = new Solid();
+		_collision.tag = tag;
+		_collision.add(size, position);
+		this._Scene.AllSolids.push(_collision);
 	}
 
 	var collisionProcessed:Array<Solid>;

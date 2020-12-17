@@ -2,6 +2,7 @@ package entities.enemies;
 
 import kha.Color;
 import kha.math.Vector2;
+import kha.Scheduler;
 import kha.graphics2.Graphics;
 import umbrellatoolkit.helpers.Point;
 import umbrellatoolkit.collision.Solid;
@@ -20,6 +21,7 @@ class Spider extends Enemy{
 	var _currentMovimentX:Bool = false;
 	var _currentMovimentY:Bool =  false;
 	public override function updateData(DeltaTime:Float) {
+		var t:Float = Scheduler.time();
 		this.checkGround();
 
 		if(!(groundLeft && groundRight && groundTop && groundBottom)){
@@ -112,28 +114,31 @@ class Spider extends Enemy{
 	public var groundRight:Bool = false;
 	public var groundTop:Bool = false;
 	public var groundBottom:Bool = false;
-	public var solidBuffer:Solid;
+	public var solidBuffer_groundRight:Solid;
+	public var solidBuffer_groundLeft:Solid;
+	public var solidBuffer_groundBottom:Solid;
+	public var solidBuffer_groundTop:Solid;
 
 	public override function isRiding(solid:Solid):Bool {
 		var rt:Bool = false;
 		if(solid.check(this.size, new Vector2(this.Position.x + 1, this.Position.y))){
 			rt = true;
 			groundRight = true;
-			solidBuffer = solid;
+			solidBuffer_groundRight = solid;
 		} else if(solid.check(this.size, new Vector2(this.Position.x - 1, this.Position.y))){
 			rt = true;
 			groundLeft = true;
-			solidBuffer = solid;
+			solidBuffer_groundLeft = solid;
 		}
 
 		if(solid.check(this.size, new Vector2(this.Position.x, this.Position.y + 1))){
 			rt = true;
 			groundBottom = true;
-			solidBuffer = solid;
+			solidBuffer_groundBottom = solid;
 		} else if(solid.check(this.size, new Vector2(this.Position.x, this.Position.y - 1))){
 			rt = true;
 			groundTop = true;
-			solidBuffer = solid;
+			solidBuffer_groundTop = solid;
 		}
 		return rt;
 	}
@@ -143,17 +148,9 @@ class Spider extends Enemy{
 		groundRight = false;
 		groundTop = false;
 		groundBottom = false;
-
-		if(solidBuffer == null){
-			var i = 0;
-			for(i in 0...this.scene.AllSolids.length){
-				this.isRiding(this.scene.AllSolids[i]);
-			}
-		} else if(!this.isRiding(solidBuffer)){
-			var i = 0;
-			for(i in 0...this.scene.AllSolids.length){
-				this.isRiding(this.scene.AllSolids[i]);
-			}
+		
+		for(i in 0...this.scene.AllSolids.length){
+			this.isRiding(this.scene.AllSolids[i]);
 		}
 		
 	}
