@@ -1,5 +1,6 @@
 package;
 import entities.Player;
+import gameplay.Door;
 import entities.enemies.*;
 import entities.solids.MovePlatform;
 import umbrellatoolkit.Scene;
@@ -9,6 +10,16 @@ import kha.Framebuffer;
 
 class GameManagment {
 	public var Scene: Scene;
+
+	public var room1: Scene;
+	public var room2: Scene;
+	public var room3: Scene;
+	public var room4: Scene;
+	public var room5: Scene;
+	public var room6: Scene;
+	public var room7: Scene;
+	public var room8: Scene;
+
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
 
 	public var FullScreem:Bool = true;
@@ -22,6 +33,7 @@ class GameManagment {
 
 		// Set Assets
 		this.AssetsManagment.add(Player, "player", LayersScene.PLAYER);
+		this.AssetsManagment.add(Door, "exit room", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Troll, "troll", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);
@@ -32,9 +44,18 @@ class GameManagment {
 	public function update(): Void {
 		
 		if(!this.LoadScene){
-			this.Scene.scene = new Scene();
-			this.Scene.scene.cameraLerpSpeed = 8;
-			this.Scene.scene.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_complete_json", this.AssetsManagment);
+			this.room1 = new Scene();
+			this.room1.cameraLerpSpeed = 8;
+			this.room1.GameManagment = this;
+			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.AssetsManagment);
+
+			this.room2 = new Scene();
+			this.room2.cameraLerpSpeed = 8;
+			this.room2.GameManagment = this;
+			this.room2.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_2_json", this.AssetsManagment);
+
+			this.Scene.scene = this.room1;
+
 			this.LoadScene = true;
 		}
 

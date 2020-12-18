@@ -19,14 +19,6 @@
   "layers": [
     {
       "definition": "grid",
-      "name": "areas",
-      "gridSize": {"x": 8, "y": 8},
-      "exportID": "21136911",
-      "arrayMode": 1,
-      "legend": {"0": "#00000000", "1": "#ff0000ff", "2": "#64ff00ff", "3": "#df00ffff", "4": "#ffcc00ff", "5": "#0084ffff", "6": "#00ffd6ff"}
-    },
-    {
-      "definition": "grid",
       "name": "collision layer",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "51794717",
@@ -381,7 +373,7 @@
       "nodeGhost": true,
       "tags": ["player"],
       "values": [
-        {"name": "room", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100}
+        {"name": "door", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100}
       ]
     }
   ],

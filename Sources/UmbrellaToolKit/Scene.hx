@@ -39,6 +39,8 @@ class Scene {
 	public var ScreemSize:Point = new Point(426, 240);
 	public var cameraLerpSpeed:Float = 0.06;
 
+	public var GameManagment:GameManagment;
+
 	public var _BackBuffer:Image;
 
 	public var SceneReady:Bool = false;

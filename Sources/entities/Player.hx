@@ -60,11 +60,7 @@ class Player extends Actor{
 	var animation:Animation;
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		// g2.color = Color.Red;
-		// g2.fillRect(this.Position.x, this.Position.y, 16, 32);
-		// g2.color = Color.White;
-		// g2.pushTransformation(g2.transformation.multmat(FastMatrix3.translation(this.Position.x - 23, this.Position.y - 16)).multmat(FastMatrix3.rotation(0)).multmat(FastMatrix3.translation(-this.Position.x + 23, -this.Position.y + 16)));
-		// g2.drawSubImage(this.Sprite, this.Position.x - 23, this.Position.y - 16, this.animation.body.x, this.animation.body.y, this.animation.body.width, this.animation.body.height);
+		
 		g2.drawScaledSubImage(
 			this.Sprite, 
 			this.animation.body.x, 
@@ -119,7 +115,6 @@ class Player extends Actor{
 			this.velocity.x = 0;
 	}
 	// end move
-
 
 	// Controllers
 	public var cRight:Bool = false;

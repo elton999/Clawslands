@@ -8,6 +8,8 @@ import umbrellatoolkit.Scene;
 class AssetsManagment
 {
 	private var _GameObjectsList:Map<String, AssetObject> = new Map<String, AssetObject>();
+
+	public var gameManagment:GameManagment;
 	
 	public function new(){}
 

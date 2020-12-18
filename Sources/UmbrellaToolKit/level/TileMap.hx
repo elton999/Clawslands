@@ -44,18 +44,9 @@ class TileMap{
 
 							for(row in line){
 								// if isn't transparent create a tile color
-								if(row != "0"){
+								if(row != "0")
 									this.collisionTiles[y].push(row);
-									/*var tile:Tile = new Tile();
-									tile.tag = row;
-									tile.squareColor = Color.Yellow; //Color.fromString(layerD.legend[Std.parseInt(row)].substring(0,7));
-									tile.squareSize = new Point(layer.gridCellWidth, layer.gridCellHeight);
-									tile.Position = new Vector2(layer.gridCellWidth*x, layer.gridCellHeight*y);
-
-									//this.addCollisionLayer(row, tile.squareSize, tile.Position);
-
-									layers.addGameObject(tile);*/
-								}else
+								else
 									this.collisionTiles[y].push("0");
 
 								x++;
@@ -91,22 +82,6 @@ class TileMap{
 	}
 
 	public function addCollisionLayer(tag:String, size:Point, position:Vector2){
-		/*var _find:Bool = false;
-		var i = 0;
-		while(i < this._Scene.AllSolids.length){
-			if(this._Scene.AllSolids[i].tag == tag){
-				_find = true;
-				this._Scene.AllSolids[i].add(size, position);
-			}
-			i++;
-		}
-
-		if(!_find){
-			var _collision:Solid = new Solid();
-			_collision.tag = tag;
-			_collision.add(size, position);
-			this._Scene.AllSolids.push(_collision);
-		}*/
 		var _collision:Solid = new Solid();
 		_collision.tag = tag;
 		_collision.add(size, position);
@@ -160,13 +135,13 @@ class TileMap{
 						}
 						
 						this.removeCollisionInfo( y, y + Std.int(_size.x / 8) - 1, x, x + Std.int(_size.y / 8) - 1);
-						this.addCollisionLayer(_tag, _size, _position);
+						this.addCollisionLayer(_tag, _size, new Vector2(_position.x + this.Data.offsetX, _position.y + this.Data.offsetY));
 
 						var tile:Tile = new Tile();
 						tile.tag = _tag;
 						tile.squareColor = Color.Yellow;
 						tile.squareSize = _size;
-						tile.Position = _position;
+						tile.Position = new Vector2(_position.x + this.Data.offsetX, _position.y + this.Data.offsetY);
 
 						layers.addGameObject(tile);
 
