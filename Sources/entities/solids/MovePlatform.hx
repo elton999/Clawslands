@@ -14,9 +14,8 @@ class MovePlatform extends Solid{
 		this.tag = "movePlatform";
 		this.add(this.size, this.Position);
 		this.scene.AllSolids.push(this);
-
+		
 		this.positionNodes.push(new Vector2(this.Position.x, this.Position.y));
-
 		this.intialPosition = this.positions;
 		this.valeus.speed = 1;
 	}

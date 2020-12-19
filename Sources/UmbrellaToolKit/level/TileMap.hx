@@ -64,13 +64,21 @@ class TileMap{
 			// entities
 			else if(layer.entities != null){
 				for(entity in layer.entities){
+
+					var _nodes:Array<Vector2> = new Array<Vector2>();
+
+					if(entity.nodes != null){
+						for(node in entity.nodes)
+							_nodes.push(new Vector2(node.x+this.Data.offsetX, node.y + this.Data.offsetY));
+					}
+
 					this._Assets.addEntityOnSene(
 						entity.name,
 						this._Scene,
-						new Vector2(entity.x, entity.y),
+						new Vector2(entity.x + this.Data.offsetX, entity.y + this.Data.offsetY),
 						entity.height > 0 ? new Point(entity.width, entity.height) : null,
 						entity.values,
-						entity.nodes
+						_nodes
 						);
 				}
 			}// End entities

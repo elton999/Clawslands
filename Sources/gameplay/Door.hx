@@ -20,10 +20,17 @@ class Door extends Actor{
 				this.scene.AllActors.shift();
 				this.scene.Player.shift();
 
-				this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room2;
+				if(this.valeus.room == 1)
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room1;
+				else if(this.valeus.room == 2)
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room2;
+				else if(this.valeus.room == 3)
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room3;
+
 				this.Player.scene = this.scene.GameManagment.Scene.scene;
 				this.scene.GameManagment.Scene.scene.Player.push(this.Player);
 				this.scene.GameManagment.Scene.scene.AllActors.unshift(this.Player);
+				this.scene.GameManagment.Scene.scene.camera.position = this.Player.Position;
 			}
 		}
 	}

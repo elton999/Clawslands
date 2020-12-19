@@ -19,6 +19,14 @@
   "layers": [
     {
       "definition": "grid",
+      "name": "areas",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "34293591",
+      "arrayMode": 0,
+      "legend": {"0": "#00000000", "1": "#ff0000ff", "2": "#1fff00ff", "3": "#004dffff", "4": "#ff9600ff", "5": "#00ffc8ff"}
+    },
+    {
+      "definition": "grid",
       "name": "collision layer",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "51794717",
