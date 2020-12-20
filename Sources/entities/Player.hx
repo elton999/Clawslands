@@ -23,6 +23,8 @@ class Player extends Actor{
 		this.velocityDecrecent = 2000;
 		this.tag = "player";
 		this.scene.cameraLerpSpeed = 10;
+
+		this.scene.camera.position.y = this.Position.y;
 		
 		Assets.loadImage("Content_Sprites_player", function (done:Image){
 			this.Sprite = done;

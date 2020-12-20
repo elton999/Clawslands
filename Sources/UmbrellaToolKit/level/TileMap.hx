@@ -67,19 +67,27 @@ class TileMap{
 
 					var _nodes:Array<Vector2> = new Array<Vector2>();
 
-					if(entity.nodes != null){
+					if(entity.nodes != null)
 						for(node in entity.nodes)
-							_nodes.push(new Vector2(node.x+this.Data.offsetX, node.y + this.Data.offsetY));
-					}
+							_nodes.push(new Vector2(node.x+this.Data.offsetX, node.y+this.Data.offsetY));
 
-					this._Assets.addEntityOnSene(
-						entity.name,
-						this._Scene,
-						new Vector2(entity.x + this.Data.offsetX, entity.y + this.Data.offsetY),
-						entity.height > 0 ? new Point(entity.width, entity.height) : null,
-						entity.values,
-						_nodes
+					if(entity.name != "camera"){
+						this._Assets.addEntityOnSene(
+							entity.name,
+							this._Scene,
+							new Vector2(entity.x + this.Data.offsetX, entity.y + this.Data.offsetY),
+							entity.height > 0 ? new Point(entity.width, entity.height) : null,
+							entity.values,
+							_nodes
 						);
+					} else {
+						_nodes = new Array<Vector2>();
+						if(entity.nodes != null)
+							for(node in entity.nodes)
+								_nodes.push(new Vector2(node.x+this.Data.offsetX, node.y+this.Data.offsetY));
+						this._Scene.camera.minPosition = new Vector2(entity.x+this.Data.offsetX, entity.y+this.Data.offsetY);
+						this._Scene.camera.maxPosition = _nodes[0];
+					}
 				}
 			}// End entities
 
@@ -180,7 +188,7 @@ class TileMap{
 		var x = xFrom;
 		while(yFrom <= yTo){
 			while(x <= xTo){
-					this.collisionTiles[yFrom][x] = "0";
+				this.collisionTiles[yFrom][x] = "0";
 				x++;
 			}
 			x = xFrom;

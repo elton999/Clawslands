@@ -44,10 +44,13 @@ class GameManagment {
 	public function update(): Void {
 		
 		if(!this.LoadScene){
+			
+			
+
 			this.room1 = new Scene();
 			this.room1.cameraLerpSpeed = 8;
 			this.room1.GameManagment = this;
-			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_2_json", this.AssetsManagment);
+			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.AssetsManagment);
 
 			this.room2 = new Scene();
 			this.room2.cameraLerpSpeed = 8;

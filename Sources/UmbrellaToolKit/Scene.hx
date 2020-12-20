@@ -67,6 +67,10 @@ class Scene {
 	public function LoadLevel(tileSet:String, level:String, assets:AssetsManagment){
 		this.TileSetString = tileSet;
 		this.TileMapString = level;
+		
+		this.camera = new Camera();
+		this.camera.scene = this;
+
 		Assets.loadBlob(tileSet, function (done:kha.Blob.Blob){
 			this.TileSet = new TileSet(done.toString());
 			done.unload();
@@ -75,9 +79,6 @@ class Scene {
 				this.TileMap.CreateLevel();
 				done.unload();
 				this.SceneReady = true;
-				this.camera = new Camera();
-				this.camera.scene = this;
-				//if(this.Player.length > 0) this.camera.follow = this.Player[0];
 			});
 		});
 	}

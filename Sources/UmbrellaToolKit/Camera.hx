@@ -17,6 +17,9 @@ class Camera {
 	public var allowFollowX:Bool = true;
 	public var allowFollowY:Bool = true;
 
+	public var maxPosition:Vector2;
+	public var minPosition:Vector2;
+
 	public function new(){
 		trans = FastMatrix3.identity();
 	}
@@ -25,9 +28,11 @@ class Camera {
 		timer = deltaTime;
 		if(this.follow != null){
 			if(this.allowFollowX)
-				this.position.x = this.lerp(this.position.x , this.follow.Position.x, this.scene.cameraLerpSpeed*deltaTime);
+				if((maxPosition != null) && ((this.follow.Position.x - (this.scene.ScreemSize.x / 2) < maxPosition.x) && (this.follow.Position.x - (this.scene.ScreemSize.x / 2) > minPosition.x)))
+					this.position.x = this.lerp(this.position.x , this.follow.Position.x, this.scene.cameraLerpSpeed*deltaTime);
 			if(this.allowFollowY)
-				this.position.y = this.lerp(this.position.y, this.follow.Position.y, this.scene.cameraLerpSpeed*deltaTime);
+				if((maxPosition != null) && ((this.follow.Position.y - (this.scene.ScreemSize.y / 2) < maxPosition.y) && (this.follow.Position.y - (this.scene.ScreemSize.y / 2) > minPosition.y)))
+					this.position.y = this.lerp(this.position.y, this.follow.Position.y, this.scene.cameraLerpSpeed*deltaTime);
 		}
 	}
 
