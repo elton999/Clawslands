@@ -62,6 +62,11 @@ class GameManagment {
 			this.room3.GameManagment = this;
 			this.room3.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_3_json", this.AssetsManagment);
 
+			this.room4 = new Scene();
+			this.room4.cameraLerpSpeed = 8;
+			this.room4.GameManagment = this;
+			this.room4.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_4_json", this.AssetsManagment);
+
 			this.Scene.scene = this.room1;
 
 			this.LoadScene = true;

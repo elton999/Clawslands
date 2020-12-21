@@ -30,6 +30,7 @@ class Camera {
 			if(this.allowFollowX)
 				if((maxPosition != null) && ((this.follow.Position.x - (this.scene.ScreemSize.x / 2) < maxPosition.x) && (this.follow.Position.x - (this.scene.ScreemSize.x / 2) > minPosition.x)))
 					this.position.x = this.lerp(this.position.x , this.follow.Position.x, this.scene.cameraLerpSpeed*deltaTime);
+				
 			if(this.allowFollowY)
 				if((maxPosition != null) && ((this.follow.Position.y - (this.scene.ScreemSize.y / 2) < maxPosition.y) && (this.follow.Position.y - (this.scene.ScreemSize.y / 2) > minPosition.y)))
 					this.position.y = this.lerp(this.position.y, this.follow.Position.y, this.scene.cameraLerpSpeed*deltaTime);

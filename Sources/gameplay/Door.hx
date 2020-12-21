@@ -1,5 +1,6 @@
 package gameplay;
 
+import umbrellatoolkit.Camera;
 import kha.math.Vector2;
 import kha.Color;
 import kha.graphics2.Graphics;
@@ -23,26 +24,41 @@ class Door extends Actor{
 
 				if(this.valeus.room == 1)
 					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room1;
-				else if(this.valeus.room == 2){
+				else if(this.valeus.room == 2)
 					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room2;
-				}
 				else if(this.valeus.room == 3)
 					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room3;
+				else if(this.valeus.room == 4)
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room4;
 
 				this.Player.scene = this.scene.GameManagment.Scene.scene;
 				this.scene.GameManagment.Scene.scene.Player.push(this.Player);
 				this.scene.GameManagment.Scene.scene.AllActors.unshift(this.Player);
 				this.scene.GameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
 
+				this.fixCameraPosition(this.scene.GameManagment.Scene.scene.camera);
+
 			}
 		}
+	}
+
+	public function fixCameraPosition(camera:Camera){
+		if((Player.Position.x - (camera.scene.ScreemSize.x / 2) > camera.maxPosition.x))
+			camera.position.x = camera.maxPosition.x + (camera.scene.ScreemSize.x / 2);
+		else if((Player.Position.x  - (camera.scene.ScreemSize.x / 2) < camera.minPosition.x))
+			camera.position.x = camera.minPosition.x + (camera.scene.ScreemSize.x / 2);
+
+		if((Player.Position.y - (camera.scene.ScreemSize.x / 2) > camera.maxPosition.y))
+			camera.position.y = camera.maxPosition.y + (camera.scene.ScreemSize.y / 2);
+		else if((Player.Position.y - (camera.scene.ScreemSize.y / 2) < camera.minPosition.y))
+			camera.position.y = camera.minPosition.y + (camera.scene.ScreemSize.y / 2);
 	}
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
 		
-		g2.color = Color.Green;
-		g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		g2.color = Color.White;
+		//g2.color = Color.Green;
+		//g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+		//g2.color = Color.White;
 	}
 }
