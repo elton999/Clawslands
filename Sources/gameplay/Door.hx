@@ -30,6 +30,10 @@ class Door extends Actor{
 					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room3;
 				else if(this.valeus.room == 4)
 					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room4;
+				else if(this.valeus.room == 5)
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room5;
+				else if(this.valeus.room == 6)
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room6;
 
 				this.Player.scene = this.scene.GameManagment.Scene.scene;
 				this.scene.GameManagment.Scene.scene.Player.push(this.Player);
@@ -37,7 +41,6 @@ class Door extends Actor{
 				this.scene.GameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
 
 				this.fixCameraPosition(this.scene.GameManagment.Scene.scene.camera);
-
 			}
 		}
 	}

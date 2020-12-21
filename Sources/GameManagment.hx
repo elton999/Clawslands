@@ -18,7 +18,6 @@ class GameManagment {
 	public var room5: Scene;
 	public var room6: Scene;
 	public var room7: Scene;
-	public var room8: Scene;
 
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
 
@@ -44,9 +43,7 @@ class GameManagment {
 	public function update(): Void {
 		
 		if(!this.LoadScene){
-			
-			
-
+			// loading levels 
 			this.room1 = new Scene();
 			this.room1.cameraLerpSpeed = 8;
 			this.room1.GameManagment = this;
@@ -67,7 +64,18 @@ class GameManagment {
 			this.room4.GameManagment = this;
 			this.room4.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_4_json", this.AssetsManagment);
 
+			this.room5 = new Scene();
+			this.room5.cameraLerpSpeed = 8;
+			this.room5.GameManagment = this;
+			this.room5.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_5_json", this.AssetsManagment);
+
+			this.room6 = new Scene();
+			this.room6.cameraLerpSpeed = 8;
+			this.room6.GameManagment = this;
+			this.room6.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_6_json", this.AssetsManagment);
+
 			this.Scene.scene = this.room1;
+			
 
 			this.LoadScene = true;
 		}
