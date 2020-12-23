@@ -75,8 +75,6 @@ class GameManagment {
 			this.room6.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_6_json", this.AssetsManagment);
 
 			this.Scene.scene = this.room1;
-			
-
 			this.LoadScene = true;
 		}
 
