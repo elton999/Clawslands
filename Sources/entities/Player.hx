@@ -35,14 +35,23 @@ class Player extends Actor{
 		Keyboard.get().notify(OnkeyDown, OnKeyUp);
 	}
 
+	var _lastPosition:Vector2 =  new Vector2(0,0);
 	public override function update(DeltaTime:Float) {
 		if(this.scene.camera != null && this.scene.camera.follow == null)
 			this.scene.camera.follow = this;
 		
+
+		// check fall
+		if(!this.isGrounded){
+			if(this.speedGravity.y < 0) this.isFalling = true;
+			else this.isFalling = false;
+		}
+
 		super.update(DeltaTime);
 		this.AnimationController(DeltaTime);
 		//this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
 		this.jump();
+		_lastPosition = new Vector2(this.Position.x, this.Position.y);
 	}
 
 	public override function OnCollide(?tag:String) {
@@ -173,15 +182,24 @@ class Player extends Actor{
 		if(this.cRight)
 			this.mright = true;
 
-		if(this.velocity.x != 0)
-			this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
-		else
-			this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
+		if(this.isGrounded){
+			if(this.velocity.x != 0)
+				this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
+			else
+				this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
+		} else {
+			if(this.isFalling)
+				this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);
+			else
+				this.animation.play(DeltaTime, "Jump-Up-Right", AnimationDirection.LOOP);
+
+		}
 
 	}
 	// end animation
 
 	public var isGrounded:Bool = false;
+	public var isFalling:Bool = false;
 	private function checkGrounded():Void{
 		this.isGrounded = false;
 		for(ground in this.scene.AllSolids){

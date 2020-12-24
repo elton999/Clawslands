@@ -28,16 +28,17 @@ class Actor extends GameObject{
 	}
 
 	public var gravity2D:Vector2 = new Vector2(0, -350);
+	public var speedGravity:Vector2 = new Vector2(0,0);
 	public var velocity:Vector2 = new Vector2(0,0);
 	public var velocityDecrecent:Float = 200;
 	private function gravity(DeltaTime:Float){
 
-		var gravity:Vector2 = new Vector2(this.velocity.x+this.gravity2D.x, this.velocity.y+this.gravity2D.y);
+		this.speedGravity = new Vector2(this.velocity.x+this.gravity2D.x, this.velocity.y+this.gravity2D.y);
 
-		if(gravity.x != 0)
-			this.moveX(-(gravity.x* DeltaTime), OnCollide);
-		if(gravity.y != 0)
-			this.moveY(-(gravity.y* DeltaTime), OnCollide);
+		if(speedGravity.x != 0)
+			this.moveX(-(speedGravity.x* DeltaTime), OnCollide);
+		if(speedGravity.y != 0)
+			this.moveY(-(speedGravity.y* DeltaTime), OnCollide);
 
 		// velocity Controller
 		if(this.velocity.y > 0)
