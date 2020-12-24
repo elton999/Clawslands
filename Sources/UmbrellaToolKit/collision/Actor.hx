@@ -77,7 +77,7 @@ class Actor extends GameObject{
 				{
 					if(onCollideFunction != null)
 						onCollideFunction();
-					break; 
+					break;
 				} 
 			} 
 		} 

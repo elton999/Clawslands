@@ -148,7 +148,7 @@ class Player extends Actor{
 			case Z:
 				this.cJump = true;
 			case X:
-				this.scene.camera.allowFollowX = !this.scene.camera.allowFollowX;
+				this._attackAnimation = true;
 			case Y:
 				this.scene.camera.allowFollowY = !this.scene.camera.allowFollowY;
 			default:
@@ -176,6 +176,7 @@ class Player extends Actor{
 
 
 	// animation
+	var _attackAnimation:Bool = false;
 	public function AnimationController(DeltaTime:Float){
 		if(this.cLeft)
 			this.mright = false;
@@ -185,8 +186,14 @@ class Player extends Actor{
 		if(this.isGrounded){
 			if(this.velocity.x != 0)
 				this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
-			else
-				this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
+			else{
+				if(_attackAnimation){
+					this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
+					if(this.animation.lastFrame())
+						_attackAnimation = false;
+				}else
+					this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
+			}			
 		} else {
 			if(this.isFalling)
 				this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);
