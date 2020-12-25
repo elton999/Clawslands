@@ -4,7 +4,8 @@ import kha.math.FastMatrix3;
 import kha.Image;
 import kha.Assets;
 import kha.Color;
-import kha.input.*;
+import kha.input.Keyboard;
+import kha.input.Gamepad;
 import kha.math.Vector2;
 import kha.graphics2.Graphics;
 import umbrellatoolkit.GameObject;
@@ -33,6 +34,9 @@ class Player extends Actor{
 		});
 		
 		Keyboard.get().notify(OnkeyDown, OnKeyUp);
+		Gamepad.get(0).notify(ExisGamepad, ButtonGamepad);
+		Gamepad.get(1).notify(ExisGamepad, ButtonGamepad);
+	
 	}
 
 	var _lastPosition:Vector2 =  new Vector2(0,0);
@@ -132,10 +136,12 @@ class Player extends Actor{
 	public var cLeft:Bool = false;
 	public var cUp:Bool = false;
 	public var cDown:Bool = false;
+	public var cAttack:Bool = false;
 
 	public var cJump:Bool = false;
 	
 	private function OnkeyDown(key:kha.input.KeyCode):Void{
+		_isgamepad = false;
 		switch (key){
 			case Up:
 				this.cUp = true;
@@ -148,7 +154,7 @@ class Player extends Actor{
 			case Z:
 				this.cJump = true;
 			case X:
-				this._attackAnimation = true;
+				this.cAttack = true;
 			case Y:
 				this.scene.camera.allowFollowY = !this.scene.camera.allowFollowY;
 			default:
@@ -172,6 +178,34 @@ class Player extends Actor{
 				//none
 		}
 	}
+
+	private var _isgamepad:Bool = false;
+	private function ButtonGamepad(button:Int, value:Float){
+		this._isgamepad = true;
+		if(button == 15)
+			if(value == 1) this.cRight = true;
+			else this.cRight = false;
+		else if(button == 14)
+			if(value == 1) this.cLeft = true;
+			else this.cLeft = false;
+		else if(button == 0)
+			if(value == 1) this.cJump = true;
+			else this.cJump = false;
+		else if(button == 2)
+			if(value == 1) this.cAttack = true;
+	}
+
+	private function ExisGamepad(button:Int, value:Float){
+		if(button == 0){
+			if(value > 0.3) this.cRight = true;
+			else if(value < -0.3) this.cLeft = true;
+			else if(value > -0.3 && value < 0.3){
+				this.cRight = false;
+				this.cLeft = false;
+			}
+		}
+	}
+
 	// End Controllers
 
 
@@ -187,10 +221,13 @@ class Player extends Actor{
 			if(this.velocity.x != 0)
 				this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
 			else{
-				if(_attackAnimation){
+				if(this.cAttack){
 					this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
-					if(this.animation.lastFrame())
+					_attackAnimation = true;
+					if(this.animation.lastFrame()){
 						_attackAnimation = false;
+						this.cAttack = false;
+					}
 				}else
 					this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
 			}			
@@ -199,9 +236,7 @@ class Player extends Actor{
 				this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);
 			else
 				this.animation.play(DeltaTime, "Jump-Up-Right", AnimationDirection.LOOP);
-
 		}
-
 	}
 	// end animation
 
