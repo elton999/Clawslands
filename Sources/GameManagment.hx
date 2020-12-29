@@ -1,4 +1,6 @@
 package;
+import kha.Assets;
+import umbrellatoolkit.GameObject;
 import entities.Player;
 import gameplay.Door;
 import entities.enemies.*;
@@ -18,6 +20,8 @@ class GameManagment {
 	public var room5: Scene;
 	public var room6: Scene;
 	public var room7: Scene;
+
+	var GameObject:GameObject = new GameObject();
 
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
 
@@ -43,36 +47,41 @@ class GameManagment {
 	public function update(): Void {
 		
 		if(!this.LoadScene){
+			// loading tilemap
+			kha.Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
+				this.GameObject.Sprite = done;
+			});
+
 			// loading levels 
 			this.room1 = new Scene();
 			this.room1.cameraLerpSpeed = 8;
 			this.room1.GameManagment = this;
-			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.AssetsManagment);
+			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.GameObject, this.AssetsManagment);
 
 			this.room2 = new Scene();
 			this.room2.cameraLerpSpeed = 8;
 			this.room2.GameManagment = this;
-			this.room2.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_2_json", this.AssetsManagment);
+			this.room2.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_2_json", this.GameObject, this.AssetsManagment);
 
 			this.room3 = new Scene();
 			this.room3.cameraLerpSpeed = 8;
 			this.room3.GameManagment = this;
-			this.room3.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_3_json", this.AssetsManagment);
+			this.room3.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_3_json", this.GameObject, this.AssetsManagment);
 
 			this.room4 = new Scene();
 			this.room4.cameraLerpSpeed = 8;
 			this.room4.GameManagment = this;
-			this.room4.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_4_json", this.AssetsManagment);
+			this.room4.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_4_json", this.GameObject, this.AssetsManagment);
 
 			this.room5 = new Scene();
 			this.room5.cameraLerpSpeed = 8;
 			this.room5.GameManagment = this;
-			this.room5.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_5_json", this.AssetsManagment);
+			this.room5.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_5_json", this.GameObject, this.AssetsManagment);
 
 			this.room6 = new Scene();
 			this.room6.cameraLerpSpeed = 8;
 			this.room6.GameManagment = this;
-			this.room6.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_6_json", this.AssetsManagment);
+			this.room6.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_6_json", this.GameObject, this.AssetsManagment);
 
 			this.Scene.scene = this.room1;
 			this.LoadScene = true;

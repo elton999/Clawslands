@@ -1,1 +1,438 @@
-{"name":"Step 1","ogmoVersion":"3.3.0","levelPaths":["."],"backgroundColor":"#000000ff","gridColor":"#61616100","anglesRadians":true,"directoryDepth":5,"layerGridDefaultSize":{"x":8,"y":8},"levelDefaultSize":{"x":320,"y":240},"levelMinSize":{"x":128,"y":128},"levelMaxSize":{"x":6000,"y":4096},"levelValues":[{"name":"camera_moviment_x","definition":"Boolean","defaults":false},{"name":"camera_moviment_y","definition":"Boolean","defaults":true}],"defaultExportMode":".json","compactExport":true,"externalScript":"","playCommand":"","entityTags":["player","enemies","solids"," actor","hit box"],"layers":[{"definition":"tile","name":"tile map","gridSize":{"x":8,"y":8},"exportID":"93873219","exportMode":1,"arrayMode":1,"defaultTileset":"New Tileset"},{"definition":"grid","name":"areas","gridSize":{"x":8,"y":8},"exportID":"34293591","arrayMode":1,"legend":{"0":"#00000000","1":"#ff0000ff","2":"#1fff00ff","3":"#004dffff","4":"#ff9600ff","5":"#00ffc8ff"}},{"definition":"grid","name":"collision layer","gridSize":{"x":8,"y":8},"exportID":"51794717","arrayMode":1,"legend":{"0":"#00000000","1":"#ebd320ff","2":"#b21030ff"}},{"definition":"entity","name":"camera","gridSize":{"x":8,"y":8},"exportID":"39258091","requiredTags":[],"excludedTags":[]},{"definition":"entity","name":"Player","gridSize":{"x":8,"y":8},"exportID":"51780797","requiredTags":[],"excludedTags":[]},{"definition":"entity","name":"Enemies","gridSize":{"x":8,"y":8},"exportID":"10612406","requiredTags":[],"excludedTags":[]},{"definition":"entity","name":"move platforms","gridSize":{"x":8,"y":8},"exportID":"36944788","requiredTags":[],"excludedTags":[]},{"definition":"entity","name":"hit box","gridSize":{"x":8,"y":8},"exportID":"18048814","requiredTags":[],"excludedTags":[]},{"definition":"decal","name":"new_layer","gridSize":{"x":8,"y":8},"exportID":"93876471","folder":"","includeImageSequence":true,"scaleable":true,"rotatable":true,"values":[]}],"entities":[{"exportID":"51799832","name":"player","limit":-1,"size":{"x":10,"y":32},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#0016ffff","tileX":false,"tileY":false,"tileSize":{"x":8,"y":8},"resizeableX":false,"resizeableY":false,"rotatable":false,"rotationDegrees":360,"canFlipX":false,"canFlipY":false,"canSetColor":false,"hasNodes":false,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["player"," actor"],"values":[]},{"exportID":"09989948","name":"troll","limit":-1,"size":{"x":16,"y":32},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#ff001bff","tileX":false,"tileY":false,"tileSize":{"x":16,"y":32},"resizeableX":false,"resizeableY":false,"rotatable":false,"rotationDegrees":360,"canFlipX":true,"canFlipY":false,"canSetColor":false,"hasNodes":true,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["enemies"," actor"],"values":[]},{"exportID":"10060955","name":"wicth","limit":-1,"size":{"x":16,"y":32},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#ff00daff","tileX":false,"tileY":false,"tileSize":{"x":16,"y":32},"resizeableX":false,"resizeableY":false,"rotatable":false,"rotationDegrees":360,"canFlipX":true,"canFlipY":false,"canSetColor":false,"hasNodes":false,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["enemies"," actor"],"values":[]},{"exportID":"36936039","name":"move platform","limit":-1,"size":{"x":8,"y":8},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#00ffbaff","tileX":false,"tileY":false,"tileSize":{"x":16,"y":16},"resizeableX":true,"resizeableY":true,"rotatable":false,"rotationDegrees":360,"canFlipX":false,"canFlipY":false,"canSetColor":false,"hasNodes":true,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["solids"],"values":[{"name":"speed","definition":"Float","defaults":0.1,"bounded":false,"min":0,"max":100}]},{"exportID":"79633378","name":"spider","limit":-1,"size":{"x":16,"y":16},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#ff0000ff","tileX":false,"tileY":false,"tileSize":{"x":16,"y":16},"resizeableX":false,"resizeableY":false,"rotatable":false,"rotationDegrees":360,"canFlipX":true,"canFlipY":false,"canSetColor":false,"hasNodes":true,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["enemies"," actor"],"values":[{"name":"canClamb","definition":"Boolean","defaults":false}]},{"exportID":"79764768","name":"jumper","limit":-1,"size":{"x":16,"y":16},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#df00ffff","tileX":false,"tileY":false,"tileSize":{"x":16,"y":16},"resizeableX":false,"resizeableY":false,"rotatable":false,"rotationDegrees":360,"canFlipX":false,"canFlipY":false,"canSetColor":false,"hasNodes":false,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["enemies"," actor"],"values":[]},{"exportID":"18034064","name":"exit room","limit":-1,"size":{"x":8,"y":8},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#1fff00ff","tileX":false,"tileY":false,"tileSize":{"x":16,"y":16},"resizeableX":true,"resizeableY":true,"rotatable":false,"rotationDegrees":360,"canFlipX":false,"canFlipY":false,"canSetColor":false,"hasNodes":false,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["hit box"],"values":[{"name":"room","definition":"Integer","defaults":0,"bounded":false,"min":0,"max":100},{"name":"door","definition":"Integer","defaults":0,"bounded":false,"min":0,"max":100}]},{"exportID":"18073798","name":"player spaw","limit":-1,"size":{"x":10,"y":32},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#717befff","tileX":false,"tileY":false,"tileSize":{"x":8,"y":8},"resizeableX":false,"resizeableY":false,"rotatable":false,"rotationDegrees":360,"canFlipX":false,"canFlipY":false,"canSetColor":false,"hasNodes":false,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":["player"],"values":[{"name":"door","definition":"Integer","defaults":0,"bounded":false,"min":0,"max":100}]},{"exportID":"35141519","name":"camera","limit":-1,"size":{"x":426,"y":240},"origin":{"x":0,"y":0},"originAnchored":true,"shape":{"label":"Rectangle","points":[{"x":-1,"y":-1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":1,"y":1}]},"color":"#ff0000ff","tileX":false,"tileY":false,"tileSize":{"x":426,"y":240},"resizeableX":false,"resizeableY":false,"rotatable":false,"rotationDegrees":360,"canFlipX":false,"canFlipY":false,"canSetColor":false,"hasNodes":true,"nodeLimit":0,"nodeDisplay":0,"nodeGhost":true,"tags":[],"values":[]}],"tilesets":[{"label":"New Tileset","path":"tilemap.png","image":"data:image/png;base64,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","tileWidth":8,"tileHeight":8,"tileSeparationX":0,"tileSeparationY":0}]}
+{
+  "name": "Step 1",
+  "ogmoVersion": "3.3.0",
+  "levelPaths": ["."],
+  "backgroundColor": "#000000ff",
+  "gridColor": "#61616100",
+  "anglesRadians": true,
+  "directoryDepth": 5,
+  "layerGridDefaultSize": {"x": 8, "y": 8},
+  "levelDefaultSize": {"x": 320, "y": 240},
+  "levelMinSize": {"x": 128, "y": 128},
+  "levelMaxSize": {"x": 6000, "y": 4096},
+  "levelValues": [
+    {"name": "camera_moviment_x", "definition": "Boolean", "defaults": false},
+    {"name": "camera_moviment_y", "definition": "Boolean", "defaults": true}
+  ],
+  "defaultExportMode": ".json",
+  "compactExport": false,
+  "externalScript": "",
+  "playCommand": "",
+  "entityTags": ["player", "enemies", "solids", " actor", "hit box"],
+  "layers": [
+    {
+      "definition": "tile",
+      "name": "tile map",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "93873219",
+      "exportMode": 1,
+      "arrayMode": 1,
+      "defaultTileset": "New Tileset"
+    },
+    {
+      "definition": "grid",
+      "name": "areas",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "34293591",
+      "arrayMode": 1,
+      "legend": {"0": "#00000000", "1": "#ff0000ff", "2": "#1fff00ff", "3": "#004dffff", "4": "#ff9600ff", "5": "#00ffc8ff"}
+    },
+    {
+      "definition": "grid",
+      "name": "collision layer",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "51794717",
+      "arrayMode": 1,
+      "legend": {"0": "#00000000", "1": "#ebd320ff", "2": "#b21030ff"}
+    },
+    {
+      "definition": "entity",
+      "name": "camera",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "39258091",
+      "requiredTags": [],
+      "excludedTags": []
+    },
+    {
+      "definition": "entity",
+      "name": "Player",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "51780797",
+      "requiredTags": [],
+      "excludedTags": []
+    },
+    {
+      "definition": "entity",
+      "name": "Enemies",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "10612406",
+      "requiredTags": [],
+      "excludedTags": []
+    },
+    {
+      "definition": "entity",
+      "name": "move platforms",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "36944788",
+      "requiredTags": [],
+      "excludedTags": []
+    },
+    {
+      "definition": "entity",
+      "name": "hit box",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "18048814",
+      "requiredTags": [],
+      "excludedTags": []
+    },
+    {
+      "definition": "decal",
+      "name": "new_layer",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "93876471",
+      "folder": "",
+      "includeImageSequence": true,
+      "scaleable": true,
+      "rotatable": true,
+      "values": []
+    }
+  ],
+  "entities": [
+    {
+      "exportID": "51799832",
+      "name": "player",
+      "limit": -1,
+      "size": {"x": 10, "y": 32},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#0016ffff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 8, "y": 8},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["player", " actor"],
+      "values": []
+    },
+    {
+      "exportID": "09989948",
+      "name": "troll",
+      "limit": -1,
+      "size": {"x": 16, "y": 32},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff001bff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 32},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": true,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": true,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["enemies", " actor"],
+      "values": []
+    },
+    {
+      "exportID": "10060955",
+      "name": "wicth",
+      "limit": -1,
+      "size": {"x": 16, "y": 32},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff00daff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 32},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": true,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["enemies", " actor"],
+      "values": []
+    },
+    {
+      "exportID": "36936039",
+      "name": "move platform",
+      "limit": -1,
+      "size": {"x": 8, "y": 8},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#00ffbaff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": true,
+      "resizeableY": true,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": true,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["solids"],
+      "values": [
+        {"name": "speed", "definition": "Float", "defaults": 0.1, "bounded": false, "min": 0, "max": 100}
+      ]
+    },
+    {
+      "exportID": "79633378",
+      "name": "spider",
+      "limit": -1,
+      "size": {"x": 16, "y": 16},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": true,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": true,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["enemies", " actor"],
+      "values": [
+        {"name": "canClamb", "definition": "Boolean", "defaults": false}
+      ]
+    },
+    {
+      "exportID": "79764768",
+      "name": "jumper",
+      "limit": -1,
+      "size": {"x": 16, "y": 16},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#df00ffff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["enemies", " actor"],
+      "values": []
+    },
+    {
+      "exportID": "18034064",
+      "name": "exit room",
+      "limit": -1,
+      "size": {"x": 8, "y": 8},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#1fff00ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": true,
+      "resizeableY": true,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["hit box"],
+      "values": [
+        {"name": "room", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100},
+        {"name": "door", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100}
+      ]
+    },
+    {
+      "exportID": "18073798",
+      "name": "player spaw",
+      "limit": -1,
+      "size": {"x": 10, "y": 32},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#717befff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 8, "y": 8},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["player"],
+      "values": [
+        {"name": "door", "definition": "Integer", "defaults": 0, "bounded": false, "min": 0, "max": 100}
+      ]
+    },
+    {
+      "exportID": "35141519",
+      "name": "camera",
+      "limit": -1,
+      "size": {"x": 426, "y": 240},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 426, "y": 240},
+      "resizeableX": false,
+      "resizeableY": false,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": true,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": [],
+      "values": []
+    }
+  ],
+  "tilesets": [
+    {"label": "New Tileset", "path": "tilemap.png", "image": "data:image/png;base64,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", "tileWidth": 8, "tileHeight": 8, "tileSeparationX": 0, "tileSeparationY": 0}
+  ]
+}

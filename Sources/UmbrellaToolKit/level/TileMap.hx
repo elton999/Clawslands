@@ -24,11 +24,15 @@ class TileMap{
 		this._Assets = assets;
 	}
 
-	public function CreateLevel(){
+	public var GameObject:GameObject;
+	public function CreateLevel(gameObject:GameObject){
+		this.GameObject = gameObject;
 		var i:Int = 0;
+
 		while (i < this.Data.layers.length){
 			var layer = this.Data.layers[i];
 			var layers:Layer = new Layer();
+			layers.offsset = new Point(this.Data.offsetX, this.Data.offsetY);
 
 			// Grid
 			if(layer.grid2D != null){
@@ -57,10 +61,39 @@ class TileMap{
 				}
 
 				// setting tiles colors on Scene
+				layers.renderBuffer();
 				this.collisionTilesProcess(layers);
 				this._Scene.Background.push(layers);
 			}//End Grid
 			
+			// tilemap
+			else if(layer.dataCoords2D != null){
+				var x = 0;
+				var y = 0;
+				var layers:Layer = new Layer();
+				layers.offsset = new Point(this.Data.offsetX, this.Data.offsetY);
+
+				for(tilex in layer.dataCoords2D){
+					for(tiley in tilex){
+						if(tiley[0] != -1){
+							var tile:Tile = new Tile();
+							tile.GameObject = this.GameObject;
+							tile.squareSize = new Point(8,8);
+							tile.squarePosition = new Point(tiley[0] * 8, tiley[1] * 8);
+							tile.Position = new Vector2(this.Data.offsetX+(y*8), this.Data.offsetY+(x*8));
+							
+							layers.addGameObject(tile);
+						}
+						y++;
+					}
+					y = 0;
+					x++;
+				}
+				layers.renderBuffer();
+				this._Scene.Background.push(layers);
+			}
+			// End tilemap
+
 			// entities
 			else if(layer.entities != null){
 				for(entity in layer.entities){
@@ -216,6 +249,7 @@ typedef LevelLayer = {
 	var gridCellsY:Int;
 	var data2D:Array<Array<Int>>;
 	var grid2D:Array<Array<String>>;
+	var dataCoords2D:Array<Array<Array<Int>>>;
 	var entities:Array<LevelLayerEntities>;
 }
 

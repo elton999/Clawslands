@@ -64,7 +64,7 @@ class Scene {
 	private var TileSetString:String;
 	private var TileMapString:String;
 	
-	public function LoadLevel(tileSet:String, level:String, assets:AssetsManagment){
+	public function LoadLevel(tileSet:String, level:String, tilemapImage:GameObject, assets:AssetsManagment){
 		this.TileSetString = tileSet;
 		this.TileMapString = level;
 		
@@ -76,7 +76,7 @@ class Scene {
 			done.unload();
 			Assets.loadBlob(level, function(done:kha.Blob.Blob){
 				this.TileMap = new TileMap(done.toString(), this.TileSet, this, assets);
-				this.TileMap.CreateLevel();
+				this.TileMap.CreateLevel(tilemapImage);
 				done.unload();
 				this.SceneReady = true;
 			});
