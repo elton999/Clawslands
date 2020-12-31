@@ -8,6 +8,7 @@ import kha.input.Keyboard;
 import kha.input.Gamepad;
 import kha.math.Vector2;
 import kha.graphics2.Graphics;
+import entities.SwordPlayer;
 import umbrellatoolkit.GameObject;
 import umbrellatoolkit.collision.Actor;
 import umbrellatoolkit.collision.Solid;
@@ -26,6 +27,10 @@ class Player extends Actor{
 		this.scene.cameraLerpSpeed = 10;
 
 		this.scene.camera.position.y = this.Position.y;
+
+		this.sword = new SwordPlayer();
+		this.sword.player = this;
+		this.sword.start();
 		
 		Assets.loadImage("Content_Sprites_player", function (done:Image){
 			this.Sprite = done;
@@ -67,6 +72,7 @@ class Player extends Actor{
 	public override function updateData(DeltaTime:Float){
 		super.updateData(DeltaTime);
 		this.checkGrounded();
+		this.checkAttackArea();
 		this.move(DeltaTime);
 	}
 
@@ -207,6 +213,17 @@ class Player extends Actor{
 	}
 
 	// End Controllers
+
+	// sword settings
+	public var sword:SwordPlayer;
+	public function checkAttackArea(){
+		if(this.cAttack)
+			if(this.animation.getCurrentFrame() > 0){
+				this.sword.updateData(0);
+				this.sword.CheckAttack();
+			}
+	}
+	// end sword settings
 
 
 	// animation

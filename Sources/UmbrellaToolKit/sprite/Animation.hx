@@ -39,6 +39,10 @@ class Animation {
 		return false;
 	}
 
+	public function getCurrentFrame():Int{
+		return this.frameCurrent;
+	}
+
 	public function play(deltaTime:Float, tag:String, aDirection:AnimationDirection = AnimationDirection.FORWARD){
 		 if (tag != this.tag)
             {

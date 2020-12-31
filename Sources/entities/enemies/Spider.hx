@@ -17,6 +17,12 @@ class Spider extends Enemy{
 		this.tag = "spider";
 	}
 
+	public override function OnCollide(?tag:String) {
+		super.OnCollide(tag);
+		if(tag != null)
+			trace(tag);
+	}
+
 	var speed:Float = 15;
 	var _currentMovimentX:Bool = false;
 	var _currentMovimentY:Bool =  false;
