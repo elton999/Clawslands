@@ -21,6 +21,7 @@ class GameObject {
 	public var BoxSprite:BoxSprite;
 	public var scene:Scene;
 	public var show:Bool = false;
+	public var isVisible:Bool = true;
 	public var size:Point = new Point(32,32);
 
 	public var valeus:Dynamic;

@@ -14,13 +14,22 @@ class Spider extends Enemy{
 
 		this.scene.AllActors.push(this);
 		this.size = new Point(16, 16);
+		this.life = 5;
 		this.tag = "spider";
 	}
 
 	public override function OnCollide(?tag:String) {
 		super.OnCollide(tag);
-		if(tag != null)
-			trace(tag);
+		if(tag == "player sword")
+			this.takeDamage(5);
+	}
+
+	public override function takeDamage(hit:Int) {
+		super.takeDamage(hit);
+	}
+
+	public override function onTakeDamage() {
+		super.onTakeDamage();
 	}
 
 	var speed:Float = 15;
@@ -110,9 +119,11 @@ class Spider extends Enemy{
 	}
 
 	public override function render(g2:Graphics) {
-		g2.color = Color.Red;
-		g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		g2.color = Color.White;
+		if(this.isVisible){
+			g2.color = Color.Red;
+			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+			g2.color = Color.White;
+		}
 	}
 
 

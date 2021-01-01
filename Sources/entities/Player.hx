@@ -132,7 +132,7 @@ class Player extends Actor{
 		if(this.cRight)
 			this.velocity.x = -(this.speed);
 
-		if(!this.cLeft && !this.cRight)
+		if((!this.cLeft && !this.cRight) || this.cAttack)
 			this.velocity.x = 0;
 	}
 	// end move
@@ -249,10 +249,19 @@ class Player extends Actor{
 					this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
 			}			
 		} else {
-			if(this.isFalling)
-				this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);
-			else
-				this.animation.play(DeltaTime, "Jump-Up-Right", AnimationDirection.LOOP);
+			if(this.cAttack){
+				this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
+				_attackAnimation = true;
+				if(this.animation.lastFrame()){
+					_attackAnimation = false;
+					this.cAttack = false;
+				}
+			} else {
+				if(this.isFalling)
+					this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);
+				else
+					this.animation.play(DeltaTime, "Jump-Up-Right", AnimationDirection.LOOP);
+			}
 		}
 	}
 	// end animation
