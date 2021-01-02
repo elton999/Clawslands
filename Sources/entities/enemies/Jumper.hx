@@ -12,8 +12,27 @@ class Jumper extends Enemy{
 
 		this.scene.AllActors.push(this);
 		this.size = new Point(16, 16);
+		this.life = 5;
 		this.tag = "jumper";
 	}
+
+	// take damege
+	public override function OnCollide(?tag:String) {
+		super.OnCollide(tag);
+		if(tag == "player sword")
+			this.takeDamage(5);
+	}
+
+	public override function takeDamage(hit:Int) 
+	{
+		this.speed = - this.speed;
+		super.takeDamage(hit);
+	}
+
+	public override function onTakeDamage() {
+		super.onTakeDamage();
+	}
+	// end take damege
 
 	var moveRight:Bool = false;
 	var moveLeft:Bool = false;

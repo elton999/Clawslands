@@ -3,6 +3,7 @@ import kha.Assets;
 import umbrellatoolkit.GameObject;
 import entities.Player;
 import gameplay.Door;
+import ui.HUD;
 import entities.enemies.*;
 import entities.solids.MovePlatform;
 import umbrellatoolkit.Scene;
@@ -48,14 +49,18 @@ class GameManagment {
 		
 		if(!this.LoadScene){
 			// loading tilemap
+			var HUD:HUD = new HUD();
 			kha.Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
 				this.GameObject.Sprite = done;
+				HUD.Sprite = done;
 			});
 
 			// loading levels 
 			this.room1 = new Scene();
 			this.room1.cameraLerpSpeed = 8;
 			this.room1.GameManagment = this;
+			HUD.scene = this.room1;
+			this.room1.UI.push(HUD);
 			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.GameObject, this.AssetsManagment);
 
 			this.room2 = new Scene();

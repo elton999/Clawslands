@@ -14,7 +14,7 @@ class Spider extends Enemy{
 
 		this.scene.AllActors.push(this);
 		this.size = new Point(16, 16);
-		this.life = 5;
+		this.life = 15;
 		this.tag = "spider";
 	}
 
@@ -24,7 +24,9 @@ class Spider extends Enemy{
 			this.takeDamage(5);
 	}
 
-	public override function takeDamage(hit:Int) {
+	public override function takeDamage(hit:Int) 
+	{
+		this.speed = - this.speed;
 		super.takeDamage(hit);
 	}
 

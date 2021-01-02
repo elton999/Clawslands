@@ -35,7 +35,7 @@ class Enemy extends Actor{
 			} else
 				this.isVisible = true;
 
-			if(this.blinkTimes > 6){ 
+			if(this.blinkTimes > 20){ 
 				this.isTakingDamage = false;
 				this.isVisible = true;
 				if(this.life <= 0)

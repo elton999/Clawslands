@@ -1,5 +1,7 @@
 package gameplay;
 
+import umbrellatoolkit.GameObject;
+import ui.HUD;
 import umbrellatoolkit.Camera;
 import kha.math.Vector2;
 import kha.Color;
@@ -9,6 +11,7 @@ import umbrellatoolkit.collision.Actor;
 
 class Door extends Actor{
 	public var Player : Actor;
+	public var Hud:GameObject;
 
 	public override function start() {
 		this.tag = "door";
@@ -18,8 +21,10 @@ class Door extends Actor{
 		if(this.scene.AllActors.length > 0){
 			if(this.overlapCheck(this.scene.AllActors[0])){
 				this.Player = this.scene.AllActors[0];
+				this.Hud = this.scene.UI[0];
 				
 				this.scene.AllActors.shift();
+				this.scene.UI.shift();
 				this.scene.Player.shift();
 
 				if(this.valeus.room == 1)
@@ -36,8 +41,10 @@ class Door extends Actor{
 					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room6;
 
 				this.Player.scene = this.scene.GameManagment.Scene.scene;
+				this.Hud.scene = this.scene.GameManagment.Scene.scene;
 				this.scene.GameManagment.Scene.scene.Player.push(this.Player);
 				this.scene.GameManagment.Scene.scene.AllActors.unshift(this.Player);
+				this.scene.GameManagment.Scene.scene.UI.unshift(this.Hud);
 				this.scene.GameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
 
 				this.fixCameraPosition(this.scene.GameManagment.Scene.scene.camera);
