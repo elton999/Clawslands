@@ -8,10 +8,12 @@ import umbrellatoolkit.GameObject;
 class HUD extends GameObject{
 
 	public var life:Int = 3;
+	public var hasKey:Bool = false;
 
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
 		this.life = this.scene.GameManagment.life;
+		this.hasKey = this.scene.GameManagment.haskey;
 	}
 
 	public override function render(g2:Graphics) {
@@ -27,7 +29,10 @@ class HUD extends GameObject{
 
 		//keys
 		g2.drawSubImage(this.Sprite, this.Position.x + 8, this.Position.y + 17, 10, 72, 10, 10);
-		g2.drawSubImage(this.Sprite, this.Position.x + 20, this.Position.y + 17, 26, 72, 4, 8);
+		if(this.hasKey)
+			g2.drawSubImage(this.Sprite, this.Position.x + 20, this.Position.y + 17, 34, 72, 4, 8);
+		else
+			g2.drawSubImage(this.Sprite, this.Position.x + 20, this.Position.y + 17, 26, 72, 4, 8);
 		g2.drawSubImage(this.Sprite, this.Position.x + 24, this.Position.y + 17, 40, 72, 8, 8);
 
 	}

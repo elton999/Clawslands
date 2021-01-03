@@ -33733,6 +33733,19 @@
           "originX": 0,
           "originY": 0,
           "values": {"room": 3, "door": 0}
+        },
+        {"name": "key", "id": 7, "_eid": "70989079", "x": 352, "y": 536, "originX": 0, "originY": 0},
+        {
+          "name": "gate",
+          "id": 9,
+          "_eid": "71065045",
+          "x": 392,
+          "y": 592,
+          "width": 16,
+          "height": 80,
+          "originX": 0,
+          "originY": 0,
+          "values": {"opened": false}
         }
       ]
     },

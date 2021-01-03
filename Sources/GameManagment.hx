@@ -2,6 +2,8 @@ package;
 import kha.Assets;
 import umbrellatoolkit.GameObject;
 import entities.Player;
+import entities.Key;
+import entities.solids.Gate;
 import gameplay.Door;
 import ui.HUD;
 import entities.enemies.*;
@@ -35,10 +37,12 @@ class GameManagment {
 		// Set Assets
 		this.AssetsManagment.add(Player, "player", LayersScene.PLAYER);
 		this.AssetsManagment.add(Door, "exit room", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(Key, "key", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Troll, "troll", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);
 		this.AssetsManagment.add(MovePlatform, "move platform", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(Gate, "gate", LayersScene.MIDDLEGROUND);
 	}
 
 	private var LoadScene:Bool = false;

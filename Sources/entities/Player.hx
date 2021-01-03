@@ -281,6 +281,7 @@ class Player extends Actor{
 		if(this._isTakingDamange){
 			trace(this._damageTimer);
 			if(this._damageTimer < this._MaxTimeDamangeSeconds){
+				//blink effect
 				if(this._damageTimer >= this._nextBlink){
 					this.isVisible = true;
 					this._nextBlink = this._damageTimer + 0.2;
