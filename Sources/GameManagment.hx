@@ -22,18 +22,15 @@ class GameManagment {
 	public var room6: Scene;
 	public var room7: Scene;
 
+	public var life: Int = 3;
+	public var haskey: Bool = false;
+
 	var GameObject:GameObject = new GameObject();
 
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
 
-	public var FullScreem:Bool = true;
-	private var DeltaTime:Timer;
-	private var DeltaTimeUpdateData:Timer;
-
 	public function new (){
 		this.Scene = new Scene();
-		this.DeltaTime = new Timer();
-		this.DeltaTimeUpdateData = new Timer();
 
 		// Set Assets
 		this.AssetsManagment.add(Player, "player", LayersScene.PLAYER);
@@ -45,10 +42,30 @@ class GameManagment {
 	}
 
 	private var LoadScene:Bool = false;
-	public function update(): Void {
+	public function update(DeltaTime:Float): Void {
 		
 		if(!this.LoadScene){
-			// loading tilemap
+			this.loadLevels();
+		}
+
+		if(this.Scene.scene != null)
+			this.Scene.scene.update(DeltaTime);
+	}
+
+	public function updateData(DeltaTime:Float):Void{
+		if(this.Scene.scene != null)
+			this.Scene.scene.updateData(DeltaTime);
+	}
+
+	public function render(framebuffer: Framebuffer): Void {
+		if(this.Scene.scene != null){
+			this.Scene.scene.render(framebuffer);
+		}
+	}
+
+
+	public function loadLevels(){
+		// loading tilemap
 			var HUD:HUD = new HUD();
 			kha.Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
 				this.GameObject.Sprite = done;
@@ -90,23 +107,5 @@ class GameManagment {
 
 			this.Scene.scene = this.room1;
 			this.LoadScene = true;
-		}
-
-		if(this.Scene.scene != null)
-			this.Scene.scene.update(this.DeltaTime.delta);
-
-		this.DeltaTime.update();
-	}
-
-	public function updateData():Void{
-		if(this.Scene.scene != null)
-			this.Scene.scene.updateData(this.DeltaTimeUpdateData.delta);
-		this.DeltaTimeUpdateData.update();
-	}
-
-	public function render(framebuffer: Framebuffer): Void {
-		if(this.Scene.scene != null){
-			this.Scene.scene.render(framebuffer);
-		}
 	}
 }

@@ -8,7 +8,7 @@ import kha.Scheduler;
 import kha.System;
 
 class Main {
-	static var Game:GameManagment = new GameManagment();
+	static var Game:Game = new Game();
 	
 	public static function main() {
 		var scale:Float = 2.0;

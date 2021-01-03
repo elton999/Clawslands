@@ -44,7 +44,7 @@ class Door extends Actor{
 				this.Hud.scene = this.scene.GameManagment.Scene.scene;
 				this.scene.GameManagment.Scene.scene.Player.push(this.Player);
 				this.scene.GameManagment.Scene.scene.AllActors.unshift(this.Player);
-				this.scene.GameManagment.Scene.scene.UI.unshift(this.Hud);
+				this.scene.GameManagment.Scene.scene.UI.push(this.Hud);
 				this.scene.GameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
 
 				this.fixCameraPosition(this.scene.GameManagment.Scene.scene.camera);
