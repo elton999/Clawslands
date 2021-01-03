@@ -60,13 +60,20 @@ class Player extends Actor{
 		this.AnimationController(DeltaTime);
 		//this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
 		this.jump();
+
+		this.takeDamage(DeltaTime);
+
 		_lastPosition = new Vector2(this.Position.x, this.Position.y);
 	}
 
 	public override function OnCollide(?tag:String) {
 		super.OnCollide(tag);
-		if(tag != null)
-			trace(tag);
+		if(tag == "spider" || tag == "jumper"){
+			if(!this._isTakingDamange){
+				this.scene.GameManagment.life -= 1;
+				this._isTakingDamange = true;
+			}
+		}
 	}
 
 	public override function updateData(DeltaTime:Float){
@@ -81,18 +88,19 @@ class Player extends Actor{
 	var animation:Animation;
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		
-		g2.drawScaledSubImage(
-			this.Sprite, 
-			this.animation.body.x, 
-			this.animation.body.y, 
-			this.animation.body.width, 
-			this.animation.body.height,
-			this.mright ? this.Position.x - 27 : this.Position.x + 37, 
-			this.Position.y - 16, 
-			this.mright ? this.animation.body.width : -this.animation.body.width, 
-			this.animation.body.height
-		);
+		if(this.isVisible){
+			g2.drawScaledSubImage(
+				this.Sprite, 
+				this.animation.body.x, 
+				this.animation.body.y, 
+				this.animation.body.width, 
+				this.animation.body.height,
+				this.mright ? this.Position.x - 27 : this.Position.x + 37, 
+				this.Position.y - 16, 
+				this.mright ? this.animation.body.width : -this.animation.body.width, 
+				this.animation.body.height
+			);
+		}
 	}
 
 	// Jump
@@ -161,8 +169,6 @@ class Player extends Actor{
 				this.cJump = true;
 			case X:
 				this.cAttack = true;
-			case Y:
-				this.scene.camera.allowFollowY = !this.scene.camera.allowFollowY;
 			default:
 				//none
 		}
@@ -265,6 +271,32 @@ class Player extends Actor{
 		}
 	}
 	// end animation
+
+	// take damange
+	private var _damageTimer:Float = 0;
+	private var _isTakingDamange:Bool = false;
+	private var _MaxTimeDamangeSeconds:Float = 3;
+	private var _nextBlink:Float = 0;
+	private function takeDamage(deltaTime:Float){
+		if(this._isTakingDamange){
+			trace(this._damageTimer);
+			if(this._damageTimer < this._MaxTimeDamangeSeconds){
+				if(this._damageTimer >= this._nextBlink){
+					this.isVisible = true;
+					this._nextBlink = this._damageTimer + 0.2;
+				}else
+					this.isVisible = false;
+				
+				this._damageTimer += deltaTime;
+			} else{
+				this.isVisible = true;
+				this._isTakingDamange = false;
+				this._damageTimer = 0;
+				this._nextBlink = 0;
+			}
+		}
+	}
+	// end take damage
 
 	public var isGrounded:Bool = false;
 	public var isFalling:Bool = false;

@@ -24,7 +24,7 @@ import kha.Framebuffer;
 	}
 
 	public function updateData():Void{
-		this.GameManagment.updateData(this.DeltaTime.delta);
+		this.GameManagment.updateData(this.DeltaTimeUpdateData.delta);
 		this.DeltaTimeUpdateData.update();
 	}
 

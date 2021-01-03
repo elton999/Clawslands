@@ -9,6 +9,12 @@ class Enemy extends Actor{
 		this.demageAnimation(DeltaTime);
 	}
 
+	public override function updateData(DeltaTime:Float) {
+		if(this.overlapCheck(this.scene.AllActors[0])){
+			this.scene.AllActors[0].OnCollide(this.tag);
+		}
+	}
+
 	public var life:Int;
 	public function takeDamage(hit:Int){
 		if(!this.isTakingDamage){

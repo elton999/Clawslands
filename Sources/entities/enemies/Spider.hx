@@ -86,6 +86,7 @@ class Spider extends Enemy{
 				}
 			}
 			
+			super.updateData(DeltaTime);
 		}
 
 		_currentMovimentX = false;
