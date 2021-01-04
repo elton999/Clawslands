@@ -4,6 +4,7 @@ import umbrellatoolkit.GameObject;
 import entities.Player;
 import entities.Key;
 import entities.solids.Gate;
+import entities.solids.StrongRock;
 import gameplay.Door;
 import ui.HUD;
 import entities.enemies.*;
@@ -24,7 +25,7 @@ class GameManagment {
 	public var room6: Scene;
 	public var room7: Scene;
 
-	public var life: Int = 3;
+	public var life: Int = 5;
 	public var haskey: Bool = false;
 
 	var GameObject:GameObject = new GameObject();
@@ -43,6 +44,7 @@ class GameManagment {
 		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);
 		this.AssetsManagment.add(MovePlatform, "move platform", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Gate, "gate", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(StrongRock, "strong rock", LayersScene.MIDDLEGROUND);
 	}
 
 	private var LoadScene:Bool = false;
