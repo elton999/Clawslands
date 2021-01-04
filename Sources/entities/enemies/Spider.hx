@@ -22,7 +22,9 @@ class Spider extends Enemy{
 		super.OnCollide(tag);
 		if(tag == "player sword")
 			this.takeDamage(5);
-	}
+		else if(tag == "player strong attack")
+			this.takeDamage(15);
+	}	
 
 	public override function takeDamage(hit:Int) 
 	{

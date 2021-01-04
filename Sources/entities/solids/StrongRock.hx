@@ -11,6 +11,14 @@ class StrongRock extends Solid{
 		this.scene.AllSolids.push(this);
 	}
 
+	public override function onCollide(tag:String) {
+		super.onCollide(tag);
+		if(tag == "player strong attack"){
+			this.Destroy = true;
+			this.scene.AllSolids.remove(this);
+		}
+	}
+
 	public override function render(g2:Graphics) {
 		g2.color = Color.Green;
 		g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);

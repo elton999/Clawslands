@@ -231,7 +231,14 @@ class Player extends Actor{
 	public var sword:SwordPlayer;
 	public function checkAttackArea(){
 		if(this.cAttack){
+			this.sword._fastAttack();
 			if(this.animation.getCurrentFrame() > 0){
+				this.sword.updateData(0);
+				this.sword.CheckAttack();
+			}
+		} else if(this.cStrongAttack){
+			this.sword._strongAttack();
+			if(this.animation.getCurrentFrame() > 1){
 				this.sword.updateData(0);
 				this.sword.CheckAttack();
 			}

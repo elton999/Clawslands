@@ -29,7 +29,7 @@ class GameManagment {
 
 	// player infos
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = false;
+	public var hasStrongAttack:Bool = true;
 	public var haskey: Bool = false;
 
 	var GameObject:GameObject = new GameObject();

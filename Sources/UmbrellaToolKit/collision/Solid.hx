@@ -37,6 +37,8 @@ class Solid extends GameObject {
 		return Std.int(this.positions.y + this.sizes.y);
 	}
 
+	public function onCollide(tag:String):Void{}
+
 	
 	public function move(x:Float, y:Float):Void{
 		xRemainder += x; 
