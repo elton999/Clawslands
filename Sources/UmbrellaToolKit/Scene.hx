@@ -110,6 +110,8 @@ class Scene {
 			for(gameObject in this.Player) gameObject.updateData(deltaTime);
 			for(gameObject in this.Forenground) gameObject.updateData(deltaTime);
 			for(gameObject in this.UI) gameObject.updateData(deltaTime);
+
+			this.camera.updateData();
 		}
 	}
 

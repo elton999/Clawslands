@@ -37,6 +37,18 @@ class Camera {
 		}
 	}
 
+	public function updateData(){
+		for(i in 0...this.scene.AllActors.length){
+			if(this.scene.AllActors[i].check(
+				this.scene.ScreemSize, 
+				new Vector2(this.position.x - (this.scene.ScreemSize.x / 2), this.position.y - (this.scene.ScreemSize.y / 2))
+			))
+				this.scene.AllActors[i].visible();
+			else
+				this.scene.AllActors[i].hide();
+		}
+	}
+
 	public function lerp(min:Float, max:Float, value:Float) : Float{
 		return min + (max - min) * value;
 	}

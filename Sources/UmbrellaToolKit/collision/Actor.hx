@@ -135,6 +135,31 @@ class Actor extends GameObject{
 		return false;
 	}
 
+	public function check(size:Point, position:Vector2) : Bool{
+		var x_overlaps:Bool = false;
+		var y_overlaps:Bool = false;
+
+		var x_width:Int = Std.int(this.Position.x + this.size.x);
+		var y_height:Int = Std.int(this.Position.y + this.size.y);
+		
+		x_overlaps = (
+			(position.x + size.x > this.Position.x && position.x + size.x <= x_width) ||
+			(position.x > this.Position.x && position.x < x_width) ||
+			(position.x < this.Position.x && position.x + size.x > x_width)
+		);
+
+		y_overlaps = (
+			(position.y + size.y > this.Position.y && position.y + size.y <= y_height) ||
+			(position.y > this.Position.y && position.y < y_height) ||
+			(position.y < this.Position.y && position.y + size.y > y_height)
+		);	
+
+		if(x_overlaps && y_overlaps)
+			return true;
+		return false;
+	
+	}
+
 	private function collideAt(solids:Array<Solid>, position:Vector2):Bool{
 		var rt:Bool = false;
 		for(solid in solids){

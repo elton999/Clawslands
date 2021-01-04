@@ -131,6 +131,10 @@ class Spider extends Enemy{
 		}
 	}
 
+	public override function visible() {
+		super.visible();
+	}
+
 
 	public var groundLeft:Bool = false;
 	public var groundRight:Bool = false;

@@ -33,6 +33,8 @@ class GameObject {
 	public function update(DeltaTime:Float) : Void{}
 	public function updateData(DeltaTime:Float) : Void{}
 	public function render(g2:kha.graphics2.Graphics): Void{}
+	public function visible():Void{}
+	public function hide():Void{}
 
 	public function lerp(min:Float, max:Float, value:Float) : Float{
 		return min + (max - min) * value;
