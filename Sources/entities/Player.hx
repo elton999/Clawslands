@@ -68,7 +68,7 @@ class Player extends Actor{
 
 	public override function OnCollide(?tag:String) {
 		super.OnCollide(tag);
-		if(tag == "spider" || tag == "jumper"){
+		if(tag == "spider" || tag == "jumper" || tag == "danger"){
 			if(!this._isTakingDamange){
 				this.scene.GameManagment.life -= 1;
 				this._isTakingDamange = true;
@@ -151,6 +151,7 @@ class Player extends Actor{
 	public var cUp:Bool = false;
 	public var cDown:Bool = false;
 	public var cAttack:Bool = false;
+	public var cStrongAttack:Bool = false;
 
 	public var cJump:Bool = false;
 	
@@ -168,7 +169,9 @@ class Player extends Actor{
 			case Z:
 				this.cJump = true;
 			case X:
-				this.cAttack = true;
+				if(!this.cStrongAttack)this.cAttack = true;
+			case C:
+				if(!this.cAttack)this.cStrongAttack = true;
 			default:
 				//none
 		}
@@ -203,8 +206,11 @@ class Player extends Actor{
 		else if(button == 0)
 			if(value == 1) this.cJump = true;
 			else this.cJump = false;
-		else if(button == 2)
+		if(button == 2 && !this.cStrongAttack)
 			if(value == 1) this.cAttack = true;
+		if(button == 3 && !this.cAttack)
+			if(value == 1)
+				this.cStrongAttack = true;
 	}
 
 	private function ExisGamepad(button:Int, value:Float){
@@ -223,11 +229,12 @@ class Player extends Actor{
 	// sword settings
 	public var sword:SwordPlayer;
 	public function checkAttackArea(){
-		if(this.cAttack)
+		if(this.cAttack){
 			if(this.animation.getCurrentFrame() > 0){
 				this.sword.updateData(0);
 				this.sword.CheckAttack();
 			}
+		}
 	}
 	// end sword settings
 
@@ -251,6 +258,13 @@ class Player extends Actor{
 						_attackAnimation = false;
 						this.cAttack = false;
 					}
+				} else if(this.cStrongAttack){
+					this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
+					_attackAnimation = true;
+					if(this.animation.lastFrame()){
+						_attackAnimation = false;
+						this.cStrongAttack = false;
+					}
 				}else
 					this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
 			}			
@@ -262,6 +276,13 @@ class Player extends Actor{
 					_attackAnimation = false;
 					this.cAttack = false;
 				}
+			}else if(this.cStrongAttack){
+					this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
+					_attackAnimation = true;
+					if(this.animation.lastFrame()){
+						_attackAnimation = false;
+						this.cStrongAttack = false;
+					}
 			} else {
 				if(this.isFalling)
 					this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);

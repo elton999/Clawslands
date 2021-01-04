@@ -6,6 +6,7 @@ import entities.Key;
 import entities.solids.Gate;
 import entities.solids.StrongRock;
 import gameplay.Door;
+import gameplay.Danger;
 import ui.HUD;
 import entities.enemies.*;
 import entities.solids.MovePlatform;
@@ -26,6 +27,7 @@ class GameManagment {
 	public var room7: Scene;
 
 	public var life: Int = 5;
+	public var hasStrongAttack:Bool = false;
 	public var haskey: Bool = false;
 
 	var GameObject:GameObject = new GameObject();
@@ -42,6 +44,7 @@ class GameManagment {
 		this.AssetsManagment.add(Troll, "troll", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);
+		this.AssetsManagment.add(Danger, "danger", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(MovePlatform, "move platform", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Gate, "gate", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(StrongRock, "strong rock", LayersScene.MIDDLEGROUND);
