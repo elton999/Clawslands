@@ -1,4 +1,4 @@
-package entities;
+package gameplay;
 
 import kha.Color;
 import kha.graphics2.Graphics;

@@ -263,5 +263,10 @@ typedef LevelLayerEntities = {
 	var height:Int;
 	var width:Int;
 	var values:Dynamic;
-	var nodes:Array<Vector2>;
+	var nodes:Array<LevelLayerEntitiesVector>;
+}
+
+typedef LevelLayerEntitiesVector = {
+	var x:Int;
+	var y:Int;
 }

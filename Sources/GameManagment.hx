@@ -2,11 +2,12 @@ package;
 import kha.Assets;
 import umbrellatoolkit.GameObject;
 import entities.Player;
-import entities.Key;
 import entities.solids.Gate;
 import entities.solids.StrongRock;
 import gameplay.Door;
 import gameplay.Danger;
+import gameplay.Key;
+import gameplay.SkillItem;
 import ui.HUD;
 import entities.enemies.*;
 import entities.solids.MovePlatform;
@@ -26,6 +27,7 @@ class GameManagment {
 	public var room6: Scene;
 	public var room7: Scene;
 
+	// player infos
 	public var life: Int = 5;
 	public var hasStrongAttack:Bool = false;
 	public var haskey: Bool = false;
@@ -41,6 +43,7 @@ class GameManagment {
 		this.AssetsManagment.add(Player, "player", LayersScene.PLAYER);
 		this.AssetsManagment.add(Door, "exit room", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Key, "key", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(SkillItem, "new skill", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Troll, "troll", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);

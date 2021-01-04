@@ -13141,7 +13141,7 @@
           "originY": 0,
           "values": {"room": 6, "door": 0}
         },
-        {"name": "strong rock", "id": 11, "_eid": "78380082", "x": 408, "y": 960, "width": 48, "height": 48, "originX": 0, "originY": 0}
+        {"name": "strong rock", "id": 10, "_eid": "78380082", "x": 424, "y": 960, "width": 48, "height": 48, "originX": 0, "originY": 0}
       ]
     },
     {

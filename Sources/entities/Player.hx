@@ -169,9 +169,10 @@ class Player extends Actor{
 			case Z:
 				this.cJump = true;
 			case X:
-				if(!this.cStrongAttack)this.cAttack = true;
+				if(!this.cStrongAttack) this.cAttack = true;
 			case C:
-				if(!this.cAttack)this.cStrongAttack = true;
+				if(!this.cAttack && this.scene.GameManagment.hasStrongAttack)
+					this.cStrongAttack = true;
 			default:
 				//none
 		}
@@ -208,7 +209,7 @@ class Player extends Actor{
 			else this.cJump = false;
 		if(button == 2 && !this.cStrongAttack)
 			if(value == 1) this.cAttack = true;
-		if(button == 3 && !this.cAttack)
+		if(button == 3 && !this.cAttack && this.scene.GameManagment.hasStrongAttack)
 			if(value == 1)
 				this.cStrongAttack = true;
 	}
