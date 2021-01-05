@@ -30,6 +30,7 @@ class GameObject {
 	public var Destroy:Bool = false;
 
 	public function start() : Void{}
+	public function restart() :Void{}
 	public function update(DeltaTime:Float) : Void{}
 	public function updateData(DeltaTime:Float) : Void{}
 	public function render(g2:kha.graphics2.Graphics): Void{}

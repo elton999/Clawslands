@@ -4,6 +4,7 @@ import umbrellatoolkit.GameObject;
 import entities.Player;
 import entities.solids.Gate;
 import entities.solids.StrongRock;
+import entities.enemies.Wicth;
 import gameplay.Door;
 import gameplay.Danger;
 import gameplay.Key;
@@ -29,7 +30,7 @@ class GameManagment {
 
 	// player infos
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = true;
+	public var hasStrongAttack:Bool = false;
 	public var haskey: Bool = false;
 
 	var GameObject:GameObject = new GameObject();
@@ -44,7 +45,7 @@ class GameManagment {
 		this.AssetsManagment.add(Door, "exit room", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Key, "key", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(SkillItem, "new skill", LayersScene.MIDDLEGROUND);
-		this.AssetsManagment.add(Troll, "troll", LayersScene.ENEMIES);
+		this.AssetsManagment.add(Witch, "wicth", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Danger, "danger", LayersScene.MIDDLEGROUND);

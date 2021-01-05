@@ -196,6 +196,15 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 150
+   },
+   {
+    "filename": "player_animation 22.aseprite",
+    "frame": { "x": 128, "y": 256, "w": 64, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 150
    }
  ],
  "meta": {
@@ -206,12 +215,15 @@
   "size": { "w": 320, "h": 320 },
   "scale": "1",
   "frameTags": [
+   { "name": "player", "from": 0, "to": 21, "direction": "forward" },
    { "name": "Idle-Right", "from": 0, "to": 0, "direction": "forward" },
    { "name": "Run-Right", "from": 1, "to": 7, "direction": "forward" },
    { "name": "Jump-Up-Right", "from": 8, "to": 10, "direction": "forward" },
    { "name": "Jump-Down-Right", "from": 11, "to": 13, "direction": "forward" },
    { "name": "Attack-Right", "from": 14, "to": 17, "direction": "forward" },
-   { "name": "Fast-Attack", "from": 18, "to": 21, "direction": "forward" }
+   { "name": "Fast-Attack", "from": 18, "to": 21, "direction": "forward" },
+   { "name": "witcher", "from": 22, "to": 22, "direction": "forward" },
+   { "name": "wicther-idle", "from": 22, "to": 22, "direction": "forward" }
   ]
  }
 }

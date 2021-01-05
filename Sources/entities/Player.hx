@@ -27,6 +27,7 @@ class Player extends Actor{
 		this.scene.cameraLerpSpeed = 10;
 
 		this.scene.camera.position.y = this.Position.y;
+		this.scene.camera.position.x = this.Position.x;
 
 		this.sword = new SwordPlayer();
 		this.sword.player = this;
@@ -68,7 +69,8 @@ class Player extends Actor{
 
 	public override function OnCollide(?tag:String) {
 		super.OnCollide(tag);
-		if(tag == "spider" || tag == "jumper" || tag == "danger"){
+		if(tag != null) trace(tag);
+		if(tag == "spider" || tag == "jumper" || tag == "danger" || tag == "wicth"){
 			if(!this._isTakingDamange){
 				this.scene.GameManagment.life -= 1;
 				this._isTakingDamange = true;

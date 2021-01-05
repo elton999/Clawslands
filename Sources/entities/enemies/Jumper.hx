@@ -14,6 +14,8 @@ class Jumper extends Enemy{
 		this.size = new Point(16, 16);
 		this.life = 5;
 		this.tag = "jumper";
+
+		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
 	}
 
 	// take damege
@@ -62,6 +64,8 @@ class Jumper extends Enemy{
 			if(moveRight) moveX((DeltaTime * speed), null);
 			if(moveLeft) moveX(-(DeltaTime * speed), null);
 		}
+
+		this.checkPlayer();
 	}
 
 

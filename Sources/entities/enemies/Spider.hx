@@ -12,19 +12,13 @@ class Spider extends Enemy{
 	public override function start() {
 		super.start();
 
+		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
+
 		this.scene.AllActors.push(this);
 		this.size = new Point(16, 16);
 		this.life = 15;
 		this.tag = "spider";
 	}
-
-	public override function OnCollide(?tag:String) {
-		super.OnCollide(tag);
-		if(tag == "player sword")
-			this.takeDamage(5);
-		else if(tag == "player strong attack")
-			this.takeDamage(15);
-	}	
 
 	public override function takeDamage(hit:Int) 
 	{
@@ -88,6 +82,7 @@ class Spider extends Enemy{
 				}
 			}
 			
+			this.checkPlayer();
 			super.updateData(DeltaTime);
 		}
 

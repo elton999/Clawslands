@@ -66,7 +66,7 @@
       "name": "Enemies",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "10612406",
-      "requiredTags": [],
+      "requiredTags": ["enemies"],
       "excludedTags": []
     },
     {
@@ -174,7 +174,7 @@
       "exportID": "10060955",
       "name": "wicth",
       "limit": -1,
-      "size": {"x": 16, "y": 32},
+      "size": {"x": 8, "y": 32},
       "origin": {"x": 0, "y": 0},
       "originAnchored": true,
       "shape": {
@@ -191,7 +191,7 @@
       "color": "#ff00daff",
       "tileX": false,
       "tileY": false,
-      "tileSize": {"x": 16, "y": 32},
+      "tileSize": {"x": 8, "y": 32},
       "resizeableX": false,
       "resizeableY": false,
       "rotatable": false,

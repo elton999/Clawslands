@@ -32850,7 +32850,9 @@
       "gridCellHeight": 8,
       "gridCellsX": 179,
       "gridCellsY": 179,
-      "entities": []
+      "entities": [
+        {"name": "wicth", "id": 0, "_eid": "10060955", "x": 1128, "y": 736, "originX": 0, "originY": 0, "flippedX": false}
+      ]
     },
     {
       "name": "move platforms",
