@@ -13,9 +13,6 @@ class Enemy extends Actor{
 	}
 
 	public override function updateData(DeltaTime:Float) {
-	}
-
-	public function checkPlayer():Void{
 		if(!this.isTakingDamage){
 			if(this.overlapCheck(this.scene.AllActors[0])){
 				this.scene.AllActors[0].OnCollide(this.tag);

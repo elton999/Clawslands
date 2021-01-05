@@ -81,8 +81,6 @@ class Spider extends Enemy{
 					moveX(-1, null);
 				}
 			}
-			
-			this.checkPlayer();
 			super.updateData(DeltaTime);
 		}
 
@@ -119,15 +117,22 @@ class Spider extends Enemy{
 	}
 
 	public override function render(g2:Graphics) {
-		if(this.isVisible){
+		if(this.isVisible && !this.isHide){
 			g2.color = Color.Red;
 			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
 			g2.color = Color.White;
 		}
 	}
 
+	public var isHide:Bool = true;
 	public override function visible() {
 		super.visible();
+		this.isHide = false;
+	}
+
+	public override function hide() {
+		super.hide();
+		this.isHide = true;
 	}
 
 

@@ -65,7 +65,7 @@ class Jumper extends Enemy{
 			if(moveLeft) moveX(-(DeltaTime * speed), null);
 		}
 
-		this.checkPlayer();
+		super.updateData(DeltaTime);
 	}
 
 

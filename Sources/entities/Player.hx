@@ -68,8 +68,6 @@ class Player extends Actor{
 	}
 
 	public override function OnCollide(?tag:String) {
-		super.OnCollide(tag);
-		if(tag != null) trace(tag);
 		if(tag == "spider" || tag == "jumper" || tag == "danger" || tag == "wicth"){
 			if(!this._isTakingDamange){
 				this.scene.GameManagment.life -= 1;

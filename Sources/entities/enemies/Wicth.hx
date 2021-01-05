@@ -16,6 +16,7 @@ class Witch extends Enemy {
 		this.scene.AllActors.push(this);
 		this.size = new Point(10, 32);
 		this.tag = "wicth";
+		this.gravity2D = new Vector2(0, -200);
 		this.life = 5;
 
 		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
@@ -29,6 +30,7 @@ class Witch extends Enemy {
 	}
 
 	public override function update(DeltaTime:Float) {
+		super.update(DeltaTime);
 		this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.FORWARD);
 	}
 
@@ -41,9 +43,16 @@ class Witch extends Enemy {
 		super.onTakeDamage();
 	}
 
+	public override function OnCollide(?tag:String) {
+		super.OnCollide(tag);
+		if(tag == "player sword")
+			this.takeDamage(5);
+	}
+
 	public var speed:Float = 40;
 	public override function updateData(DeltaTime:Float) {
 		if(!this.isHide){
+			this.gravity(DeltaTime);
 			if(this.scene.AllActors[0].Position.x > this.Position.x){
 				this.mright = true;
 				this.moveX(speed * DeltaTime, null);
@@ -51,7 +60,7 @@ class Witch extends Enemy {
 				this.mright = false;
 				this.moveX(-(speed * DeltaTime), null);
 			}
-			this.checkPlayer();
+			super.updateData(DeltaTime);
 		}
 		
 	}
@@ -67,7 +76,7 @@ class Witch extends Enemy {
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		if(this.isVisible){
+		if(this.isVisible && !this.isHide){
 			g2.drawScaledSubImage(
 				this.Sprite, 
 				this.animation.body.x, 
