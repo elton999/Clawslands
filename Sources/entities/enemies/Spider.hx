@@ -13,11 +13,11 @@ class Spider extends Enemy{
 		super.start();
 
 		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
-
 		this.scene.AllActors.push(this);
 		this.size = new Point(16, 16);
 		this.life = 15;
 		this.tag = "spider";
+		this.flipX ? this.speed = - this.speed : null;
 	}
 
 	public override function takeDamage(hit:Int) 

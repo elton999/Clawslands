@@ -111,7 +111,8 @@ class TileMap{
 							new Vector2(entity.x + this.Data.offsetX, entity.y + this.Data.offsetY),
 							entity.height > 0 ? new Point(entity.width, entity.height) : null,
 							entity.values,
-							_nodes
+							_nodes,
+							entity.flippedX
 						);
 					} else {
 						_nodes = new Array<Vector2>();
@@ -260,6 +261,7 @@ typedef LevelLayerEntities = {
 	var y:Int;
 	var originX:Int;
 	var originY:Int;
+	var flippedX:Bool;
 	var height:Int;
 	var width:Int;
 	var values:Dynamic;

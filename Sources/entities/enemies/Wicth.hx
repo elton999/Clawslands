@@ -20,7 +20,7 @@ class Witch extends Enemy {
 		this.life = 5;
 
 		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
-
+		
 		// loading sprites
 		Assets.loadImage("Content_Sprites_player", function (done:Image){
 			this.Sprite = done;
@@ -53,16 +53,17 @@ class Witch extends Enemy {
 	public override function updateData(DeltaTime:Float) {
 		if(!this.isHide){
 			this.gravity(DeltaTime);
-			if(this.scene.AllActors[0].Position.x > this.Position.x){
-				this.mright = true;
-				this.moveX(speed * DeltaTime, null);
-			}else{
-				this.mright = false;
-				this.moveX(-(speed * DeltaTime), null);
+			if(this.scene.AllActors[0].Position.y == this.Position.y){
+				if(this.scene.AllActors[0].Position.x > this.Position.x){
+					this.mright = true;
+					this.moveX(speed * DeltaTime, null);
+				}else{
+					this.mright = false;
+					this.moveX(-(speed * DeltaTime), null);
+				}
 			}
 			super.updateData(DeltaTime);
 		}
-		
 	}
 
 	public var isHide:Bool = true;

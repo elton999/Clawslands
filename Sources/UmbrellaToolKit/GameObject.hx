@@ -25,6 +25,7 @@ class GameObject {
 	public var size:Point = new Point(32,32);
 
 	public var valeus:Dynamic;
+	public var flipX:Bool = false;
 	public var positionNodes:Array<Vector2>;
 
 	public var Destroy:Bool = false;

@@ -140,7 +140,7 @@ class Player extends Actor{
 		if(this.cRight)
 			this.velocity.x = -(this.speed);
 
-		if((!this.cLeft && !this.cRight) || this.cAttack)
+		if((!this.cLeft && !this.cRight) || this.cAttack || this.cStrongAttack)
 			this.velocity.x = 0;
 	}
 	// end move

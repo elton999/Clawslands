@@ -25,7 +25,7 @@ class AssetsManagment
 		this._GameObjectsList.set(tag, asset);
 	}
 
-	public function addEntityOnSene(tag:String, scene:Scene, position:Vector2, ?size:Point, ?values:Dynamic, ?nodes:Array<Vector2>):Void{
+	public function addEntityOnSene(tag:String, scene:Scene, position:Vector2, ?size:Point, ?values:Dynamic, ?nodes:Array<Vector2>, ?flipx:Bool):Void{
 		if(this._GameObjectsList.exists(tag)){
 			var asset:AssetObject = this._GameObjectsList[tag];
 			var gameObject:GameObject = Type.createInstance(asset.gameObject, []);
@@ -34,6 +34,7 @@ class AssetsManagment
 			if(size != null) gameObject.size = size;
 			if(values != null) gameObject.valeus = values;
 			if(nodes != null) gameObject.positionNodes = nodes;
+			gameObject.flipX = flipx != null ? flipx : false;
 			gameObject.scene = scene;
 
 			switch (asset.layer){

@@ -358,44 +358,6 @@
       ]
     },
     {
-      "exportID": "18073798",
-      "name": "player spaw",
-      "limit": -1,
-      "size": {"x": 10, "y": 32},
-      "origin": {"x": 0, "y": 0},
-      "originAnchored": true,
-      "shape": {
-        "label": "Rectangle",
-        "points": [
-          {"x": -1, "y": -1},
-          {"x": 1, "y": -1},
-          {"x": -1, "y": 1},
-          {"x": 1, "y": -1},
-          {"x": -1, "y": 1},
-          {"x": 1, "y": 1}
-        ]
-      },
-      "color": "#717befff",
-      "tileX": false,
-      "tileY": false,
-      "tileSize": {"x": 8, "y": 8},
-      "resizeableX": false,
-      "resizeableY": false,
-      "rotatable": false,
-      "rotationDegrees": 360,
-      "canFlipX": false,
-      "canFlipY": false,
-      "canSetColor": false,
-      "hasNodes": false,
-      "nodeLimit": 0,
-      "nodeDisplay": 0,
-      "nodeGhost": true,
-      "tags": ["player"],
-      "values": [
-        {"name": "door", "definition": "Integer", "display": 0, "defaults": 0, "bounded": false, "min": 0, "max": 100}
-      ]
-    },
-    {
       "exportID": "35141519",
       "name": "camera",
       "limit": -1,
