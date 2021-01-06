@@ -5,6 +5,7 @@ import entities.Player;
 import entities.solids.Gate;
 import entities.solids.StrongRock;
 import entities.enemies.Wicth;
+import entities.enemies.Boss;
 import gameplay.Door;
 import gameplay.Danger;
 import gameplay.Key;
@@ -30,7 +31,7 @@ class GameManagment {
 
 	// player infos
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = false;
+	public var hasStrongAttack:Bool = true;
 	public var haskey: Bool = false;
 
 	var GameObject:GameObject = new GameObject();
@@ -48,6 +49,7 @@ class GameManagment {
 		this.AssetsManagment.add(Witch, "wicth", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Jumper, "jumper", LayersScene.ENEMIES);
+		this.AssetsManagment.add(Boss, "boss", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Danger, "danger", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(MovePlatform, "move platform", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Gate, "gate", LayersScene.MIDDLEGROUND);
@@ -91,7 +93,7 @@ class GameManagment {
 			this.room1.GameManagment = this;
 			HUD.scene = this.room1;
 			this.room1.UI.push(HUD);
-			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.GameObject, this.AssetsManagment);
+			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_6_json", this.GameObject, this.AssetsManagment);
 
 			this.room2 = new Scene();
 			this.room2.cameraLerpSpeed = 8;

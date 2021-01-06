@@ -31,7 +31,7 @@ class Witch extends Enemy {
 
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
-		this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.FORWARD);
+		this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.LOOP);
 	}
 
 	public override function takeDamage(hit:Int) 
