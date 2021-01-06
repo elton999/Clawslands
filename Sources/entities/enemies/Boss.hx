@@ -25,15 +25,46 @@ class Boss extends Enemy{
 	}
 
 	var animation:Animation;
-
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
 		this.spriteAnimation(DeltaTime);
-		this.processWait(DeltaTime);
 	}
 
+	public var speed:Float = 30;
+	private var _attackSpeed:Float = 250;
+	private var _maxSpaceToAttack:Float = 100;
 	public override function updateData(DeltaTime:Float) {
-		super.updateData(DeltaTime);
+		if(this.awake){
+			if(this.walking){
+				if(this.scene.AllActors[0].Position.x > this.Position.x){
+					this.mright = true;
+					moveX(this.speed * DeltaTime, null);
+					if(this.scene.AllActors[0].Position.x - this.Position.x <= _maxSpaceToAttack){
+						wait(1, function () { this.attack = true; });
+						this.walking = false;
+					}
+				} else{
+					this.mright = false;
+					moveX(-(this.speed * DeltaTime), null);
+					if(this.Position.x - this.scene.AllActors[0].Position.x  <= _maxSpaceToAttack){
+						wait(1, function () { this.attack = true; });
+						this.walking = false;
+					}
+				}
+
+				super.updateData(DeltaTime);
+			} else if(attack){
+				
+				if(this.mright)
+					moveX(this._attackSpeed * DeltaTime, null);
+				else
+					moveX(-(this._attackSpeed * DeltaTime), null);
+
+				super.updateData(DeltaTime);
+			}
+
+			
+		}
 	}
 	
 	private var _firtAttack:Bool = false;
@@ -45,6 +76,7 @@ class Boss extends Enemy{
 				this._firtAttack = true;
 				wait(2, function () {
 					this.awake = true;
+					this.walking = true;
 				});
 			}
 		}
@@ -57,10 +89,18 @@ class Boss extends Enemy{
 	}
 
 	public var awake:Bool = false;
+	public var walking:Bool = false;
+	public var attack:Bool = false;
 	public function spriteAnimation(DeltaTime:Float){
 		if(!this.awake)
 			this.animation.play(DeltaTime, "idle", AnimationDirection.LOOP);
-		else
+		else if(this.attack){
+			this.animation.play(DeltaTime, "atack", AnimationDirection.FORWARD);
+			if(this.animation.lastFrame()){
+				this.attack = false;
+				wait(4, function (){ this.walking = true; });
+			}
+		}else if(this.walking)
 			this.animation.play(DeltaTime, "walk", AnimationDirection.LOOP);
 	}
 
@@ -81,37 +121,4 @@ class Boss extends Enemy{
 			);
 		}
 	}
-
-	// wait function
-	private var _allCallbacks:Array<Void -> Void> = new Array<Void -> Void>();
-	private var _timers:Array<Float> = new Array<Float>();
-	private var _maxTime:Array<Float> = new Array<Float>();
-
-	public function wait(time:Float, callback:()-> Void):Void {
-		this._timers.push(0);
-		this._maxTime.push(time);
-		this._allCallbacks.push(callback);
-	}
-
-	public function processWait(DeltaTime:Float){
-		var __allCallbacks:Array<Void -> Void> = new Array<Void -> Void>();
-		var __timers:Array<Float> = new Array<Float>();
-		var __maxTime:Array<Float> = new Array<Float>();
-		
-		for(i in 0...this._timers.length){
-			this._timers[i] += DeltaTime;
-			if(this._timers[i] >= this._maxTime[i]){
-				this._allCallbacks[i]();
-			} else {
-				__allCallbacks.push(this._allCallbacks[i]);
-				__timers.push(this._timers[i]);
-				__maxTime.push(this._maxTime[i]);
-			}
-		}
-
-		this._allCallbacks = __allCallbacks;
-		this._timers = __timers;
-		this._maxTime = __maxTime;
-	}
-	// end wait function
 }

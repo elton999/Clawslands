@@ -83,8 +83,6 @@ class Scene {
 		});
 	}
 
-
-
 	public function UloadLevel(){
 		
 	}
@@ -92,12 +90,30 @@ class Scene {
 	public function update(deltaTime:Float) : Void{
 		if(this.SceneReady){
 			this.DestroyGameObjects();
-			for(gameObject in this.Background) gameObject.update(deltaTime);
-			for(gameObject in this.MiddleGround) gameObject.update(deltaTime);
-			for(gameObject in this.Enemies) gameObject.update(deltaTime);
-			for(gameObject in this.Player) gameObject.update(deltaTime);
-			for(gameObject in this.Forenground) gameObject.update(deltaTime);
-			for(gameObject in this.UI) gameObject.update(deltaTime);
+			for(gameObject in this.Background){
+				gameObject.update(deltaTime);
+				gameObject.processWait(deltaTime);
+			}
+			for(gameObject in this.MiddleGround){
+				gameObject.update(deltaTime);
+				gameObject.processWait(deltaTime);
+			}
+			for(gameObject in this.Enemies){
+				gameObject.update(deltaTime);
+				gameObject.processWait(deltaTime);
+			}
+			for(gameObject in this.Player){
+				gameObject.update(deltaTime);
+				gameObject.processWait(deltaTime);
+			}
+			for(gameObject in this.Forenground){
+				gameObject.update(deltaTime);
+				gameObject.processWait(deltaTime);
+			}
+			for(gameObject in this.UI){
+				gameObject.update(deltaTime);
+				gameObject.processWait(deltaTime);
+			}
 		}
 	}
 

@@ -19099,9 +19099,7 @@
       "gridCellHeight": 8,
       "gridCellsX": 205,
       "gridCellsY": 91,
-      "entities": [
-        {"name": "player", "id": 0, "_eid": "51799832", "x": 176, "y": 368, "originX": 0, "originY": 0}
-      ]
+      "entities": []
     },
     {
       "name": "Enemies",

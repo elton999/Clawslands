@@ -40,4 +40,37 @@ class GameObject {
 	public function lerp(min:Float, max:Float, value:Float) : Float{
 		return min + (max - min) * value;
 	}
+
+	// wait function
+	private var _allCallbacks:Array<Void -> Void> = new Array<Void -> Void>();
+	private var _timers:Array<Float> = new Array<Float>();
+	private var _maxTime:Array<Float> = new Array<Float>();
+
+	public function wait(time:Float, callback:()-> Void):Void {
+		this._timers.push(0);
+		this._maxTime.push(time);
+		this._allCallbacks.push(callback);
+	}
+
+	public function processWait(DeltaTime:Float){
+		var __allCallbacks:Array<Void -> Void> = new Array<Void -> Void>();
+		var __timers:Array<Float> = new Array<Float>();
+		var __maxTime:Array<Float> = new Array<Float>();
+		
+		for(i in 0...this._timers.length){
+			this._timers[i] += DeltaTime;
+			if(this._timers[i] >= this._maxTime[i]){
+				this._allCallbacks[i]();
+			} else {
+				__allCallbacks.push(this._allCallbacks[i]);
+				__timers.push(this._timers[i]);
+				__maxTime.push(this._maxTime[i]);
+			}
+		}
+
+		this._allCallbacks = __allCallbacks;
+		this._timers = __timers;
+		this._maxTime = __maxTime;
+	}
+	// end wait function
 }

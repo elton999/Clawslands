@@ -93,7 +93,7 @@ class GameManagment {
 			this.room1.GameManagment = this;
 			HUD.scene = this.room1;
 			this.room1.UI.push(HUD);
-			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_6_json", this.GameObject, this.AssetsManagment);
+			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.GameObject, this.AssetsManagment);
 
 			this.room2 = new Scene();
 			this.room2.cameraLerpSpeed = 8;
