@@ -53,20 +53,19 @@ class Witch extends Enemy {
 	public override function updateData(DeltaTime:Float) {
 		if(!this.isHide){
 			this.gravity(DeltaTime);
-			if(this.scene.AllActors[0].Position.y == this.Position.y){
-				if(this.scene.AllActors[0].Position.x > this.Position.x){
-					this.mright = true;
-					this.moveX(speed * DeltaTime, null);
-				}else{
-					this.mright = false;
-					this.moveX(-(speed * DeltaTime), null);
-				}
+			if(this.scene.AllActors[0].Position.x > this.Position.x){
+				this.mright = true;
+				this.moveX(speed * DeltaTime, null);
+			}else{
+				this.mright = false;
+				this.moveX(-(speed * DeltaTime), null);
 			}
 			super.updateData(DeltaTime);
 		}
 	}
 
 	public var isHide:Bool = true;
+	public var startPatrol:Bool = false;
 	public override function visible() {
 		super.visible();
 		this.isHide = false;

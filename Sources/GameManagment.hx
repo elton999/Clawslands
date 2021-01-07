@@ -34,6 +34,15 @@ class GameManagment {
 	public var hasStrongAttack:Bool = true;
 	public var haskey: Bool = false;
 
+	public var playerCollideDamange:Array<String> = [
+		"spider",
+		"jumper",
+		"danger",
+		"wicth",
+		"boss",
+		"boss sword"
+	];
+
 	var GameObject:GameObject = new GameObject();
 
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
