@@ -18,7 +18,7 @@ class StrongRock extends Solid{
 		super.updateData(DeltaTime);
 		if(this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x + 1, this.scene.AllActors[0].Position.y))||
 		this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x - 1, this.scene.AllActors[0].Position.y))){
-			 if(this.textBox == null){
+			 if(this.textBox == null && !this.scene.GameManagment.hasStrongAttack){
 				this.textBox = new TextBox();
 				this.textBox.scene = this.scene;
 				this.textBox.text = "This rock is too Big";
@@ -32,12 +32,22 @@ class StrongRock extends Solid{
 		}
 	}
 
+
+	private var _hits:Int = 0;
+	public var _canHitAgain:Bool = true;
 	public override function onCollide(tag:String) {
 		super.onCollide(tag);
-		if(tag == "player strong attack"){
-			this.Destroy = true;
-			this.scene.AllSolids.remove(this);
+		if(this._hits >= 3){
+			if(tag == "player strong attack"){
+				this.Destroy = true;
+				this.scene.AllSolids.remove(this);
+			}
+		} else if(this._canHitAgain){
+			this._canHitAgain = false;
+			this._hits += 1;
+			wait(1.5, function(){ this._canHitAgain = true; });
 		}
+		
 	}
 
 	public override function render(g2:Graphics) {

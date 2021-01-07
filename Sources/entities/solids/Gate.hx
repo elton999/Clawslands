@@ -16,23 +16,25 @@ class Gate extends Solid{
 	public var textBox:TextBox;
 
 	public override function updateData(DeltaTime:Float) {
-		if(this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x + 1, this.scene.AllActors[0].Position.y))||
-		this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x - 1, this.scene.AllActors[0].Position.y))){
-			if(this.scene.GameManagment.haskey){
-				this.Destroy = true;
-				this.scene.AllSolids.remove(this);
-				this.scene.GameManagment.haskey = false;
-			} else if(this.textBox == null){
-				this.textBox = new TextBox();
-				this.textBox.scene = this.scene;
-				this.textBox.text = "The gate is locked";
-				this.textBox.positionSpace = new Vector2(20, 0);
-				this.textBox.start();
-				this.scene.UI.push(this.textBox);
+		if(!this.valeus.boss_gate){
+			if(this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x + 1, this.scene.AllActors[0].Position.y))||
+			this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x - 1, this.scene.AllActors[0].Position.y))){
+				if(this.scene.GameManagment.haskey){
+					this.Destroy = true;
+					this.scene.AllSolids.remove(this);
+					this.scene.GameManagment.haskey = false;
+				} else if(this.textBox == null){
+					this.textBox = new TextBox();
+					this.textBox.scene = this.scene;
+					this.textBox.text = "The gate is locked";
+					this.textBox.positionSpace = new Vector2(20, 0);
+					this.textBox.start();
+					this.scene.UI.push(this.textBox);
+				}
+			} else{
+				if(this.textBox != null && this.textBox.Destroy)
+					this.textBox = null;
 			}
-		} else{
-			if(this.textBox != null && this.textBox.Destroy)
-				this.textBox = null;
 		}
 	}
 
