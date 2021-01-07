@@ -1,6 +1,8 @@
 package entities.solids;
 
 import kha.Color;
+import ui.TextBox;
+import kha.math.Vector2;
 import kha.graphics2.Graphics;
 import umbrellatoolkit.collision.Solid;
 
@@ -9,6 +11,25 @@ class StrongRock extends Solid{
 		this.tag = "strong rock";
 		this.add(this.size, this.Position);
 		this.scene.AllSolids.push(this);
+	}
+
+	public var textBox:TextBox;
+	public override function updateData(DeltaTime:Float) {
+		super.updateData(DeltaTime);
+		if(this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x + 1, this.scene.AllActors[0].Position.y))||
+		this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x - 1, this.scene.AllActors[0].Position.y))){
+			 if(this.textBox == null){
+				this.textBox = new TextBox();
+				this.textBox.scene = this.scene;
+				this.textBox.text = "This rock is too Big";
+				this.textBox.positionSpace = new Vector2(50, 0);
+				this.textBox.start();
+				this.scene.UI.push(this.textBox);
+			}
+		} else{
+			if(this.textBox != null && this.textBox.Destroy)
+				this.textBox = null;
+		}
 	}
 
 	public override function onCollide(tag:String) {

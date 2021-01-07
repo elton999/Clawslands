@@ -1,4 +1,5 @@
 package;
+import kha.Font;
 import kha.Assets;
 import umbrellatoolkit.GameObject;
 import entities.Player;
@@ -29,6 +30,8 @@ class GameManagment {
 	public var room6: Scene;
 	public var room7: Scene;
 
+	public var font:Font;
+
 	// player infos
 	public var life: Int = 5;
 	public var hasStrongAttack:Bool = true;
@@ -48,6 +51,10 @@ class GameManagment {
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
 
 	public function new (){
+		kha.Assets.loadFont("Content_Fonts_Kenney_Pixel", function (done:Font){
+			this.font = done;
+		});
+
 		this.Scene = new Scene();
 
 		// Set Assets
