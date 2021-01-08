@@ -43,5 +43,12 @@ class HUD extends GameObject{
 			g2.drawSubImage(this.Sprite, this.Position.x + 20, this.Position.y + 17, 26, 72, 4, 8);
 		g2.drawSubImage(this.Sprite, this.Position.x + 24, this.Position.y + 17, 40, 72, 8, 8);
 
+		//strong attack
+		if(this.scene.GameManagment.hasStrongAttack){
+			g2.color = Color.Orange;
+			g2.fillRect(this.Position.x + this.scene.ScreemSize.x - 16, this.Position.y + 8, 8,8);
+			g2.color = Color.White;
+		}
+
 	}
 }

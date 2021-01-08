@@ -44,7 +44,7 @@ class GameManagment {
 		"boss sword"
 	];
 
-	var GameObject:GameObject = new GameObject();
+	public var GameObject:GameObject = new GameObject();
 
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
 
@@ -71,10 +71,12 @@ class GameManagment {
 	}
 
 	private var LoadScene:Bool = false;
+	private var LoadDone:Bool = false;
 	public function update(DeltaTime:Float): Void {
 		
 		if(!this.LoadScene){
 			this.loadLevels();
+			this.LoadDone = true;
 		}
 
 		if(this.Scene.scene != null){
@@ -85,12 +87,12 @@ class GameManagment {
 	}
 
 	public function updateData(DeltaTime:Float):Void{
-		if(this.Scene.scene != null)
+		if(this.Scene.scene != null && this.LoadDone)
 			this.Scene.scene.updateData(DeltaTime);
 	}
 
 	public function render(framebuffer: Framebuffer): Void {
-		if(this.Scene.scene != null){
+		if(this.Scene.scene != null && this.LoadDone){
 			this.Scene.scene.render(framebuffer);
 		}
 	}

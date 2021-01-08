@@ -129,12 +129,12 @@ class Scene {
 	public function updateData(deltaTime:Float) : Void{
 		if(this.SceneReady){
 			if(this.camera != null) this.camera.update(deltaTime);
-			for(gameObject in this.Background) gameObject.updateData(deltaTime);
-			for(gameObject in this.MiddleGround) gameObject.updateData(deltaTime);
-			for(gameObject in this.Enemies) gameObject.updateData(deltaTime);
-			for(gameObject in this.Player) gameObject.updateData(deltaTime);
-			for(gameObject in this.Forenground) gameObject.updateData(deltaTime);
-			for(gameObject in this.UI) gameObject.updateData(deltaTime);
+			for(i in 0...this.Background.length) this.Background[i].updateData(deltaTime);
+			for(i in 0...this.MiddleGround.length) this.MiddleGround[i].updateData(deltaTime);
+			for(i in 0...this.Enemies.length) this.Enemies[i].updateData(deltaTime);
+			for(i in 0...this.Player.length) this.Player[i].updateData(deltaTime);
+			for(i in 0...this.Forenground.length) this.Forenground[i].updateData(deltaTime);
+			for(i in 0...this.UI.length) this.UI[i].updateData(deltaTime);
 
 			this.camera.updateData();
 		}

@@ -254,7 +254,7 @@ class Player extends Actor{
 			}
 		} else if(this.cStrongAttack){
 			this.sword._strongAttack();
-			if(this.animation.getCurrentFrame() > 1){
+			if(this.animation.getCurrentFrame() > 2){
 				this.sword.updateData(0);
 				this.sword.CheckAttack();
 			}

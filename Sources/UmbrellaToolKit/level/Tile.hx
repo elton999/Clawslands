@@ -8,7 +8,6 @@ import umbrellatoolkit.level.TileSet;
 import umbrellatoolkit.level.TileMap;
 
 class Tile extends GameObject{
-	public var tag:String;
 	public var squareSize:Point;
 	public var squarePosition:Point;
 	public var squareColor:Color;

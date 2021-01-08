@@ -8,7 +8,6 @@ import umbrellatoolkit.helpers.Point;
 class Solid extends GameObject {
 	public var positions:Vector2;
 	public var sizes:Point;
-	public var tag:String;
 	public var AreaCollision:Int;
 
 	public var Collidable = true;

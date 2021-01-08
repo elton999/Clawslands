@@ -18,13 +18,14 @@ class Animation {
 	private var a_to:Int;
 	private var tag:String;
 
-	public var body:Rectangle;
+	public var body:Rectangle= new Rectangle(0,0,0,0);
 
 	public function new(){}
 
 	public function start(filename):Void{
 		Assets.loadBlob(filename, function (done:kha.Blob.Blob){
 			this.AsepriteDefinitions = Json.parse(done.toString());
+			done.unload();
 		});
 	}
 

@@ -1,6 +1,8 @@
 package umbrellatoolkit;
 
 import umbrellatoolkit.helpers.Point;
+import umbrellatoolkit.collision.Actor;
+import umbrellatoolkit.collision.Solid;
 import umbrellatoolkit.helpers.BoxSprite;
 import umbrellatoolkit.Scene;
 import kha.math.Vector2;
@@ -15,6 +17,7 @@ class GameObject {
 		//this.start();
 	}
 
+	public var tag:String;
 	public var Sprite:Image;
 	public var Scale:Float = 1.0;
 	public var Position:Vector2 = new Vector2(0,0);
@@ -42,6 +45,14 @@ class GameObject {
 	public function render(g2:kha.graphics2.Graphics): Void{}
 	public function visible():Void{}
 	public function hide():Void{}
+
+	public function getActor():Actor{
+		return new Actor();
+	}
+
+	public function getSolid():Solid{
+		return new Solid();
+	}
 
 	public function lerp(min:Float, max:Float, value:Float) : Float{
 		return min + (max - min) * value;

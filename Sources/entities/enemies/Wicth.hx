@@ -14,13 +14,22 @@ class Witch extends Enemy {
 	public override function start(){
 		super.start();
 
-		this.scene.AllActors.push(this);
+		if(this.valeus.spaw_here){
+			this.tag = "wicth spaw";
+		} else {
+			this.tag = "wicth";
+			this.scene.AllActors.push(this);
+		}
+
 		this.size = new Point(10, 32);
-		this.tag = "wicth";
+			
 		this.gravity2D = new Vector2(0, -200);
 		this.life = 5;
 
 		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
+
+		if(this.flipX)
+			this.mright = false;
 		
 		// loading sprites
 		Assets.loadImage("Content_Sprites_player", function (done:Image){
@@ -28,20 +37,37 @@ class Witch extends Enemy {
 			this.animation = new Animation();
 			this.animation.start("Content_Sprites_player_json");
 		});
-	}
-
-	public override function restart() {
-		super.restart();
-		this.Position = new Vector2(this.initialPosition.x, this.initialPosition.y);
-		this.isHide = true;
-		this.isActive = true;
-		this.life = 5;
 		
 	}
 
+	public var canDestroy:Bool = false;
+	public override function restart() {
+		super.restart();
+
+		if(this.canDestroy){
+			this.scene.Enemies.remove(this);
+			this.scene.AllActors.remove(this);
+		} else if(this.tag == "wicth") {
+			this.Position = new Vector2(this.initialPosition.x, this.initialPosition.y);
+			this.isHide = true;
+			this.isActive = true;
+			this.life = 5;
+		}
+	}
+
+
+	public var loadingAnimation:Bool = false;
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
-		if(this.isActive) this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.LOOP);
+		if(this.isActive && !this.valeus.spaw_here){
+			if(!this.loadingAnimation)
+				this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.LOOP);
+			else{
+				this.animation.play(DeltaTime, "wicther-load", AnimationDirection.FORWARD);
+				if(this.animation.lastFrame())
+					this.loadingAnimation = false;
+			}
+		}
 	}
 
 	public override function takeDamage(hit:Int) 
@@ -53,6 +79,16 @@ class Witch extends Enemy {
 		super.onTakeDamage();
 	}
 
+	public override function death() {
+		if(!this.canDestroy)
+			super.death();
+		else{
+			this.Destroy = true;
+			this.scene.AllActors.remove(this);
+		}
+		
+	}
+
 	public override function OnCollide(?tag:String) {
 		super.OnCollide(tag);
 		if(tag == "player sword")
@@ -61,6 +97,18 @@ class Witch extends Enemy {
 
 	public var speed:Float = 40;
 	public override function updateData(DeltaTime:Float) {
+		if(!this.valeus.spaw_here){
+			if(!this.loadingAnimation){
+				if(this.valeus.can_follow_when_see){
+					this.followPlayer(DeltaTime);
+				} else if(this.Position.y == this.scene.AllActors[0].Position.y) {
+					this.followPlayer(DeltaTime);
+				}
+			}
+		}
+	}
+
+	public function followPlayer(DeltaTime:Float){
 		if(!this.isHide && this.startPatrol && this.isActive && !this.isTakingDamage){
 			this.gravity(DeltaTime);
 			if(this.scene.AllActors[0].Position.x > this.Position.x){
@@ -77,9 +125,15 @@ class Witch extends Enemy {
 	public var isHide:Bool = true;
 	public var startPatrol:Bool = false;
 	public override function visible() {
-		super.visible();
-		if(this.isHide) wait(0.5, function (){ this.startPatrol = true; });
-		this.isHide = false;
+		if(!this.valeus.spaw_here){
+			super.visible();
+			if(this.isHide) wait(0.5, function (){ this.startPatrol = true; });
+			this.isHide = false;
+		}
+	}
+
+	public override function getActor():Actor {
+		return Reflect.copy(this);
 	}
 
 	var animation:Animation;
@@ -87,18 +141,20 @@ class Witch extends Enemy {
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		if(this.isVisible && !this.isHide && this.animation != null && this.isActive){
-			g2.drawScaledSubImage(
-				this.Sprite, 
-				this.animation.body.x, 
-				this.animation.body.y, 
-				this.animation.body.width, 
-				this.animation.body.height,
-				this.mright ? this.Position.x - 27 : this.Position.x + 37, 
-				this.Position.y - 16, 
-				this.mright ? this.animation.body.width : -this.animation.body.width, 
-				this.animation.body.height
-			);
+		if(!this.valeus.spaw_here){
+			if(this.isVisible && !this.isHide && this.animation != null  && this.isActive){
+				g2.drawScaledSubImage(
+					this.Sprite, 
+					this.animation.body.x, 
+					this.animation.body.y, 
+					this.animation.body.width, 
+					this.animation.body.height,
+					this.mright ? this.Position.x - 27 : this.Position.x + 37, 
+					this.Position.y - 16, 
+					this.mright ? this.animation.body.width : -this.animation.body.width, 
+					this.animation.body.height
+				);
+			}
 		}
 	}
 }

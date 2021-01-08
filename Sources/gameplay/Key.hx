@@ -13,6 +13,8 @@ class Key extends Actor{
 
 		this.tag = "key";
 		this.size = new Point(8,8);
+
+		this.Sprite = this.scene.GameManagment.GameObject.Sprite;
 	}
 
 	public var textBox:TextBox;
@@ -33,8 +35,6 @@ class Key extends Actor{
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		g2.color = Color.Yellow;
-		g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		g2.color = Color.White;
+		g2.drawSubImage(this.Sprite, this.Position.x, this.Position.y, 10, 72, 10, 10);
 	}
 }

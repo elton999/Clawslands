@@ -6,7 +6,6 @@ import umbrellatoolkit.collision.Solid;
 import kha.math.Vector2;
 
 class Actor extends GameObject{
-	public var tag:String;
 	public override function updateData(DeltaTime:Float){
 		this.gravity(DeltaTime);
 	}
