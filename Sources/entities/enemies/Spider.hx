@@ -132,7 +132,7 @@ class Spider extends Enemy{
 	}
 
 	public override function render(g2:Graphics) {
-		if(this.isVisible && !this.isHide){
+		if(this.isVisible && !this.isHide && this.isActive){
 			g2.color = Color.Red;
 			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
 			g2.color = Color.White;
@@ -149,8 +149,7 @@ class Spider extends Enemy{
 		super.hide();
 		this.isHide = true;
 	}
-
-
+	
 	public var groundLeft:Bool = false;
 	public var groundRight:Bool = false;
 	public var groundTop:Bool = false;

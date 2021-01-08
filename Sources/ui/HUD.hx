@@ -29,8 +29,11 @@ class HUD extends GameObject{
 		g2.color = Color.White;
 		
 		// life
-		for(i in 0...life)
-			g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i * 11), this.Position.y + 5, 0,72, 10, 9);
+		for(i in 0...this.scene.GameManagment.totalLife)
+			if(i < this.life)
+				g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i * 11), this.Position.y + 5, 0,72, 10, 9);
+			else
+				g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i * 11), this.Position.y + 5, 48,72, 10, 9);
 
 		//keys
 		g2.drawSubImage(this.Sprite, this.Position.x + 8, this.Position.y + 17, 10, 72, 10, 10);

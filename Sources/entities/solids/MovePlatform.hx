@@ -16,8 +16,14 @@ class MovePlatform extends Solid{
 		this.scene.AllSolids.push(this);
 		
 		this.positionNodes.push(new Vector2(this.Position.x, this.Position.y));
-		this.intialPosition = this.positions;
+		this.intialPosition = new Vector2(this.positions.x, this.positions.y);
 		this.valeus.speed = 1;
+	}
+
+	public override function restart() {
+		super.restart();
+		this.back = false;
+		this.positions = new Vector2(this.intialPosition.x, this.intialPosition.y);
 	}
 
 	private var back:Bool = false;
@@ -66,7 +72,7 @@ class MovePlatform extends Solid{
 
 	public override  function render(g2:Graphics) {
 		super.render(g2);
-
+	
 		g2.color = Color.Blue;
 		g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
 		g2.color = Color.White;

@@ -28,6 +28,7 @@ class GameManagment {
 	public var font:Font;
 
 	// player infos
+	public var totalLife: Int = 5;
 	public var life: Int = 5;
 	public var hasStrongAttack:Bool = true;
 	public var haskey: Bool = false;
@@ -127,11 +128,13 @@ class GameManagment {
 
 		for(i in 0...this.rooms.length){
 			this.rooms[i].restart();
+			this.rooms[i].cameraLerpSpeed = 8;
 			this.rooms[i].UI = new Array<GameObject>();
 		}
 
 		this.currentRoom = 1;
-		this.life = 5;
+		this.life = this.totalLife;
+		this.canPlay = true;
 		_HUD.scene = this.rooms[0];
 		_HUD.restart();
 		_player.scene = this.rooms[0];

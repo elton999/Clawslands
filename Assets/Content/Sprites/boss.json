@@ -151,6 +151,15 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
+   },
+   {
+    "filename": "prototype_character 17.aseprite",
+    "frame": { "x": 128, "y": 192, "w": 64, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
    }
  ],
  "meta": {
@@ -162,14 +171,15 @@
   "scale": "1",
   "frameTags": [
    { "name": "idle", "from": 0, "to": 0, "direction": "forward" },
-   { "name": "walk", "from": 1, "to": 1, "direction": "forward" },
-   { "name": "crouch", "from": 2, "to": 2, "direction": "forward" },
-   { "name": "fire", "from": 3, "to": 3, "direction": "forward" },
-   { "name": "upstairts", "from": 4, "to": 4, "direction": "forward" },
-   { "name": "downstairs", "from": 5, "to": 5, "direction": "forward" },
-   { "name": "atack", "from": 6, "to": 10, "direction": "forward" },
-   { "name": "jump_atack", "from": 12, "to": 15, "direction": "forward" },
-   { "name": "jump", "from": 16, "to": 16, "direction": "forward" }
+   { "name": "awake", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "walk", "from": 2, "to": 2, "direction": "forward" },
+   { "name": "crouch", "from": 3, "to": 3, "direction": "forward" },
+   { "name": "fire", "from": 4, "to": 4, "direction": "forward" },
+   { "name": "upstairts", "from": 5, "to": 5, "direction": "forward" },
+   { "name": "downstairs", "from": 6, "to": 6, "direction": "forward" },
+   { "name": "atack", "from": 7, "to": 11, "direction": "forward" },
+   { "name": "jump_atack", "from": 12, "to": 16, "direction": "forward" },
+   { "name": "jump", "from": 17, "to": 17, "direction": "forward" }
   ]
  }
 }

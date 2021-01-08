@@ -1,5 +1,6 @@
 package entities.enemies;
 
+import kha.Color;
 import kha.math.Vector2;
 import kha.Image;
 import kha.Assets;
@@ -60,7 +61,7 @@ class Witch extends Enemy {
 
 	public var speed:Float = 40;
 	public override function updateData(DeltaTime:Float) {
-		if(!this.isHide && this.startPatrol && this.isActive){
+		if(!this.isHide && this.startPatrol && this.isActive && !this.isTakingDamage){
 			this.gravity(DeltaTime);
 			if(this.scene.AllActors[0].Position.x > this.Position.x){
 				this.mright = true;
