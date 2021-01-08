@@ -1,5 +1,7 @@
 package entities.solids;
 
+import kha.Image;
+import kha.Assets;
 import kha.Color;
 import ui.TextBox;
 import kha.math.Vector2;
@@ -11,6 +13,10 @@ class StrongRock extends Solid{
 		this.tag = "strong rock";
 		this.add(this.size, this.Position);
 		this.scene.AllSolids.push(this);
+
+		Assets.loadImage("Content_Sprites_strong_rock", function (done:Image){
+			this.Sprite = done;
+		});
 	}
 
 	public var textBox:TextBox;
@@ -49,10 +55,19 @@ class StrongRock extends Solid{
 		}
 		
 	}
-
 	public override function render(g2:Graphics) {
-		g2.color = Color.Green;
-		g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
-		g2.color = Color.White;
+		//g2.color = Color.Green;
+		//g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
+		//g2.color = Color.White;
+
+		g2.drawSubImage(
+				this.Sprite, 
+				this.positions.x,
+				this.positions.y,
+				48 * this._hits,
+				0, 
+				48, 
+				48
+			);
 	}
 }

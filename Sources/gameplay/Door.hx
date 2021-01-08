@@ -20,24 +20,29 @@ class Door extends Actor{
 	public override function updateData(DeltaTime:Float) {
 		if(this.scene.AllActors.length > 0){
 			if(this.overlapCheck(this.scene.AllActors[0])){
-				this.Player = this.scene.AllActors[0];
-				this.Hud = this.scene.UI[0];
-				
-				this.scene.AllActors.shift();
-				this.scene.UI.shift();
-				this.scene.Player.shift();
-				
-				this.scene.GameManagment.currentRoom = this.valeus.room;
-				this.scene.GameManagment.Scene.scene = this.scene.GameManagment.rooms[this.scene.GameManagment.currentRoom - 1];
+				if(this.valeus.room != 100){
+					this.Player = this.scene.AllActors[0];
+					this.Hud = this.scene.UI[0];
+					
+					this.scene.AllActors.shift();
+					this.scene.UI.shift();
+					this.scene.Player.shift();
+					
+					this.scene.GameManagment.currentRoom = this.valeus.room;
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.rooms[this.scene.GameManagment.currentRoom - 1];
 
-				this.Player.scene = this.scene.GameManagment.Scene.scene;
-				this.Hud.scene = this.scene.GameManagment.Scene.scene;
-				this.scene.GameManagment.Scene.scene.Player.push(this.Player);
-				this.scene.GameManagment.Scene.scene.AllActors.unshift(this.Player);
-				this.scene.GameManagment.Scene.scene.UI.push(this.Hud);
-				this.scene.GameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
+					this.Player.scene = this.scene.GameManagment.Scene.scene;
+					this.Hud.scene = this.scene.GameManagment.Scene.scene;
+					this.scene.GameManagment.Scene.scene.Player.push(this.Player);
+					this.scene.GameManagment.Scene.scene.AllActors.unshift(this.Player);
+					this.scene.GameManagment.Scene.scene.UI.push(this.Hud);
+					this.scene.GameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
 
-				this.fixCameraPosition(this.scene.GameManagment.Scene.scene.camera);
+					this.fixCameraPosition(this.scene.GameManagment.Scene.scene.camera);
+				} else {
+					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.finalScene;
+				}
+				
 			}
 		}
 	}

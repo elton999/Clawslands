@@ -1,4 +1,7 @@
 package;
+import kha.Color;
+import ui.Title;
+import umbrellatoolkit.Camera;
 import umbrellatoolkit.collision.Actor;
 import kha.Font;
 import kha.Assets;
@@ -30,7 +33,7 @@ class GameManagment {
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = true;
+	public var hasStrongAttack:Bool = false;
 	public var haskey: Bool = false;
 	public var canPlay: Bool = true;
 	public var currentRoom:Int = 1;
@@ -97,7 +100,7 @@ class GameManagment {
 		}
 	}
 
-
+	public var finalScene:Scene;
 	public function loadLevels(){
 		// loading tilemap
 			var HUD:HUD = new HUD();
@@ -117,8 +120,19 @@ class GameManagment {
 					this.rooms[i].UI.push(HUD);
 				}
 			}
-			
+
+			this.finalScene = new Scene();
+			var titleFinal:Title = new Title();
+			titleFinal.scene = this.finalScene;
+			this.finalScene.GameManagment = this;
+			this.finalScene.BackgroundColor = Color.Black;
+			this.finalScene.UI.push(titleFinal);
+			this.finalScene.SceneReady = true;
+			this.finalScene.camera = new Camera();
+			this.finalScene.camera.scene = this.finalScene;
+
 			this.Scene.scene = this.rooms[0];
+
 			this.LoadScene = true;
 	}
 

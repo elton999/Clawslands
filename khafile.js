@@ -1,4 +1,4 @@
-let project = new Project('Game 2d');
+let project = new Project('Clawslands');
 project.addAssets('Assets/**', {
 	nameBaseDir: 'Assets',
 	destination: '{dir}/{name}',
