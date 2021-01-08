@@ -29,9 +29,18 @@ class Witch extends Enemy {
 		});
 	}
 
+	public override function restart() {
+		super.restart();
+		this.Position = new Vector2(this.initialPosition.x, this.initialPosition.y);
+		this.isHide = true;
+		this.isActive = true;
+		this.life = 5;
+		
+	}
+
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
-		this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.LOOP);
+		if(this.isActive) this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.LOOP);
 	}
 
 	public override function takeDamage(hit:Int) 
@@ -51,7 +60,7 @@ class Witch extends Enemy {
 
 	public var speed:Float = 40;
 	public override function updateData(DeltaTime:Float) {
-		if(!this.isHide){
+		if(!this.isHide && this.startPatrol && this.isActive){
 			this.gravity(DeltaTime);
 			if(this.scene.AllActors[0].Position.x > this.Position.x){
 				this.mright = true;
@@ -68,6 +77,7 @@ class Witch extends Enemy {
 	public var startPatrol:Bool = false;
 	public override function visible() {
 		super.visible();
+		if(this.isHide) wait(0.5, function (){ this.startPatrol = true; });
 		this.isHide = false;
 	}
 
@@ -76,7 +86,7 @@ class Witch extends Enemy {
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		if(this.isVisible && !this.isHide){
+		if(this.isVisible && !this.isHide && this.animation != null && this.isActive){
 			g2.drawScaledSubImage(
 				this.Sprite, 
 				this.animation.body.x, 

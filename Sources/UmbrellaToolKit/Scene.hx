@@ -83,6 +83,15 @@ class Scene {
 		});
 	}
 
+	public function restart(){
+		for(gameObject in this.Background) gameObject.restart();
+		for(gameObject in this.MiddleGround) gameObject.restart();
+		for(gameObject in this.Enemies) gameObject.restart();
+		for(gameObject in this.Player) gameObject.restart();
+		for(gameObject in this.Forenground) gameObject.restart();
+		for(gameObject in this.UI) gameObject.restart();
+	}
+
 	public function UloadLevel(){
 		
 	}

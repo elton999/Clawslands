@@ -17,6 +17,8 @@ import umbrellatoolkit.helpers.Point;
 
 class Player extends Actor{
 
+
+	public var initialPosition:Vector2;
 	public override function start() {
 		
 		this.scene.AllActors.push(this);
@@ -24,10 +26,11 @@ class Player extends Actor{
 		this.gravity2D = new Vector2(0, -200);
 		this.velocityDecrecent = 2000;
 		this.tag = "player";
-		this.scene.cameraLerpSpeed = 10;
 
 		this.scene.camera.position.y = this.Position.y;
 		this.scene.camera.position.x = this.Position.x;
+		
+		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
 
 		this.sword = new SwordPlayer();
 		this.sword.player = this;
@@ -45,9 +48,22 @@ class Player extends Actor{
 	
 	}
 
+	public override function restart() {
+		super.restart();
+		this.Position = new Vector2(this.initialPosition.x, this.initialPosition.y);
+
+		this.scene.AllActors.unshift(this);
+		this.scene.Player.unshift(this);
+
+		this.scene.camera.position.y = this.Position.y;
+		this.scene.camera.position.x = this.Position.x;
+	}
+
+
 	var _lastPosition:Vector2 =  new Vector2(0,0);
 	public override function update(DeltaTime:Float) {
-		if(this.scene.camera != null && this.scene.camera.follow == null)
+
+		if(this.scene.camera != null && this.scene.camera.follow == null && this.scene.GameManagment.canPlay)
 			this.scene.camera.follow = this;
 		
 
@@ -88,7 +104,7 @@ class Player extends Actor{
 	var animation:Animation;
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		if(this.isVisible){
+		if(this.isVisible && this.animation != null){
 			g2.drawScaledSubImage(
 				this.Sprite, 
 				this.animation.body.x, 
@@ -115,7 +131,7 @@ class Player extends Actor{
 			this.JumpPressed = true;
 		}
 
-		if(!this.cJump)
+		if(!this.cJump || !this.scene.GameManagment.canPlay)
 			this.JumpPressed = false;
 
 		if(this.JumpPressedBtn && this.JumpPressed && this.JumpPressedForce < 17){
@@ -140,7 +156,7 @@ class Player extends Actor{
 		if(this.cRight)
 			this.velocity.x = -(this.speed);
 
-		if((!this.cLeft && !this.cRight) || this.cAttack || this.cStrongAttack)
+		if((!this.cLeft && !this.cRight) || this.cAttack || this.cStrongAttack || !this.scene.GameManagment.canPlay)
 			this.velocity.x = 0;
 	}
 	// end move

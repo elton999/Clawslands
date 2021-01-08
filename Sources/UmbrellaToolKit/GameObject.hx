@@ -31,7 +31,12 @@ class GameObject {
 	public var Destroy:Bool = false;
 
 	public function start() : Void{}
-	public function restart() :Void{}
+	public function restart() :Void{
+		// wait functions
+		this._allCallbacks = new Array<Void -> Void>();
+		this._timers = new Array<Float>();
+		this._maxTime = new Array<Float>();
+	}
 	public function update(DeltaTime:Float) : Void{}
 	public function updateData(DeltaTime:Float) : Void{}
 	public function render(g2:kha.graphics2.Graphics): Void{}
@@ -41,6 +46,9 @@ class GameObject {
 	public function lerp(min:Float, max:Float, value:Float) : Float{
 		return min + (max - min) * value;
 	}
+
+
+	public function callFunction(tag:String):Void{}
 
 	// wait function
 	private var _allCallbacks:Array<Void -> Void> = new Array<Void -> Void>();

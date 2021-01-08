@@ -1,4 +1,5 @@
 package;
+import umbrellatoolkit.collision.Actor;
 import kha.Font;
 import kha.Assets;
 import umbrellatoolkit.GameObject;
@@ -22,13 +23,7 @@ import kha.Framebuffer;
 class GameManagment {
 	public var Scene: Scene;
 
-	public var room1: Scene;
-	public var room2: Scene;
-	public var room3: Scene;
-	public var room4: Scene;
-	public var room5: Scene;
-	public var room6: Scene;
-	public var room7: Scene;
+	public var rooms: Array<Scene> = new Array<Scene>();
 
 	public var font:Font;
 
@@ -36,6 +31,8 @@ class GameManagment {
 	public var life: Int = 5;
 	public var hasStrongAttack:Bool = true;
 	public var haskey: Bool = false;
+	public var canPlay: Bool = true;
+	public var currentRoom:Int = 1;
 
 	public var playerCollideDamange:Array<String> = [
 		"spider",
@@ -79,8 +76,11 @@ class GameManagment {
 			this.loadLevels();
 		}
 
-		if(this.Scene.scene != null)
+		if(this.Scene.scene != null){
+			if(this.life < 1)
+				this.restart();
 			this.Scene.scene.update(DeltaTime);
+		}
 	}
 
 	public function updateData(DeltaTime:Float):Void{
@@ -104,39 +104,38 @@ class GameManagment {
 			});
 
 			// loading levels 
-			this.room1 = new Scene();
-			this.room1.cameraLerpSpeed = 8;
-			this.room1.GameManagment = this;
-			HUD.scene = this.room1;
-			this.room1.UI.push(HUD);
-			this.room1.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_1_json", this.GameObject, this.AssetsManagment);
-
-			this.room2 = new Scene();
-			this.room2.cameraLerpSpeed = 8;
-			this.room2.GameManagment = this;
-			this.room2.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_2_json", this.GameObject, this.AssetsManagment);
-
-			this.room3 = new Scene();
-			this.room3.cameraLerpSpeed = 8;
-			this.room3.GameManagment = this;
-			this.room3.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_3_json", this.GameObject, this.AssetsManagment);
-
-			this.room4 = new Scene();
-			this.room4.cameraLerpSpeed = 8;
-			this.room4.GameManagment = this;
-			this.room4.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_4_json", this.GameObject, this.AssetsManagment);
-
-			this.room5 = new Scene();
-			this.room5.cameraLerpSpeed = 8;
-			this.room5.GameManagment = this;
-			this.room5.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_5_json", this.GameObject, this.AssetsManagment);
-
-			this.room6 = new Scene();
-			this.room6.cameraLerpSpeed = 8;
-			this.room6.GameManagment = this;
-			this.room6.LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_6_json", this.GameObject, this.AssetsManagment);
-
-			this.Scene.scene = this.room1;
+			for(i in 0...6){
+				this.rooms.push(new Scene());
+				this.rooms[i].cameraLerpSpeed = 8;
+				this.rooms[i].GameManagment = this;
+				this.rooms[i].LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_"+(i+1)+"_json", this.GameObject, this.AssetsManagment);
+				if(i == 0){
+					HUD.scene = this.rooms[i];
+					this.rooms[i].UI.push(HUD);
+				}
+			}
+			
+			this.Scene.scene = this.rooms[0];
 			this.LoadScene = true;
+	}
+
+	public function restart(){
+
+		var _player:Actor = this.rooms[this.currentRoom - 1].AllActors.shift();
+		this.rooms[this.currentRoom - 1].Player.shift();
+		var _HUD:GameObject = this.rooms[this.currentRoom - 1].UI.shift();
+
+		for(i in 0...this.rooms.length){
+			this.rooms[i].restart();
+			this.rooms[i].UI = new Array<GameObject>();
+		}
+
+		this.currentRoom = 1;
+		this.life = 5;
+		_HUD.scene = this.rooms[0];
+		_HUD.restart();
+		_player.scene = this.rooms[0];
+		_player.restart();
+		this.Scene.scene = this.rooms[this.currentRoom - 1];
 	}
 }

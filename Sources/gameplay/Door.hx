@@ -26,19 +26,9 @@ class Door extends Actor{
 				this.scene.AllActors.shift();
 				this.scene.UI.shift();
 				this.scene.Player.shift();
-
-				if(this.valeus.room == 1)
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room1;
-				else if(this.valeus.room == 2)
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room2;
-				else if(this.valeus.room == 3)
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room3;
-				else if(this.valeus.room == 4)
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room4;
-				else if(this.valeus.room == 5)
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room5;
-				else if(this.valeus.room == 6)
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.room6;
+				
+				this.scene.GameManagment.currentRoom = this.valeus.room;
+				this.scene.GameManagment.Scene.scene = this.scene.GameManagment.rooms[this.scene.GameManagment.currentRoom - 1];
 
 				this.Player.scene = this.scene.GameManagment.Scene.scene;
 				this.Hud.scene = this.scene.GameManagment.Scene.scene;

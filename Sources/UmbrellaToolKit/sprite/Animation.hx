@@ -1,9 +1,8 @@
 package umbrellatoolkit.sprite;
 
-import kha.ScreenRotation;
 import haxe.Json;
 import kha.Assets;
-import kha.Scaler.TargetRectangle;
+import umbrellatoolkit.helpers.Rectangle;
 
 class Animation {
 	private var AsepriteDefinitions:AnimationDirectionAseprite;
@@ -19,7 +18,7 @@ class Animation {
 	private var a_to:Int;
 	private var tag:String;
 
-	public var body:TargetRectangle;
+	public var body:Rectangle;
 
 	public function new(){}
 
@@ -89,13 +88,11 @@ class Animation {
                 }
 
                 frame = (this.frameCurrent + this.a_from);
-				this.body = new TargetRectangle(
+				this.body = new Rectangle(
 					this.AsepriteDefinitions.frames[frame].frame.x,
 					this.AsepriteDefinitions.frames[frame].frame.y,
 					this.AsepriteDefinitions.frames[frame].frame.w,
-					this.AsepriteDefinitions.frames[frame].frame.h,
-					this.AsepriteDefinitions.meta.scale,
-					ScreenRotation.RotationNone
+					this.AsepriteDefinitions.frames[frame].frame.h
 				);
 
                 this.checkedFirstframe = true;

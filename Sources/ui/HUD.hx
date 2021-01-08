@@ -10,6 +10,11 @@ class HUD extends GameObject{
 	public var life:Int = 3;
 	public var hasKey:Bool = false;
 
+	public override function restart() {
+		super.restart();
+		this.scene.UI.push(this);
+	}
+
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
 		this.life = this.scene.GameManagment.life;

@@ -7,6 +7,13 @@ class Enemy extends Actor{
 	public var isActive = true;
 	public var initialPosition:Vector2;
 
+	public override function restart() {
+		super.restart();
+		this._damageTimer = 0;
+		this.isTakingDamage = false;
+		this._nextBlink = 0;
+	}
+
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
 		this.demageAnimation(DeltaTime);
@@ -31,7 +38,7 @@ class Enemy extends Actor{
 
 	public function death(){
 		//this.isActive = false;
-		this.Destroy = true;
+		this.isActive = false;
 	}
 
 	public override function OnCollide(?tag:String) {

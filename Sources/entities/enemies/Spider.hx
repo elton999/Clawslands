@@ -20,6 +20,19 @@ class Spider extends Enemy{
 		this.flipX ? this.speed = - this.speed : null;
 	}
 
+	public override function restart() {
+		super.restart();
+		this.Position = new Vector2(this.initialPosition.x, this.initialPosition.y);
+		this.isHide = true;
+		this.isActive = true;
+		this.life = 15;
+
+		groundLeft = false;
+		groundRight = false;
+		groundTop = false;
+		groundBottom = false;
+	}
+
 	public override function takeDamage(hit:Int) 
 	{
 		this.speed = - this.speed;
@@ -34,85 +47,87 @@ class Spider extends Enemy{
 	var _currentMovimentX:Bool = false;
 	var _currentMovimentY:Bool =  false;
 	public override function updateData(DeltaTime:Float) {
-		var t:Float = Scheduler.time();
-		this.checkGround();
+		if(this.isActive){
+			var t:Float = Scheduler.time();
+			this.checkGround();
 
-		if(!(groundLeft && groundRight && groundTop && groundBottom)){
-			var i = 0;
-			for(i in 0...this.scene.AllSolids.length){
-				if(
-					(
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y + 1)) ||
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y + 1))
-					)
-					&& _currentMovimentX
-				){
-					moveY(1, null);
+			if(!(groundLeft && groundRight && groundTop && groundBottom)){
+				var i = 0;
+				for(i in 0...this.scene.AllSolids.length){
+					if(
+						(
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y + 1)) ||
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y + 1))
+						)
+						&& _currentMovimentX
+					){
+						moveY(1, null);
+					}
+
+					if(
+						(
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y - 1)) ||
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y - 1))
+						)
+						&& _currentMovimentX
+					){
+						moveY(-1, null);
+					}
+
+					if(
+						(
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y + 1)) ||
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y - 1))
+						)
+						&& _currentMovimentY
+					){
+						moveX(1, null);
+					}
+
+					if(
+						(
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y + 1)) ||
+							this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y - 1))
+						)
+						&& _currentMovimentY
+					){
+
+						moveX(-1, null);
+					}
 				}
-
-				if(
-					(
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y - 1)) ||
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y - 1))
-					)
-					&& _currentMovimentX
-				){
-					moveY(-1, null);
-				}
-
-				if(
-					(
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y + 1)) ||
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x + 1, this.Position.y - 1))
-					)
-					&& _currentMovimentY
-				){
-					moveX(1, null);
-				}
-
-				if(
-					(
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y + 1)) ||
-						this.scene.AllSolids[i].check(this.size, new Vector2(this.Position.x - 1, this.Position.y - 1))
-					)
-					&& _currentMovimentY
-				){
-
-					moveX(-1, null);
-				}
+				super.updateData(DeltaTime);
 			}
-			super.updateData(DeltaTime);
-		}
 
-		_currentMovimentX = false;
-		_currentMovimentY = false;
+			_currentMovimentX = false;
+			_currentMovimentY = false;
 
-		if(groundRight){
-			_currentMovimentY = true;
-			moveY(DeltaTime * -speed, function (?tag:String):Void {
-				moveX(DeltaTime * speed, null);
-			});
-		}
+			if(groundRight){
+				_currentMovimentY = true;
+				moveY(DeltaTime * -speed, function (?tag:String):Void {
+					moveX(DeltaTime * speed, null);
+				});
+			}
 
-		if(groundLeft){
-			_currentMovimentY = true;
-			moveY(DeltaTime * speed, function (?tag:String):Void {
-				moveX(DeltaTime * -speed, null);
-			});
-		}
+			if(groundLeft){
+				_currentMovimentY = true;
+				moveY(DeltaTime * speed, function (?tag:String):Void {
+					moveX(DeltaTime * -speed, null);
+				});
+			}
 
-		if(groundBottom){
-			_currentMovimentX = true;
-			moveX(DeltaTime * speed, function (?tag:String):Void {
-				moveY(DeltaTime * -speed, null);
-			});
-		}
+			if(groundBottom){
+				_currentMovimentX = true;
+				moveX(DeltaTime * speed, function (?tag:String):Void {
+					moveY(DeltaTime * -speed, null);
+				});
+			}
 
-		if(groundTop){
-			_currentMovimentX = true;
-			moveX(DeltaTime * -speed, function (?tag:String):Void {
-				moveY(DeltaTime * speed, null);
-			});
+			if(groundTop){
+				_currentMovimentX = true;
+				moveX(DeltaTime * -speed, function (?tag:String):Void {
+					moveY(DeltaTime * speed, null);
+				});
+			}
 		}
 	}
 

@@ -18,6 +18,34 @@ class Jumper extends Enemy{
 		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
 	}
 
+	public override function restart() {
+		super.restart();
+		this.Position = new Vector2(this.initialPosition.x, this.initialPosition.y);
+		this.isHide = true;
+		this.isActive = true;
+		this._timer = 0;
+		this.life = 5;
+
+		moveRight = false;
+		moveLeft = false;
+		speed = 250;
+		startJump = false;
+		MaxWaitTime = 250;
+		_timer = 0;
+	}
+
+
+	public var isHide:Bool = true;
+	public override function visible() {
+		super.visible();
+		this.isHide = false;
+	}
+
+	public override function hide() {
+		super.hide();
+		this.isHide = true;
+	}
+
 	// take damege
 	public override function OnCollide(?tag:String) {
 		super.OnCollide(tag);
@@ -44,28 +72,31 @@ class Jumper extends Enemy{
 	var _timer:Float = 0;
 	
 	public override function updateData(DeltaTime:Float) {
-		_timer += DeltaTime;
-		this.checkGround();
+		if(this.isActive){
+			_timer += DeltaTime;
+			this.checkGround();
 
-		if(groundLeft){
-			moveRight = true;
-			moveLeft = false;
-			if(!startJump) _timer = 0;
-			startJump = true;
-		} else if(groundRight) {
-			moveRight = false;
-			moveLeft = true;
-			if(!startJump) _timer = 0;
-			startJump = true;
+			if(groundLeft){
+				moveRight = true;
+				moveLeft = false;
+				if(!startJump) _timer = 0;
+				startJump = true;
+			} else if(groundRight) {
+				moveRight = false;
+				moveLeft = true;
+				if(!startJump) _timer = 0;
+				startJump = true;
+			}
+
+			if(_timer * 1000 > MaxWaitTime){
+				startJump = false;
+				if(moveRight) moveX((DeltaTime * speed), null);
+				if(moveLeft) moveX(-(DeltaTime * speed), null);
+			}
+
+			super.updateData(DeltaTime);
 		}
-
-		if(_timer * 1000 > MaxWaitTime){
-			startJump = false;
-			if(moveRight) moveX((DeltaTime * speed), null);
-			if(moveLeft) moveX(-(DeltaTime * speed), null);
-		}
-
-		super.updateData(DeltaTime);
+		
 	}
 
 
@@ -92,8 +123,10 @@ class Jumper extends Enemy{
 	}
 
 	public override function render(g2:Graphics) {
-		g2.color = Color.Purple;
-		g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		g2.color = Color.White;
+		if(!this.isHide && this.isActive){
+			g2.color = Color.Purple;
+			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+			g2.color = Color.White;
+		}
 	}
 }

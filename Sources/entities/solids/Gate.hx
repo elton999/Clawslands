@@ -20,8 +20,7 @@ class Gate extends Solid{
 			if(this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x + 1, this.scene.AllActors[0].Position.y))||
 			this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x - 1, this.scene.AllActors[0].Position.y))){
 				if(this.scene.GameManagment.haskey){
-					this.Destroy = true;
-					this.scene.AllSolids.remove(this);
+					this.open();
 					this.scene.GameManagment.haskey = false;
 				} else if(this.textBox == null){
 					this.textBox = new TextBox();
@@ -35,6 +34,18 @@ class Gate extends Solid{
 				if(this.textBox != null && this.textBox.Destroy)
 					this.textBox = null;
 			}
+		}
+	}
+
+	public function open():Void{
+		this.Destroy = true;
+		this.scene.AllSolids.remove(this);
+	}
+
+	public override function callFunction(tag:String) {
+		super.callFunction(tag);
+		if(tag == "open"){
+			this.open();
 		}
 	}
 
