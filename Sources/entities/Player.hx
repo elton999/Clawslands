@@ -109,11 +109,11 @@ class Player extends Actor{
 				this.Sprite, 
 				this.animation.body.x, 
 				this.animation.body.y, 
-				this.animation.body.width, 
-				this.animation.body.height,
-				this.mright ? this.Position.x - 27 : this.Position.x + 37, 
-				this.Position.y - 16, 
-				this.mright ? this.animation.body.width : -this.animation.body.width, 
+				this.animation.body.width + _widthSmash, 
+				this.animation.body.height + _heightSmash,
+				this.mright ? this.Position.x - 27 + _positionXSmash : this.Position.x + 37 - _positionXSmash, 
+				this.Position.y - 16 + _positionYSmash, 
+				this.mright ? this.animation.body.width  : -this.animation.body.width, 
 				this.animation.body.height
 			);
 		}
@@ -266,6 +266,8 @@ class Player extends Actor{
 	// animation
 	var _attackAnimation:Bool = false;
 	public function AnimationController(DeltaTime:Float){
+		this.splashAnimation();
+
 		if(this.cLeft)
 			this.mright = false;
 		if(this.cRight)
@@ -316,6 +318,29 @@ class Player extends Actor{
 		}
 	}
 	// end animation
+
+	// splash and smash
+	private var last_isgrounded:Bool = true;
+	private var _widthSmash:Float = 0;
+	private var _positionXSmash:Float = 0;
+	private var _heightSmash:Float = 0;
+	private var _positionYSmash:Float = 0;
+	public function splashAnimation(){
+		if(!last_isgrounded && this.isGrounded){
+			_widthSmash = -10;
+			_heightSmash = 4;
+			_positionXSmash = -5;
+			_positionYSmash = 4;
+			wait(0.2, function (){
+				_widthSmash = 0;
+				_heightSmash = 0;
+				_positionXSmash = 0;
+				_positionYSmash = 0;
+			});
+		}
+		this.last_isgrounded = this.isGrounded;
+	}
+	// end splash and smash
 
 	// take damange
 	private var _damageTimer:Float = 0;

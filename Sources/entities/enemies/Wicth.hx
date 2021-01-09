@@ -104,6 +104,7 @@ class Witch extends Enemy {
 				} else if(this.Position.y == this.scene.AllActors[0].Position.y) {
 					this.followPlayer(DeltaTime);
 				}
+				super.updateData(DeltaTime);
 			}
 		}
 	}
@@ -118,7 +119,7 @@ class Witch extends Enemy {
 				this.mright = false;
 				this.moveX(-(speed * DeltaTime), null);
 			}
-			super.updateData(DeltaTime);
+			
 		}
 	}
 
