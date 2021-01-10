@@ -56,15 +56,9 @@ class Solid extends GameObject {
 			if (moveX != 0) 
     		{
 				xRemainder -= moveX;
-				var i:Int = 0;
-				/*while(i < this.positions.length){
-					this.positions[i].x += moveX;
-					i++;
-				}*/
 				this.positions.x += moveX;
 
 				if(moveX > 0){
-					i = 0;
 					for(i in 0...this.scene.AllActors.length){
 						if (overlapCheck(this.scene.AllActors[i])){
 							// Push top
@@ -73,12 +67,9 @@ class Solid extends GameObject {
 							// Carry right
 							this.scene.AllActors[i].moveX(moveX, null);
 						}
-
-						//i++;
 					}
 					
 				} else {
-					i = 0;
 					for(i in 0...this.scene.AllActors.length){
 						if (overlapCheck(this.scene.AllActors[i])){
 							// Push left
@@ -87,8 +78,6 @@ class Solid extends GameObject {
 							// Carry left
 							this.scene.AllActors[i].moveX(moveX, null);
 						}
-
-						//i++;
 					}
 				}
 			} 
@@ -96,35 +85,24 @@ class Solid extends GameObject {
 			if(moveY != 0){
 
 				yRemainder -= moveY;
-				var i:Int = 0;
-				/*while(i < this.positions.length){
-					this.positions[i].y += moveY;
-					i++;
-				}*/
 				this.positions.y += moveY;
 
 				if(moveY > 0){
-					i = 0;
 					for(i in 0...this.scene.AllActors.length){
 						if (overlapCheck(this.scene.AllActors[i])){
 							this.scene.AllActors[i].moveY(this.Bottom() - this.scene.AllActors[i].Top(), this.scene.AllActors[i].squish);
 						} else if(riding.indexOf(this.scene.AllActors[i]) != -1) {
 							this.scene.AllActors[i].moveY(moveY, null);
 						}
-
-						i++;
 					}
 					
 				} else {
-					i = 0;
 					for(i in 0...this.scene.AllActors.length){
 						if (overlapCheck(this.scene.AllActors[i])){
 							this.scene.AllActors[i].moveY(this.Top() - this.scene.AllActors[i].Bottom(), this.scene.AllActors[i].squish);
 						} else if(riding.indexOf(this.scene.AllActors[i]) != -1) {
 							this.scene.AllActors[i].moveY(moveY, null);
 						}
-
-						//i++;
 					}
 				}
 
@@ -134,61 +112,25 @@ class Solid extends GameObject {
 	}
 
 	public function overlapCheck(actor:Actor):Bool{
-			// var i:Int = 0;
-			//for(i in 0...this.positions.length){
-			var x_overlaps:Bool = false;
-			var y_overlaps:Bool = false;
-
-			var x_width:Int = Std.int(this.positions.x + this.sizes.x);
-			var y_height:Int = Std.int(this.positions.y + this.sizes.y);
-			
-			x_overlaps = (
-				(actor.Position.x + actor.size.x > this.positions.x && actor.Position.x + actor.size.x <= x_width) ||
-				(actor.Position.x > this.positions.x && actor.Position.x < x_width) ||
-				(actor.Position.x < this.positions.x && actor.Position.x + actor.size.x > x_width)
-			);
-
-			y_overlaps = (
-				(actor.Position.y + actor.size.y > this.positions.y && actor.Position.y + actor.size.y <= y_height) ||
-				(actor.Position.y > this.positions.y && actor.Position.y < y_height) ||
-				(actor.Position.y < this.positions.y && actor.Position.y + actor.size.y > y_height)
-			);	
-
-			//i++;
-			if(x_overlaps && y_overlaps)
-				return true;
-		//}
-
-		return false;
+		var AisToTheRightOfB:Bool = actor.Left() >= this.Right();
+		var AisToTheLeftOfB:Bool = actor.Right() <= this.Left();
+		var AisAboveB:Bool = actor.Bottom() <= this.Top();
+		var AisBelowB:Bool = actor.Top() >= this.Bottom();
+		return !(AisToTheRightOfB
+			|| AisToTheLeftOfB
+			|| AisAboveB
+			|| AisBelowB);
 	}
 
 	public function check(size:Point, position:Vector2) : Bool{
-	//	var i:Int = 0;
-	//for(i in 0...this.positions.length){
-			var x_overlaps:Bool = false;
-			var y_overlaps:Bool = false;
-
-			var x_width:Int = Std.int(this.positions.x + this.sizes.x);
-			var y_height:Int = Std.int(this.positions.y + this.sizes.y);
-			
-			x_overlaps = (
-				(position.x + size.x > this.positions.x && position.x + size.x <= x_width) ||
-				(position.x > this.positions.x && position.x < x_width) ||
-				(position.x < this.positions.x && position.x + size.x > x_width)
-			);
-
-			y_overlaps = (
-				(position.y + size.y > this.positions.y && position.y + size.y <= y_height) ||
-				(position.y > this.positions.y && position.y < y_height) ||
-				(position.y < this.positions.y && position.y + size.y > y_height)
-			);	
-
-			//i++;
-			if(x_overlaps && y_overlaps)
-				return true;
-		//}
-		return false;
-	
+		var AisToTheRightOfB:Bool = position.x >= this.Right();
+		var AisToTheLeftOfB:Bool = position.x+size.x <= this.Left();
+		var AisAboveB:Bool = position.y+size.y <= this.Top();
+		var AisBelowB:Bool = position.y >= this.Bottom();
+		return !(AisToTheRightOfB
+			|| AisToTheLeftOfB
+			|| AisAboveB
+			|| AisBelowB);
 	}
 
 	public function valueInRange(value:Int, min:Int, max:Int)

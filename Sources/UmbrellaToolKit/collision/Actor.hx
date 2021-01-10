@@ -6,6 +6,11 @@ import umbrellatoolkit.collision.Solid;
 import kha.math.Vector2;
 
 class Actor extends GameObject{
+
+	public override function start() {
+		super.start();
+	}
+
 	public override function updateData(DeltaTime:Float){
 		this.gravity(DeltaTime);
 	}
@@ -110,53 +115,25 @@ class Actor extends GameObject{
 	}
 
 	public function overlapCheck(actor:Actor):Bool{
-		var x_overlaps:Bool = false;
-		var y_overlaps:Bool = false;
-
-		var x_width:Int = Std.int(this.Position.x + this.size.x);
-		var y_height:Int = Std.int(this.Position.y + this.size.y);
-		
-		x_overlaps = (
-			(actor.Position.x + actor.size.x >= this.Position.x && actor.Position.x + actor.size.x <= x_width) ||
-			(actor.Position.x > this.Position.x && actor.Position.x < x_width) ||
-			(actor.Position.x <= this.Position.x && actor.Position.x + actor.size.x >= x_width)
-		);
-
-		y_overlaps = (
-			(actor.Position.y + actor.size.y >= this.Position.y && actor.Position.y + actor.size.y <= y_height) ||
-			(actor.Position.y > this.Position.y && actor.Position.y < y_height) ||
-			(actor.Position.y <= this.Position.y && actor.Position.y + actor.size.y >= y_height)
-		);
-
-		if(x_overlaps && y_overlaps)
-			return true;
-
-		return false;
+		var AisToTheRightOfB:Bool = actor.Left() >= this.Right();
+		var AisToTheLeftOfB:Bool = actor.Right() <= this.Left();
+		var AisAboveB:Bool = actor.Bottom() <= this.Top();
+		var AisBelowB:Bool = actor.Top() >= this.Bottom();
+		return !(AisToTheRightOfB
+			|| AisToTheLeftOfB
+			|| AisAboveB
+			|| AisBelowB);
 	}
 
 	public function check(size:Point, position:Vector2) : Bool{
-		var x_overlaps:Bool = false;
-		var y_overlaps:Bool = false;
-
-		var x_width:Int = Std.int(this.Position.x + this.size.x);
-		var y_height:Int = Std.int(this.Position.y + this.size.y);
-		
-		x_overlaps = (
-			(position.x + size.x > this.Position.x && position.x + size.x <= x_width) ||
-			(position.x > this.Position.x && position.x < x_width) ||
-			(position.x < this.Position.x && position.x + size.x > x_width)
-		);
-
-		y_overlaps = (
-			(position.y + size.y > this.Position.y && position.y + size.y <= y_height) ||
-			(position.y > this.Position.y && position.y < y_height) ||
-			(position.y < this.Position.y && position.y + size.y > y_height)
-		);	
-
-		if(x_overlaps && y_overlaps)
-			return true;
-		return false;
-	
+		var AisToTheRightOfB:Bool = position.x >= this.Right();
+		var AisToTheLeftOfB:Bool = position.x+size.x <= this.Left();
+		var AisAboveB:Bool = position.y+size.y <= this.Top();
+		var AisBelowB:Bool = position.y >= this.Bottom();
+		return !(AisToTheRightOfB
+			|| AisToTheLeftOfB
+			|| AisAboveB
+			|| AisBelowB);
 	}
 
 	private function collideAt(solids:Array<Solid>, position:Vector2):Bool{

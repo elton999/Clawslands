@@ -25,7 +25,6 @@ class Animation {
 	public function start(filename):Void{
 		Assets.loadBlob(filename, function (done:kha.Blob.Blob){
 			this.AsepriteDefinitions = Json.parse(done.toString());
-			done.unload();
 		});
 	}
 

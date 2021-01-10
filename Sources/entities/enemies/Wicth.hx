@@ -12,7 +12,7 @@ import umbrellatoolkit.sprite.Animation;
 
 class Witch extends Enemy {
 	public override function start(){
-		super.start();
+		//super.start();
 
 		if(this.valeus.spaw_here){
 			this.tag = "wicth spaw";
@@ -59,10 +59,12 @@ class Witch extends Enemy {
 	public var loadingAnimation:Bool = false;
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
-		if(this.isActive && !this.valeus.spaw_here){
-			if(!this.loadingAnimation)
+		if(!this.valeus.spaw_here){
+			if(!this.loadingAnimation && this.isActive)
 				this.animation.play(DeltaTime, "wicther-idle", AnimationDirection.LOOP);
-			else{
+			else if(!this.isActive){
+				this.animation.play(DeltaTime, "witcher-death", AnimationDirection.FORWARD);
+			}else{
 				this.animation.play(DeltaTime, "wicther-load", AnimationDirection.FORWARD);
 				if(this.animation.lastFrame())
 					this.loadingAnimation = false;
@@ -101,7 +103,7 @@ class Witch extends Enemy {
 			if(!this.loadingAnimation){
 				if(this.valeus.can_follow_when_see){
 					this.followPlayer(DeltaTime);
-				} else if(this.Position.y == this.scene.AllActors[0].Position.y) {
+				} else if(this.Top() == this.scene.AllActors[0].Top()) {
 					this.followPlayer(DeltaTime);
 				}
 				super.updateData(DeltaTime);
@@ -143,7 +145,7 @@ class Witch extends Enemy {
 	public override function render(g2:Graphics) {
 		super.render(g2);
 		if(!this.valeus.spaw_here){
-			if(this.isVisible && !this.isHide && this.animation != null  && this.isActive){
+			if(this.isVisible && !this.isHide && this.animation != null){
 				g2.drawScaledSubImage(
 					this.Sprite, 
 					this.animation.body.x, 

@@ -20,7 +20,7 @@ class Player extends Actor{
 
 	public var initialPosition:Vector2;
 	public override function start() {
-		
+		super.start();
 		this.scene.AllActors.push(this);
 		this.size = new Point(10, 32);
 		this.gravity2D = new Vector2(0, -200);
@@ -75,7 +75,6 @@ class Player extends Actor{
 
 		super.update(DeltaTime);
 		this.AnimationController(DeltaTime);
-		//this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
 		this.jump();
 
 		this.takeDamage(DeltaTime);
@@ -330,7 +329,7 @@ class Player extends Actor{
 			_widthSmash = -10;
 			_heightSmash = 4;
 			_positionXSmash = -5;
-			_positionYSmash = 4;
+			_positionYSmash = 3;
 			wait(0.2, function (){
 				_widthSmash = 0;
 				_heightSmash = 0;
