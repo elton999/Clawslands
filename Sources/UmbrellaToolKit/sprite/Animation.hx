@@ -18,13 +18,14 @@ class Animation {
 	private var a_to:Int;
 	private var tag:String;
 
-	public var body:Rectangle= new Rectangle(0,0,0,0);
+	public var body:Rectangle= new Rectangle(0,0,8,8);
 
 	public function new(){}
-
+	private var _isReady:Bool = false;
 	public function start(filename):Void{
 		Assets.loadBlob(filename, function (done:kha.Blob.Blob){
 			this.AsepriteDefinitions = Json.parse(done.toString());
+			_isReady = true;
 		});
 	}
 
@@ -43,7 +44,8 @@ class Animation {
 	}
 
 	public function play(deltaTime:Float, tag:String, aDirection:AnimationDirection = AnimationDirection.FORWARD){
-		 if (tag != this.tag)
+		if(_isReady){
+			if (tag != this.tag)
             {
                 var i:Int = 0;
                 while (i < this.AsepriteDefinitions.meta.frameTags.length)
@@ -97,7 +99,7 @@ class Animation {
 
                 this.checkedFirstframe = true;
             }
-
+		}
 	}
 }
 

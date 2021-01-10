@@ -34,7 +34,6 @@ class Witch extends Enemy {
 		// loading sprites
 		Assets.loadImage("Content_Sprites_player", function (done:Image){
 			this.Sprite = done;
-			this.animation = new Animation();
 			this.animation.start("Content_Sprites_player_json");
 		});
 		
@@ -139,7 +138,7 @@ class Witch extends Enemy {
 		return Reflect.copy(this);
 	}
 
-	var animation:Animation;
+	public var animation:Animation = new Animation();
 	public var mright:Bool = true;
 
 	public override function render(g2:Graphics) {

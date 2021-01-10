@@ -38,7 +38,6 @@ class Player extends Actor{
 		
 		Assets.loadImage("Content_Sprites_player", function (done:Image){
 			this.Sprite = done;
-			this.animation = new Animation();
 			this.animation.start("Content_Sprites_player_json");
 		});
 		
@@ -100,10 +99,10 @@ class Player extends Actor{
 
 	public var mright:Bool = true;
 
-	var animation:Animation;
+	public var animation:Animation = new Animation();
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		if(this.isVisible && this.animation != null){
+		if(this.isVisible && this.animation != null && this.Sprite != null){
 			g2.drawScaledSubImage(
 				this.Sprite, 
 				this.animation.body.x, 
