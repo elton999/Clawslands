@@ -17,7 +17,7 @@ class SkillItem extends Actor{
 	public var textBox:TextBox;
 	public override function updateData(DeltaTime:Float) {
 		if(this.overlapCheck(this.scene.AllActors[0])){
-			this.scene.GameManagment.hasStrongAttack = true;
+			this.scene.gameManagment.hasStrongAttack = true;
 			this.Destroy = true;
 			this.scene.AllActors.remove(this);
 

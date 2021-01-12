@@ -14,7 +14,7 @@ class Title extends GameObject{
 		);
 		
 		g2.fontSize = 12;
-		g2.font = this.scene.GameManagment.font;
+		g2.font = this.scene.gameManagment.font;
 		g2.drawString("Imagine uma cut scene legal aqui hehehehehe", this.Position.x - 100, this.Position.y);
 	}
 }

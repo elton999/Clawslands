@@ -39,7 +39,7 @@ class Scene {
 	public var ScreemSize:Point = new Point(426, 240);
 	public var cameraLerpSpeed:Float = 0.06;
 
-	public var GameManagment:GameManagment;
+	public var gameManagment:GameManagment;
 
 	public var _BackBuffer:Image;
 
@@ -73,11 +73,9 @@ class Scene {
 
 		Assets.loadBlob(tileSet, function (done:kha.Blob.Blob){
 			this.TileSet = new TileSet(done.toString());
-			done.unload();
 			Assets.loadBlob(level, function(done:kha.Blob.Blob){
 				this.TileMap = new TileMap(done.toString(), this.TileSet, this, assets);
 				this.TileMap.CreateLevel(tilemapImage);
-				done.unload();
 				this.SceneReady = true;
 			});
 		});

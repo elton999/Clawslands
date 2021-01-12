@@ -17,8 +17,8 @@ class HUD extends GameObject{
 
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
-		this.life = this.scene.GameManagment.life;
-		this.hasKey = this.scene.GameManagment.haskey;
+		this.life = this.scene.gameManagment.life;
+		this.hasKey = this.scene.gameManagment.haskey;
 	}
 
 	public override function render(g2:Graphics) {
@@ -29,7 +29,7 @@ class HUD extends GameObject{
 		g2.color = Color.White;
 		
 		// life
-		for(i in 0...this.scene.GameManagment.totalLife)
+		for(i in 0...this.scene.gameManagment.totalLife)
 			if(i < this.life)
 				g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i * 11), this.Position.y + 5, 0,72, 10, 9);
 			else
@@ -44,7 +44,7 @@ class HUD extends GameObject{
 		g2.drawSubImage(this.Sprite, this.Position.x + 24, this.Position.y + 17, 40, 72, 8, 8);
 
 		//strong attack
-		if(this.scene.GameManagment.hasStrongAttack){
+		if(this.scene.gameManagment.hasStrongAttack){
 			g2.color = Color.Orange;
 			g2.fillRect(this.Position.x + this.scene.ScreemSize.x - 16, this.Position.y + 8, 8,8);
 			g2.color = Color.White;

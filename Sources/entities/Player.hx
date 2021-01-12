@@ -62,7 +62,7 @@ class Player extends Actor{
 	var _lastPosition:Vector2 =  new Vector2(0,0);
 	public override function update(DeltaTime:Float) {
 
-		if(this.scene.camera != null && this.scene.camera.follow == null && this.scene.GameManagment.canPlay)
+		if(this.scene.camera != null && this.scene.camera.follow == null && this.scene.gameManagment.canPlay)
 			this.scene.camera.follow = this;
 		
 
@@ -82,9 +82,9 @@ class Player extends Actor{
 	}
 
 	public override function OnCollide(?tag:String) {
-		if(this.scene.GameManagment.playerCollideDamange.indexOf(tag) != -1){
+		if(this.scene.gameManagment.playerCollideDamange.indexOf(tag) != -1){
 			if(!this._isTakingDamange){
-				this.scene.GameManagment.life -= 1;
+				this.scene.gameManagment.life -= 1;
 				this._isTakingDamange = true;
 			}
 		}
@@ -129,7 +129,7 @@ class Player extends Actor{
 			this.JumpPressed = true;
 		}
 
-		if(!this.cJump || !this.scene.GameManagment.canPlay)
+		if(!this.cJump || !this.scene.gameManagment.canPlay)
 			this.JumpPressed = false;
 
 		if(this.JumpPressedBtn && this.JumpPressed && this.JumpPressedForce < 17){
@@ -154,7 +154,7 @@ class Player extends Actor{
 		if(this.cRight)
 			this.velocity.x = -(this.speed);
 
-		if((!this.cLeft && !this.cRight) || this.cAttack || this.cStrongAttack || !this.scene.GameManagment.canPlay)
+		if((!this.cLeft && !this.cRight) || this.cAttack || this.cStrongAttack || !this.scene.gameManagment.canPlay)
 			this.velocity.x = 0;
 	}
 	// end move
@@ -185,7 +185,7 @@ class Player extends Actor{
 			case X:
 				if(!this.cStrongAttack) this.cAttack = true;
 			case C:
-				if(!this.cAttack && this.scene.GameManagment.hasStrongAttack)
+				if(!this.cAttack && this.scene.gameManagment.hasStrongAttack)
 					this.cStrongAttack = true;
 			default:
 				//none
@@ -223,7 +223,7 @@ class Player extends Actor{
 			else this.cJump = false;
 		if(button == 2 && !this.cStrongAttack)
 			if(value == 1) this.cAttack = true;
-		if(button == 3 && !this.cAttack && this.scene.GameManagment.hasStrongAttack)
+		if(button == 3 && !this.cAttack && this.scene.gameManagment.hasStrongAttack)
 			if(value == 1)
 				this.cStrongAttack = true;
 	}
@@ -325,10 +325,10 @@ class Player extends Actor{
 	private var _positionYSmash:Float = 0;
 	public function splashAnimation(){
 		if(!last_isgrounded && this.isGrounded){
-			_widthSmash = -10;
-			_heightSmash = 4;
-			_positionXSmash = -5;
-			_positionYSmash = 3;
+			_widthSmash = -15;
+			_heightSmash = 5;
+			_positionXSmash = -9;
+			_positionYSmash = 4;
 			wait(0.2, function (){
 				_widthSmash = 0;
 				_heightSmash = 0;

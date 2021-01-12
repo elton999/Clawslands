@@ -45,7 +45,6 @@ class SwordPlayer extends Actor{
 				if(this.player.scene.AllSolids[i].tag == "strong rock"){
 					if(this.player.scene.AllSolids[i].overlapCheck(this)){
 						this.player.scene.AllSolids[i].onCollide("player strong attack");
-						i = this.player.scene.AllSolids.length;
 						break;
 					}
 				}

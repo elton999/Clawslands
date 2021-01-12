@@ -2,16 +2,16 @@ package;
 import umbrellatoolkit.helpers.Timer;
 import kha.Framebuffer;
 	
-	class Game{
+class Game{
 	public var FullScreem:Bool = true;
 	private var DeltaTime:Timer;
 	private var DeltaTimeUpdateData:Timer;
 
-	private var GameManagment:GameManagment;
+	public var gameManagment:GameManagment;
 
 	public function new (){
 
-		this.GameManagment = new GameManagment();
+		this.gameManagment = new GameManagment();
 
 		this.DeltaTime = new Timer();
 		this.DeltaTimeUpdateData = new Timer();
@@ -19,16 +19,16 @@ import kha.Framebuffer;
 
 	private var LoadScene:Bool = false;
 	public function update(): Void {
-		this.GameManagment.update(this.DeltaTime.delta);
+		this.gameManagment.update(this.DeltaTime.delta);
 		this.DeltaTime.update();
 	}
 
 	public function updateData():Void{
-		this.GameManagment.updateData(this.DeltaTimeUpdateData.delta);
+		this.gameManagment.updateData(this.DeltaTimeUpdateData.delta);
 		this.DeltaTimeUpdateData.update();
 	}
 
 	public function render(framebuffer: Framebuffer): Void {
-		this.GameManagment.render(framebuffer);
+		this.gameManagment.render(framebuffer);
 	}
 }

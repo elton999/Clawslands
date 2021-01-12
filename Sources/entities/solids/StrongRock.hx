@@ -24,7 +24,7 @@ class StrongRock extends Solid{
 		super.updateData(DeltaTime);
 		if(this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x + 1, this.scene.AllActors[0].Position.y))||
 		this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x - 1, this.scene.AllActors[0].Position.y))){
-			 if(this.textBox == null && !this.scene.GameManagment.hasStrongAttack){
+			 if(this.textBox == null && !this.scene.gameManagment.hasStrongAttack){
 				this.textBox = new TextBox();
 				this.textBox.scene = this.scene;
 				this.textBox.text = "This rock is too Big";

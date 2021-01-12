@@ -187,25 +187,25 @@ class Boss extends Enemy{
 		
 	}
 
-	private var _gate:Solid;
+	private var _gate:Array<Solid> = new Array<Solid>();
 	public override function death() {
-		this.scene.GameManagment.canPlay = false;
+		this.scene.gameManagment.canPlay = false;
 
 		// get gate solid gameobject
 		for(i in 0...this.scene.AllSolids.length){
 			if(this.scene.AllSolids[i].tag == "gate")
-				this._gate = this.scene.AllSolids[i];
+				this._gate.push(this.scene.AllSolids[i]);
 		}
 
 		//cut-scene
-		this.scene.camera.follow = this._gate;
+		this.scene.camera.follow = this._gate[0];
 		this.scene.cameraLerpSpeed = 1;
 		this.scene.camera.allowFollowY = false;
 
-		wait(3, function () { this._gate.callFunction("open"); });
+		wait(3, function () { this._gate[0].callFunction("open"); });
 		wait(4, function (){ this.scene.camera.follow = this.scene.AllActors[0]; });
 		wait(7, function (){
-			this.scene.GameManagment.canPlay = true;
+			this.scene.gameManagment.canPlay = true;
 			this.scene.camera.allowFollowY = true;
 			this.scene.cameraLerpSpeed = 8;
 		});

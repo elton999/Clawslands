@@ -14,13 +14,13 @@ class Key extends Actor{
 		this.tag = "key";
 		this.size = new Point(8,8);
 
-		this.Sprite = this.scene.GameManagment.GameObject.Sprite;
+		this.Sprite = this.scene.gameManagment.GameObject.Sprite;
 	}
 
 	public var textBox:TextBox;
 	public override function updateData(DeltaTime:Float) {
 		if(this.overlapCheck(this.scene.AllActors[0])){
-			this.scene.GameManagment.haskey = true;
+			this.scene.gameManagment.haskey = true;
 			this.Destroy = true;
 			this.scene.AllActors.remove(this);
 

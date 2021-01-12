@@ -1,4 +1,6 @@
 package;
+import kha.Blob;
+import kha.Image;
 import kha.Color;
 import ui.Title;
 import umbrellatoolkit.Camera;
@@ -33,8 +35,8 @@ class GameManagment {
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = false;
-	public var haskey: Bool = false;
+	public var hasStrongAttack:Bool = true;
+	public var haskey: Bool = true;
 	public var canPlay: Bool = true;
 	public var currentRoom:Int = 1;
 
@@ -113,7 +115,7 @@ class GameManagment {
 			for(i in 0...6){
 				this.rooms.push(new Scene());
 				this.rooms[i].cameraLerpSpeed = 8;
-				this.rooms[i].GameManagment = this;
+				this.rooms[i].gameManagment = this;
 				this.rooms[i].LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_"+(i+1)+"_json", this.GameObject, this.AssetsManagment);
 				if(i == 0){
 					HUD.scene = this.rooms[i];
@@ -124,7 +126,7 @@ class GameManagment {
 			this.finalScene = new Scene();
 			var titleFinal:Title = new Title();
 			titleFinal.scene = this.finalScene;
-			this.finalScene.GameManagment = this;
+			this.finalScene.gameManagment = this;
 			this.finalScene.BackgroundColor = Color.Black;
 			this.finalScene.UI.push(titleFinal);
 			this.finalScene.SceneReady = true;

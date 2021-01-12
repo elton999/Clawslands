@@ -28,19 +28,19 @@ class Door extends Actor{
 					this.scene.UI.shift();
 					this.scene.Player.shift();
 					
-					this.scene.GameManagment.currentRoom = this.valeus.room;
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.rooms[this.scene.GameManagment.currentRoom - 1];
+					this.scene.gameManagment.currentRoom = this.valeus.room;
+					this.scene.gameManagment.Scene.scene = this.scene.gameManagment.rooms[this.scene.gameManagment.currentRoom - 1];
 
-					this.Player.scene = this.scene.GameManagment.Scene.scene;
-					this.Hud.scene = this.scene.GameManagment.Scene.scene;
-					this.scene.GameManagment.Scene.scene.Player.push(this.Player);
-					this.scene.GameManagment.Scene.scene.AllActors.unshift(this.Player);
-					this.scene.GameManagment.Scene.scene.UI.push(this.Hud);
-					this.scene.GameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
+					this.Player.scene = this.scene.gameManagment.Scene.scene;
+					this.Hud.scene = this.scene.gameManagment.Scene.scene;
+					this.scene.gameManagment.Scene.scene.Player.push(this.Player);
+					this.scene.gameManagment.Scene.scene.AllActors.unshift(this.Player);
+					this.scene.gameManagment.Scene.scene.UI.push(this.Hud);
+					this.scene.gameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
 
-					this.fixCameraPosition(this.scene.GameManagment.Scene.scene.camera);
+					this.fixCameraPosition(this.scene.gameManagment.Scene.scene.camera);
 				} else {
-					this.scene.GameManagment.Scene.scene = this.scene.GameManagment.finalScene;
+					this.scene.gameManagment.Scene.scene = this.scene.gameManagment.finalScene;
 				}
 				
 			}

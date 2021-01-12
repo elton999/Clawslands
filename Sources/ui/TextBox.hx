@@ -27,7 +27,7 @@ class TextBox extends Actor{
 		);
 		
 		g2.fontSize = 12;
-		g2.font = this.scene.GameManagment.font;
+		g2.font = this.scene.gameManagment.font;
 		g2.drawString(this.text, this.Position.x, this.Position.y);
 	}
 

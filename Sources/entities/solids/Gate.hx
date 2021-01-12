@@ -9,19 +9,22 @@ import umbrellatoolkit.collision.Solid;
 class Gate extends Solid{
 	public override function start() {
 		this.tag = "gate";
-		this.add(this.size, this.Position);
-		this.scene.AllSolids.push(this);
+		this.opened = this.valeus.opened;
+		if(!this.opened){
+			this.add(this.size, this.Position);
+			this.scene.AllSolids.push(this);
+		}
 	}
 
 	public var textBox:TextBox;
 
 	public override function updateData(DeltaTime:Float) {
-		if(!this.valeus.boss_gate){
+		if(!this.valeus.boss_gate && !this.opened){
 			if(this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x + 1, this.scene.AllActors[0].Position.y))||
 			this.check(this.scene.AllActors[0].size, new Vector2(this.scene.AllActors[0].Position.x - 1, this.scene.AllActors[0].Position.y))){
-				if(this.scene.GameManagment.haskey){
+				if(this.scene.gameManagment.haskey){
 					this.open();
-					this.scene.GameManagment.haskey = false;
+					this.scene.gameManagment.haskey = false;
 				} else if(this.textBox == null){
 					this.textBox = new TextBox();
 					this.textBox.scene = this.scene;
@@ -36,10 +39,21 @@ class Gate extends Solid{
 			}
 		}
 	}
-
+	
+	public var opened:Bool = false;
 	public function open():Void{
 		this.Destroy = true;
 		this.scene.AllSolids.remove(this);
+
+		var gate:Gate = new Gate();
+		gate.opened = true;
+		gate.scene = this.scene;
+		gate.valeus = this.valeus;
+		gate.Position = this.Position;
+		gate.valeus.boss_gate = false;
+		gate.valeus.opened = true;
+		this.scene.MiddleGround.push(gate);
+		gate.start();
 	}
 
 	public override function callFunction(tag:String) {
@@ -50,8 +64,30 @@ class Gate extends Solid{
 	}
 
 	public override function render(g2:Graphics) {
-		g2.color = Color.Green;
-		g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
-		g2.color = Color.White;
+		if(this.opened){
+			g2.drawScaledSubImage(
+				this.scene.gameManagment.GameObject.Sprite, 
+				22, 
+				112, 
+				41, 
+				80,
+				this.Position.x, 
+				this.Position.y, 
+				41, 
+				80
+			);
+		}else {
+			g2.drawScaledSubImage(
+				this.scene.gameManagment.GameObject.Sprite, 
+				0, 
+				112, 
+				19, 
+				80,
+				this.Position.x, 
+				this.Position.y, 
+				19, 
+				80
+			);
+		}
 	}
 }
