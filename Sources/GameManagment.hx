@@ -35,10 +35,11 @@ class GameManagment {
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = true;
-	public var haskey: Bool = true;
+	public var hasStrongAttack:Bool = false;
+	public var haskey: Bool = false;
 	public var canPlay: Bool = true;
 	public var currentRoom:Int = 1;
+	public var canRestart:Bool = false;
 
 	public var playerCollideDamange:Array<String> = [
 		"spider",
@@ -85,7 +86,7 @@ class GameManagment {
 		}
 
 		if(this.Scene.scene != null){
-			if(this.life < 1)
+			if(this.canRestart)
 				this.restart();
 			this.Scene.scene.update(DeltaTime);
 		}
@@ -139,6 +140,7 @@ class GameManagment {
 	}
 
 	public function restart(){
+		this.canRestart = false;
 
 		var _player:Actor = this.rooms[this.currentRoom - 1].AllActors.shift();
 		this.rooms[this.currentRoom - 1].Player.shift();

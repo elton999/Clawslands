@@ -27,7 +27,7 @@ class Player extends Actor{
 		this.velocityDecrecent = 2000;
 		this.tag = "player";
 
-		this.scene.camera.position.y = this.Position.y;
+		this.scene.camera.position.y = 688;
 		this.scene.camera.position.x = this.Position.x;
 		
 		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
@@ -49,6 +49,7 @@ class Player extends Actor{
 
 	public override function restart() {
 		super.restart();
+		this.scene.gameManagment.canPlay = true;
 		this.Position = new Vector2(this.initialPosition.x, this.initialPosition.y);
 
 		this.scene.AllActors.unshift(this);
@@ -62,7 +63,7 @@ class Player extends Actor{
 	var _lastPosition:Vector2 =  new Vector2(0,0);
 	public override function update(DeltaTime:Float) {
 
-		if(this.scene.camera != null && this.scene.camera.follow == null && this.scene.gameManagment.canPlay)
+		if(this.scene.camera != null && this.scene.camera.follow == null && this.scene.gameManagment.canPlay && !this._isFallingStart)
 			this.scene.camera.follow = this;
 		
 
@@ -106,7 +107,7 @@ class Player extends Actor{
 			g2.drawScaledSubImage(
 				this.Sprite, 
 				this.animation.body.x, 
-				this.animation.body.y, 
+				this.animation.body.y + (_waterImpact ? 8 : 0), 
 				this.animation.body.width + _widthSmash, 
 				this.animation.body.height + _heightSmash,
 				this.mright ? this.Position.x - 27 + _positionXSmash : this.Position.x + 37 - _positionXSmash, 
@@ -263,6 +264,10 @@ class Player extends Actor{
 
 	// animation
 	var _attackAnimation:Bool = false;
+	var _isFallingStart:Bool = true;
+	var _waterImpact:Bool = true;
+	var _startGetUp:Bool = false;
+	var _getup:Bool = false;
 	public function AnimationController(DeltaTime:Float){
 		this.splashAnimation();
 
@@ -271,10 +276,34 @@ class Player extends Actor{
 		if(this.cRight)
 			this.mright = true;
 
-		if(this.isGrounded){
-			if(this.velocity.x != 0)
-				this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
-			else{
+		if(!_isFallingStart){
+			if(this.isGrounded){
+				if(this.scene.gameManagment.life < 1){
+					this.animation.play(DeltaTime, "death", AnimationDirection.FORWARD);
+					this.scene.gameManagment.canPlay = false;
+					if(this.animation.lastFrame())
+						this.scene.gameManagment.canRestart = true;
+				}else if(this.velocity.x != 0)
+					this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
+				else{
+					if(this.cAttack){
+						this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
+						_attackAnimation = true;
+						if(this.animation.lastFrame()){
+							_attackAnimation = false;
+							this.cAttack = false;
+						}
+					} else if(this.cStrongAttack){
+						this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
+						_attackAnimation = true;
+						if(this.animation.lastFrame()){
+							_attackAnimation = false;
+							this.cStrongAttack = false;
+						}
+					}else
+						this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
+				}			
+			} else {
 				if(this.cAttack){
 					this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
 					_attackAnimation = true;
@@ -282,38 +311,42 @@ class Player extends Actor{
 						_attackAnimation = false;
 						this.cAttack = false;
 					}
-				} else if(this.cStrongAttack){
-					this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
-					_attackAnimation = true;
-					if(this.animation.lastFrame()){
-						_attackAnimation = false;
-						this.cStrongAttack = false;
-					}
-				}else
-					this.animation.play(DeltaTime, "Idle-Right", AnimationDirection.LOOP);
-			}			
-		} else {
-			if(this.cAttack){
-				this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
-				_attackAnimation = true;
-				if(this.animation.lastFrame()){
-					_attackAnimation = false;
-					this.cAttack = false;
+				}else if(this.cStrongAttack){
+						this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
+						_attackAnimation = true;
+						if(this.animation.lastFrame()){
+							_attackAnimation = false;
+							this.cStrongAttack = false;
+						}
+				} else {
+					if(this.isFalling)
+						this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);
+					else
+						this.animation.play(DeltaTime, "Jump-Up-Right", AnimationDirection.LOOP);
 				}
-			}else if(this.cStrongAttack){
-					this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
-					_attackAnimation = true;
-					if(this.animation.lastFrame()){
-						_attackAnimation = false;
-						this.cStrongAttack = false;
-					}
-			} else {
-				if(this.isFalling)
-					this.animation.play(DeltaTime, "Jump-Down-Right", AnimationDirection.LOOP);
-				else
-					this.animation.play(DeltaTime, "Jump-Up-Right", AnimationDirection.LOOP);
 			}
+		} else {
+			if(this.isGrounded){
+				if(_waterImpact){
+					this.animation.play(DeltaTime, "water-impact", AnimationDirection.FORWARD);
+					if(this.animation.lastFrame())
+						_waterImpact = false;
+				}else if(_getup){
+					this.animation.play(DeltaTime, "get up", AnimationDirection.FORWARD);
+					if(this.animation.lastFrame())
+						_isFallingStart = false;
+				}else{
+					this.animation.play(DeltaTime, "on the ground", AnimationDirection.FORWARD);
+					if(this.animation.lastFrame() && !_startGetUp){
+						wait(5, function () { _getup = true;});
+						_startGetUp = true;
+					}
+				}
+			}
+			else
+				this.animation.play(DeltaTime, "fall", AnimationDirection.LOOP);
 		}
+		
 	}
 	// end animation
 
@@ -349,11 +382,13 @@ class Player extends Actor{
 		if(this._isTakingDamange){
 			if(this._damageTimer < this._MaxTimeDamangeSeconds){
 				//blink effect
-				if(this._damageTimer >= this._nextBlink){
-					this.isVisible = true;
-					this._nextBlink = this._damageTimer + 0.2;
-				}else
-					this.isVisible = false;
+				if(this.scene.gameManagment.life > 0){
+					if(this._damageTimer >= this._nextBlink){
+						this.isVisible = true;
+						this._nextBlink = this._damageTimer + 0.2;
+					}else
+						this.isVisible = false;
+				}
 				
 				this._damageTimer += deltaTime;
 			} else{

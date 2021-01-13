@@ -111,7 +111,7 @@ class Witch extends Enemy {
 	}
 
 	public function followPlayer(DeltaTime:Float){
-		if(!this.isHide && this.startPatrol && this.isActive && !this.isTakingDamage){
+		if(!this.isHide && this.startPatrol && this.isActive && !this.isTakingDamage && this.scene.gameManagment.life > 0){
 			this.gravity(DeltaTime);
 			if(this.scene.AllActors[0].Position.x > this.Position.x){
 				this.mright = true;
