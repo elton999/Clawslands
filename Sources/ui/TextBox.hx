@@ -1,5 +1,6 @@
 package ui;
 
+import kha.Color;
 import kha.math.Vector2;
 import kha.graphics2.Graphics;
 import umbrellatoolkit.collision.Actor;
@@ -8,14 +9,26 @@ class TextBox extends Actor{
 
 	public var text:String = "";
 	public var timeToExit:Float = 5;
+	public var color:Color = Color.White;
+	public var fadeOut:Bool = false;
 
-	public var positionSpace:Vector2;
+	public var positionSpace:Vector2 = new Vector2(0,0);
 
 	public override function start() {
 		super.start();
-		wait(this.timeToExit, function (){
-			this.Destroy = true;
-		});
+		wait(this.timeToExit - 1, function (){ this.fadeOut = true; });
+		wait(this.timeToExit, function (){ this.Destroy = true; });
+	}
+
+	private var _alphaValue:Float = 0;
+	public override function update(DeltaTime:Float) {
+		super.update(DeltaTime);
+		if(_alphaValue < 1 && !this.fadeOut)
+			_alphaValue+= 0.01;
+		else if(this.fadeOut)
+			_alphaValue-= 0.01;
+		
+		this.color.A = _alphaValue;
 	}
 
 
@@ -23,12 +36,14 @@ class TextBox extends Actor{
 		super.render(g2);
 		this.Position = new Vector2(
 			this.scene.camera.position.x - this.positionSpace.x, // - (this.scene.ScreemSize.x / 2) + , 
-			this.scene.camera.position.y + 50 //- (this.scene.ScreemSize.y / 2)
+			this.scene.camera.position.y + 50 - this.positionSpace.y//- (this.scene.ScreemSize.y / 2)
 		);
 		
+		g2.color = this.color;
 		g2.fontSize = 12;
 		g2.font = this.scene.gameManagment.font;
 		g2.drawString(this.text, this.Position.x, this.Position.y);
+		g2.color = Color.White;
 	}
 
 }

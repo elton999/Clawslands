@@ -30,7 +30,7 @@ class Player extends Actor{
 		this.scene.camera.position.y = 688;
 		this.scene.camera.position.x = this.Position.x;
 		
-		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
+		this.initialPosition = new Vector2(this.Position.x, 688);
 
 		this.sword = new SwordPlayer();
 		this.sword.player = this;
@@ -92,7 +92,7 @@ class Player extends Actor{
 	}
 
 	public override function updateData(DeltaTime:Float){
-		super.updateData(DeltaTime);
+		if(this.scene.gameManagment.startThegame)super.updateData(DeltaTime);
 		this.checkGrounded();
 		this.checkAttackArea();
 		this.move(DeltaTime);
@@ -171,71 +171,81 @@ class Player extends Actor{
 	public var cJump:Bool = false;
 	
 	private function OnkeyDown(key:kha.input.KeyCode):Void{
+		this.scene.gameManagment.startThegame = true;
 		_isgamepad = false;
-		switch (key){
-			case Up:
-				this.cUp = true;
-			case Down:
-				this.cDown = true;
-			case Left:
-				this.cLeft = true;
-			case Right:
-				this.cRight = true;
-			case Z:
-				this.cJump = true;
-			case X:
-				if(!this.cStrongAttack) this.cAttack = true;
-			case C:
-				if(!this.cAttack && this.scene.gameManagment.hasStrongAttack)
-					this.cStrongAttack = true;
-			default:
-				//none
+		if(this.scene.gameManagment.canPlay){
+			switch (key){
+				case Up:
+					this.cUp = true;
+				case Down:
+					this.cDown = true;
+				case Left:
+					this.cLeft = true;
+				case Right:
+					this.cRight = true;
+				case Z:
+					this.cJump = true;
+				case X:
+					if(!this.cStrongAttack) this.cAttack = true;
+				case C:
+					if(!this.cAttack && this.scene.gameManagment.hasStrongAttack)
+						this.cStrongAttack = true;
+				default:
+					//none
+			}
 		}
 	}
 
 	private function OnKeyUp(key:kha.input.KeyCode):Void{
-		switch (key){
-			case Up:
-				this.cUp = false;
-			case Down:
-				this.cDown = false;
-			case Left:
-				this.cLeft = false;
-			case Right:
-				this.cRight = false;
-			case Z:
-				this.cJump = false;
-			default:
-				//none
+		if(this.scene.gameManagment.canPlay){
+			switch (key){
+				case Up:
+					this.cUp = false;
+				case Down:
+					this.cDown = false;
+				case Left:
+					this.cLeft = false;
+				case Right:
+					this.cRight = false;
+				case Z:
+					this.cJump = false;
+				default:
+					//none
+			}
 		}
 	}
 
 	private var _isgamepad:Bool = false;
 	private function ButtonGamepad(button:Int, value:Float){
 		this._isgamepad = true;
-		if(button == 15)
-			if(value == 1) this.cRight = true;
-			else this.cRight = false;
-		else if(button == 14)
-			if(value == 1) this.cLeft = true;
-			else this.cLeft = false;
-		else if(button == 0)
-			if(value == 1) this.cJump = true;
-			else this.cJump = false;
-		if(button == 2 && !this.cStrongAttack)
-			if(value == 1) this.cAttack = true;
-		if(button == 3 && !this.cAttack && this.scene.gameManagment.hasStrongAttack)
-			if(value == 1)
-				this.cStrongAttack = true;
+		this.scene.gameManagment.startThegame = true;
+		if(this.scene.gameManagment.canPlay){
+			if(button == 15)
+				if(value == 1) this.cRight = true;
+				else this.cRight = false;
+			else if(button == 14)
+				if(value == 1) this.cLeft = true;
+				else this.cLeft = false;
+			else if(button == 0)
+				if(value == 1) this.cJump = true;
+				else this.cJump = false;
+			if(button == 2 && !this.cStrongAttack)
+				if(value == 1) this.cAttack = true;
+			if(button == 3 && !this.cAttack && this.scene.gameManagment.hasStrongAttack)
+				if(value == 1)
+					this.cStrongAttack = true;
+		}
 	}
 
 	private function ExisGamepad(button:Int, value:Float){
-		if(button == 0){
-			if(value > 0.3) this.cRight = true;
-			else if(value < -0.3) this.cLeft = true;
-			else if(value > -0.3 && value < 0.3){
-				this.cRight = false;
-				this.cLeft = false;
+		if(this.scene.gameManagment.canPlay){
+			if(button == 0){
+				if(value > 0.3) this.cRight = true;
+				else if(value < -0.3) this.cLeft = true;
+				else if(value > -0.3 && value < 0.3){
+					this.cRight = false;
+					this.cLeft = false;
+				}
 			}
 		}
 	}
@@ -267,6 +277,7 @@ class Player extends Actor{
 	var _isFallingStart:Bool = true;
 	var _waterImpact:Bool = true;
 	var _startGetUp:Bool = false;
+	var _startShowPlayer:Bool = false; 
 	var _getup:Bool = false;
 	public function AnimationController(DeltaTime:Float){
 		this.splashAnimation();
@@ -329,16 +340,23 @@ class Player extends Actor{
 			if(this.isGrounded){
 				if(_waterImpact){
 					this.animation.play(DeltaTime, "water-impact", AnimationDirection.FORWARD);
-					if(this.animation.lastFrame())
-						_waterImpact = false;
+					if(this.animation.lastFrame() && !_startShowPlayer){
+						_startShowPlayer = true;
+						this.scene.gameManagment.showInitialCredits();
+						wait(6, function () {
+							_waterImpact = false;
+						});
+					}
 				}else if(_getup){
 					this.animation.play(DeltaTime, "get up", AnimationDirection.FORWARD);
-					if(this.animation.lastFrame())
+					if(this.animation.lastFrame()){
 						_isFallingStart = false;
+						this.scene.gameManagment.canPlay = true;
+					}
 				}else{
 					this.animation.play(DeltaTime, "on the ground", AnimationDirection.FORWARD);
 					if(this.animation.lastFrame() && !_startGetUp){
-						wait(5, function () { _getup = true;});
+						wait(2, function () { _getup = true;});
 						_startGetUp = true;
 					}
 				}

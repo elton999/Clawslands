@@ -5,17 +5,14 @@
 			"request": "launch",
 			"name": "Kha: HTML5",
 			"appDir": "${workspaceFolder}/build/debug-html5",
-			"cwd": "${workspaceFolder}/build/debug-html5",
 			"sourceMaps": true,
-			"preLaunchTask": "Kha: Build for Debug HTML5",
-			"internalConsoleOptions": "openOnSessionStart"
+			"preLaunchTask": "Kha: Build for Debug HTML5"
 		},
 		{
 			"type": "krom",
 			"request": "launch",
 			"name": "Kha: Krom",
-			"preLaunchTask": "Kha: Build for Krom",
-			"internalConsoleOptions": "openOnSessionStart"
+			"preLaunchTask": "Kha: Build for Krom"
 		}
 	],
 	"compounds": []

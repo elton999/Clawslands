@@ -4,10 +4,8 @@ project.addAssets('Assets/**', {
 	destination: '{dir}/{name}',
 	name: '{dir}/{name}',
 });
+
 project.addShaders('Shaders/**');
 project.addSources('Sources/');
-project.addSources('Sources/UmbrellaToolKit/');
-callbacks.postCppCompilation = () => { 
-	
-};
+callbacks.postCppCompilation = () => { };
 resolve(project);

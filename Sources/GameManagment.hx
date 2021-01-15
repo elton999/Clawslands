@@ -1,4 +1,8 @@
 package;
+import kha.Sound;
+import kha.audio1.Audio;
+import kha.math.Vector2;
+import ui.TextBox;
 import kha.Blob;
 import kha.Image;
 import kha.Color;
@@ -24,20 +28,21 @@ import umbrellatoolkit.Scene;
 import umbrellatoolkit.level.AssetsManagment;
 import umbrellatoolkit.helpers.Timer;
 import kha.Framebuffer;
+import SoundManagement;
 
 class GameManagment {
 	public var Scene: Scene;
-
 	public var rooms: Array<Scene> = new Array<Scene>();
 
 	public var font:Font;
+	public var startThegame:Bool = false;
 
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
 	public var hasStrongAttack:Bool = false;
 	public var haskey: Bool = false;
-	public var canPlay: Bool = true;
+	public var canPlay: Bool = false;
 	public var currentRoom:Int = 1;
 	public var canRestart:Bool = false;
 
@@ -53,12 +58,11 @@ class GameManagment {
 	public var GameObject:GameObject = new GameObject();
 
 	private var AssetsManagment:AssetsManagment = new AssetsManagment();
+	public var soundManagement:SoundManagement;
 
 	public function new (){
-		kha.Assets.loadFont("Content_Fonts_Kenney_Pixel", function (done:Font){
-			this.font = done;
-		});
-
+		kha.Assets.loadFont("Content_Fonts_Kenney_Pixel", function (done:Font){ this.font = done; });
+		this.soundManagement = new SoundManagement();
 		this.Scene = new Scene();
 
 		// Set Assets
@@ -79,15 +83,19 @@ class GameManagment {
 	private var LoadScene:Bool = false;
 	private var LoadDone:Bool = false;
 	public function update(DeltaTime:Float): Void {
-		
 		if(!this.LoadScene){
 			this.loadLevels();
 			this.LoadDone = true;
 		}
 
+		
+		this.soundManagement.Update();
+
 		if(this.Scene.scene != null){
 			if(this.canRestart)
 				this.restart();
+			if(this.startThegame)
+				this._pressAnyButtonHUD.Destroy = true;
 			this.Scene.scene.update(DeltaTime);
 		}
 	}
@@ -104,39 +112,56 @@ class GameManagment {
 	}
 
 	public var finalScene:Scene;
+	private var _pressAnyButtonHUD:TextBox;
+	private var _initialCredits:TextBox;
 	public function loadLevels(){
 		// loading tilemap
-			var HUD:HUD = new HUD();
-			kha.Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
-				this.GameObject.Sprite = done;
-				HUD.Sprite = done;
-			});
+		var HUD:HUD = new HUD();
+		kha.Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
+			this.GameObject.Sprite = done;
+			HUD.Sprite = done;
+		});
 
-			// loading levels 
-			for(i in 0...6){
-				this.rooms.push(new Scene());
-				this.rooms[i].cameraLerpSpeed = 8;
-				this.rooms[i].gameManagment = this;
-				this.rooms[i].LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_"+(i+1)+"_json", this.GameObject, this.AssetsManagment);
-				if(i == 0){
-					HUD.scene = this.rooms[i];
-					this.rooms[i].UI.push(HUD);
-				}
+		_pressAnyButtonHUD = new TextBox();
+		_pressAnyButtonHUD.text = "Press any button to start";
+		_pressAnyButtonHUD.positionSpace = new Vector2(60, 50);
+
+		// loading levels 
+		for(i in 0...6){
+			this.rooms.push(new Scene());
+			this.rooms[i].cameraLerpSpeed = 8;
+			this.rooms[i].gameManagment = this;
+			this.rooms[i].LoadLevel("Content_Maps_TileSettings_ogmo", "Content_Maps_level_"+(i+1)+"_json", this.GameObject, this.AssetsManagment);
+			if(i == 0){
+				HUD.scene = this.rooms[i];
+				this.rooms[i].UI.push(HUD);
 			}
+		}
 
-			this.finalScene = new Scene();
-			var titleFinal:Title = new Title();
-			titleFinal.scene = this.finalScene;
-			this.finalScene.gameManagment = this;
-			this.finalScene.BackgroundColor = Color.Black;
-			this.finalScene.UI.push(titleFinal);
-			this.finalScene.SceneReady = true;
-			this.finalScene.camera = new Camera();
-			this.finalScene.camera.scene = this.finalScene;
+		this.finalScene = new Scene();
+		var titleFinal:Title = new Title();
+		titleFinal.scene = this.finalScene;
+		this.finalScene.gameManagment = this;
+		this.finalScene.BackgroundColor = Color.Black;
+		this.finalScene.UI.push(titleFinal);
+		this.finalScene.SceneReady = true;
+		this.finalScene.camera = new Camera();
+		this.finalScene.camera.scene = this.finalScene;
+		
+		this.rooms[0].UI.push(_pressAnyButtonHUD);
+		_pressAnyButtonHUD.scene = this.rooms[0];
+		this.Scene.scene = this.rooms[0];
 
-			this.Scene.scene = this.rooms[0];
+		this.LoadScene = true;
+	}
 
-			this.LoadScene = true;
+	public function showInitialCredits(){
+		_initialCredits = new TextBox();
+		_initialCredits.text = "A game by Elton Silva";
+		_initialCredits.scene = this.rooms[0];
+		_initialCredits.positionSpace = new Vector2(50, 100);
+		this.rooms[0].UI.push(_initialCredits);
+		_initialCredits.start();
 	}
 
 	public function restart(){
