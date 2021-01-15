@@ -87,8 +87,6 @@ class GameManagment {
 			this.loadLevels();
 			this.LoadDone = true;
 		}
-
-		
 		this.soundManagement.Update();
 
 		if(this.Scene.scene != null){

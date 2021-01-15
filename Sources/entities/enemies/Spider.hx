@@ -1,5 +1,9 @@
 package entities.enemies;
 
+import kha.math.FastMatrix3;
+import kha.Image;
+import kha.Assets;
+import umbrellatoolkit.sprite.Animation;
 import kha.Color;
 import kha.math.Vector2;
 import kha.Scheduler;
@@ -18,6 +22,10 @@ class Spider extends Enemy{
 		this.life = 15;
 		this.tag = "spider";
 		this.flipX ? this.speed = - this.speed : null;
+		Assets.loadImage("Content_Sprites_spider", function (done:Image){
+			this.Sprite = done;
+			this.animation.start("Content_Sprites_spider_json");
+		});
 	}
 
 	public override function restart() {
@@ -33,6 +41,8 @@ class Spider extends Enemy{
 		groundBottom = false;
 	}
 
+	public var animation:Animation = new Animation();
+
 	public override function takeDamage(hit:Int) 
 	{
 		this.speed = - this.speed;
@@ -41,6 +51,35 @@ class Spider extends Enemy{
 
 	public override function onTakeDamage() {
 		super.onTakeDamage();
+	}
+
+
+	var _moveB:Bool = false;
+	var _moveT:Bool = false;
+	var _moveL:Bool = false;
+	var _moveR:Bool = false;
+	public override function update(DeltaTime:Float) {
+		super.update(DeltaTime);
+		if((_moveL || _moveR) && _currentMovimentY)
+			this.animation.play(DeltaTime, "idle-w", AnimationDirection.LOOP);
+		else
+			this.animation.play(DeltaTime, "idle-b", AnimationDirection.LOOP);
+	}
+
+	private function setAnimationMovement(tag:String){
+		_moveB = false;
+		_moveT = false;
+		_moveL = false;
+		_moveR = false;
+
+		if(tag == "moveB")
+			_moveB = true;
+		else if(tag == "moveT")
+			_moveT = true;
+		else if(tag == "moveL")
+			_moveL = true;
+		else if(tag == "moveR")
+			_moveR = true;
 	}
 
 	var speed:Float = 15;
@@ -103,6 +142,7 @@ class Spider extends Enemy{
 
 			if(groundRight){
 				_currentMovimentY = true;
+				setAnimationMovement("moveR");
 				moveY(DeltaTime * -speed, function (?tag:String):Void {
 					moveX(DeltaTime * speed, null);
 				});
@@ -110,12 +150,14 @@ class Spider extends Enemy{
 
 			if(groundLeft){
 				_currentMovimentY = true;
+				setAnimationMovement("moveL");
 				moveY(DeltaTime * speed, function (?tag:String):Void {
 					moveX(DeltaTime * -speed, null);
 				});
 			}
 
 			if(groundBottom){
+				setAnimationMovement("moveB");
 				_currentMovimentX = true;
 				moveX(DeltaTime * speed, function (?tag:String):Void {
 					moveY(DeltaTime * -speed, null);
@@ -124,6 +166,7 @@ class Spider extends Enemy{
 
 			if(groundTop){
 				_currentMovimentX = true;
+				setAnimationMovement("moveT");
 				moveX(DeltaTime * -speed, function (?tag:String):Void {
 					moveY(DeltaTime * speed, null);
 				});
@@ -133,9 +176,22 @@ class Spider extends Enemy{
 
 	public override function render(g2:Graphics) {
 		if(this.isVisible && !this.isHide && this.isActive){
-			g2.color = Color.Red;
-			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-			g2.color = Color.White;
+			//g2.color = Color.Red;
+			//g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+			//g2.color = Color.White;
+
+			g2.drawScaledSubImage(
+				this.Sprite, 
+				this.animation.body.x, 
+				this.animation.body.y, 
+				this.animation.body.width, 
+				this.animation.body.height,
+				_moveR || (speed > 0  && _moveB) || (speed < 0  && _moveT) ?  this.Position.x - 8 : this.Position.x + 24, 
+				_moveB || (speed > 0  && _moveR) || (speed < 0  && _moveL)? this.Position.y - 8 : this.Position.y + 24, 
+				_moveR || (speed > 0  && _moveB) || (speed < 0  && _moveT) ? this.animation.body.width : -this.animation.body.height, 
+				_moveB || (speed > 0  && _moveR) || (speed < 0  && _moveL) ? this.animation.body.height : -this.animation.body.height
+			);
+
 		}
 	}
 

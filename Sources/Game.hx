@@ -10,7 +10,6 @@ class Game{
 	public var gameManagment:GameManagment;
 
 	public function new (){
-
 		this.gameManagment = new GameManagment();
 
 		this.DeltaTime = new Timer();
