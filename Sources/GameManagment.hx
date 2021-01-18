@@ -110,11 +110,11 @@ class GameManagment {
 	}
 
 	public var finalScene:Scene;
+	public var HUD:HUD = new HUD();
 	private var _pressAnyButtonHUD:TextBox;
 	private var _initialCredits:TextBox;
 	public function loadLevels(){
 		// loading tilemap
-		var HUD:HUD = new HUD();
 		kha.Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
 			this.GameObject.Sprite = done;
 			HUD.Sprite = done;

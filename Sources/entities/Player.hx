@@ -57,6 +57,12 @@ class Player extends Actor{
 
 		this.scene.camera.position.y = this.Position.y;
 		this.scene.camera.position.x = this.Position.x;
+
+		this.cAttack = false;
+		this.cStrongAttack = false;
+		this.cLeft = false;
+		this.cRight = false;
+		this.cJump = false;
 	}
 
 
@@ -352,6 +358,7 @@ class Player extends Actor{
 					if(this.animation.lastFrame()){
 						_isFallingStart = false;
 						this.scene.gameManagment.canPlay = true;
+						this.scene.gameManagment.HUD.showUI();
 					}
 				}else{
 					this.animation.play(DeltaTime, "on the ground", AnimationDirection.FORWARD);
@@ -374,19 +381,33 @@ class Player extends Actor{
 	private var _positionXSmash:Float = 0;
 	private var _heightSmash:Float = 0;
 	private var _positionYSmash:Float = 0;
+	private var _GroundHit:Bool = false;
 	public function splashAnimation(){
-		if(!last_isgrounded && this.isGrounded){
+		if(!last_isgrounded && this.isGrounded && !_GroundHit){
 			_widthSmash = -15;
 			_heightSmash = 5;
 			_positionXSmash = -9;
 			_positionYSmash = 4;
+			_GroundHit = true;
 			wait(0.2, function (){
 				_widthSmash = 0;
 				_heightSmash = 0;
 				_positionXSmash = 0;
 				_positionYSmash = 0;
+				_GroundHit = false;
 			});
+		}else if(this.isHeadHit && ! isGrounded){
+			_widthSmash = -10;
+			_heightSmash = 5;
+			_positionXSmash = -7;
+			_positionYSmash = 0;
+		} else if(!_GroundHit){
+			_widthSmash = 0;
+			_heightSmash = 0;
+			_positionXSmash = 0;
+			_positionYSmash = 0;
 		}
+
 		this.last_isgrounded = this.isGrounded;
 	}
 	// end splash and smash
@@ -420,12 +441,20 @@ class Player extends Actor{
 	// end take damage
 
 	public var isGrounded:Bool = false;
+	public var isHeadHit:Bool = false;
 	public var isFalling:Bool = false;
 	private function checkGrounded():Void{
 		this.isGrounded = false;
+		this.isHeadHit = false;
 		for(ground in this.scene.AllSolids){
 			if(ground.check(this.size, new Vector2(this.Position.x, this.Position.y + 1))){
 				this.isGrounded = true;
+				break;
+			}
+		}
+		for(ground in this.scene.AllSolids){
+			if(ground.check(this.size, new Vector2(this.Position.x, this.Position.y - 1))){
+				this.isHeadHit = true;
 				break;
 			}
 		}
