@@ -283,13 +283,15 @@ class Boss extends Enemy{
 			else
 				g2.color = Color.White;
 
+			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+
 			g2.drawScaledSubImage(
 				this.Sprite, 
 				this.animation.body.x, 
 				this.animation.body.y, 
 				this.animation.body.width, 
 				this.animation.body.height,
-				this.mright ? this.Position.x - 27 : this.Position.x + 37, 
+				this.mright ? this.Position.x - 48 - (this.size.x / 2) : this.Position.x + 57 + (this.size.x), 
 				this.Position.y - 32, 
 				this.mright ? this.animation.body.width : -this.animation.body.width, 
 				this.animation.body.height
