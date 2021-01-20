@@ -289,10 +289,10 @@ class Boss extends Enemy{
 				this.animation.body.y, 
 				this.animation.body.width, 
 				this.animation.body.height,
-				this.mright ? this.Position.x - 27 * 2 : this.Position.x + 37 * 2, 
+				this.mright ? this.Position.x - 27 : this.Position.x + 37, 
 				this.Position.y - 32, 
-				this.mright ? this.animation.body.width * 2 : -this.animation.body.width * 2, 
-				this.animation.body.height * 2
+				this.mright ? this.animation.body.width : -this.animation.body.width, 
+				this.animation.body.height
 			);
 
 			g2.color = Color.White;

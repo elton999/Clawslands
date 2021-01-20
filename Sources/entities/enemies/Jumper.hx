@@ -1,10 +1,13 @@
 package entities.enemies;
 
+import kha.Image;
+import kha.Assets;
 import kha.Color;
 import kha.math.Vector2;
 import kha.graphics2.Graphics;
 import umbrellatoolkit.helpers.Point;
 import umbrellatoolkit.collision.Solid;
+import umbrellatoolkit.sprite.Animation;
 
 class Jumper extends Enemy{
 	public override function start() {
@@ -16,6 +19,11 @@ class Jumper extends Enemy{
 		this.tag = "jumper";
 
 		this.initialPosition = new Vector2(this.Position.x, this.Position.y);
+
+		Assets.loadImage("Content_Sprites_spider", function (done:Image){
+			this.Sprite = done;
+			this.animation.start("Content_Sprites_spider_json");
+		});
 	}
 
 	public override function restart() {
@@ -32,6 +40,11 @@ class Jumper extends Enemy{
 		startJump = false;
 		MaxWaitTime = 250;
 		_timer = 0;
+	}
+
+	public override function update(DeltaTime:Float) {
+		super.update(DeltaTime);
+		this.animationUpdate(DeltaTime);
 	}
 
 
@@ -122,11 +135,31 @@ class Jumper extends Enemy{
 		}
 	}
 
+	public var animation:Animation = new Animation();
+	public function animationUpdate(deltaTime:Float){
+		if(this.groundLeft || this.groundRight)
+			this.animation.play(deltaTime, "grounded-j", AnimationDirection.FORWARD);
+		else
+			this.animation.play(deltaTime, "idle-j", AnimationDirection.FORWARD);
+	}
+
 	public override function render(g2:Graphics) {
 		if(!this.isHide && this.isActive){
-			g2.color = Color.Purple;
-			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-			g2.color = Color.White;
+			//g2.color = Color.Purple;
+			//g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+			//g2.color = Color.White;
+
+			g2.drawScaledSubImage(
+				this.Sprite, 
+				this.animation.body.x, 
+				this.animation.body.y, 
+				this.animation.body.width, 
+				this.animation.body.height,
+				moveRight ? this.Position.x - 7 : this.Position.x + 23, 
+				this.Position.y - 8,
+				moveRight ? this.animation.body.width : -this.animation.body.width, 
+				this.animation.body.height
+			);
 		}
 	}
 }

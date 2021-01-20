@@ -63,6 +63,8 @@ class Player extends Actor{
 		this.cLeft = false;
 		this.cRight = false;
 		this.cJump = false;
+
+		this.scene.gameManagment.HUD.showUI();
 	}
 
 
@@ -93,6 +95,8 @@ class Player extends Actor{
 			if(!this._isTakingDamange){
 				this.scene.gameManagment.life -= 1;
 				this._isTakingDamange = true;
+				if(this.scene.gameManagment.life == 0)
+					this.scene.gameManagment.HUD.hideUI();
 			}
 		}
 	}

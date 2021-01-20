@@ -40,7 +40,7 @@ class GameManagment {
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = false;
+	public var hasStrongAttack:Bool = true;
 	public var haskey: Bool = false;
 	public var canPlay: Bool = false;
 	public var currentRoom:Int = 1;
