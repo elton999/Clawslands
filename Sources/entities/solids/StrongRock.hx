@@ -41,7 +41,7 @@ class StrongRock extends Solid{
 	public var _canHitAgain:Bool = true;
 	public override function onCollide(tag:String) {
 		super.onCollide(tag);
-		if(this._hits >= 4){
+		if(this._hits == 4){
 			if(tag == "player strong attack"){
 				this.scene.AllSolids.remove(this);
 			}

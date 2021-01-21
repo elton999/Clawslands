@@ -269,9 +269,12 @@ class Boss extends Enemy{
 			this.animation.play(DeltaTime, "idle", AnimationDirection.LOOP);
 		else if(this.walking)
 			this.animation.play(DeltaTime, "walk", AnimationDirection.LOOP);
-		else if(!this.finishAttack)
-			this.animation.play(DeltaTime, "awake", AnimationDirection.LOOP);
-		else if(this.finishAttack)
+		else if(!this.finishAttack){
+			if(this.startAttack)
+				this.animation.play(DeltaTime, "idle-awake", AnimationDirection.FORWARD);
+			else
+				this.animation.play(DeltaTime, "awake", AnimationDirection.FORWARD);
+		}else if(this.finishAttack)
 			this.animation.play(DeltaTime, "idle-awake", AnimationDirection.FORWARD);
 	}
 
