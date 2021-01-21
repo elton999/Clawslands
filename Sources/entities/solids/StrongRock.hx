@@ -14,9 +14,7 @@ class StrongRock extends Solid{
 		this.add(this.size, this.Position);
 		this.scene.AllSolids.push(this);
 
-		Assets.loadImage("Content_Sprites_strong_rock", function (done:Image){
-			this.Sprite = done;
-		});
+		this.Sprite = this.scene.gameManagment.GameObject.Sprite;
 	}
 
 	public var textBox:TextBox;
@@ -43,9 +41,8 @@ class StrongRock extends Solid{
 	public var _canHitAgain:Bool = true;
 	public override function onCollide(tag:String) {
 		super.onCollide(tag);
-		if(this._hits >= 3){
+		if(this._hits >= 4){
 			if(tag == "player strong attack"){
-				this.Destroy = true;
 				this.scene.AllSolids.remove(this);
 			}
 		} else if(this._canHitAgain){
@@ -64,8 +61,8 @@ class StrongRock extends Solid{
 				this.Sprite, 
 				this.positions.x,
 				this.positions.y,
-				48 * this._hits,
-				0, 
+				64 + (48 * this._hits),
+				112, 
 				48, 
 				48
 			);

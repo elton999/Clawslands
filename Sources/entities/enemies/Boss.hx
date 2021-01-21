@@ -216,9 +216,10 @@ class Boss extends Enemy{
 	private var _firtAttack:Bool = false;
 	private var _HUD:BossFightHUD;
 	public override function takeDamage(hit:Int) {
-		if(this.awake && this.canFight())
-			super.takeDamage(hit);
-		else{
+		if(this.awake && this.canFight()){
+			if(this.life > 0)
+				super.takeDamage(hit);
+		}else{
 			if(!this._firtAttack){
 				this.animation.play(0, "awake", AnimationDirection.FORWARD);
 				this._firtAttack = true;
@@ -253,7 +254,7 @@ class Boss extends Enemy{
 	public function spriteAnimation(DeltaTime:Float){
 		if(!this.awake && !this._firtAttack)
 			this.animation.play(DeltaTime, "idle", AnimationDirection.LOOP);
-		else if(this.attack){
+		else if(this.attack && this.life > 0){
 			this.animation.play(DeltaTime, "atack", AnimationDirection.FORWARD);
 			if(this.animation.getCurrentFrame() > 1 && this.animation.getCurrentFrame() < 4)
 				this.bossSword.checkAttack();
@@ -270,6 +271,8 @@ class Boss extends Enemy{
 			this.animation.play(DeltaTime, "walk", AnimationDirection.LOOP);
 		else if(!this.finishAttack)
 			this.animation.play(DeltaTime, "awake", AnimationDirection.LOOP);
+		else if(this.finishAttack)
+			this.animation.play(DeltaTime, "idle-awake", AnimationDirection.FORWARD);
 	}
 
 	public var mright:Bool = true;
@@ -283,7 +286,7 @@ class Boss extends Enemy{
 			else
 				g2.color = Color.White;
 
-			g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+			//g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
 
 			g2.drawScaledSubImage(
 				this.Sprite, 
