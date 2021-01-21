@@ -20,6 +20,7 @@ import entities.enemies.Boss;
 import gameplay.Door;
 import gameplay.Danger;
 import gameplay.Key;
+import gameplay.Life;
 import gameplay.SkillItem;
 import ui.HUD;
 import entities.enemies.*;
@@ -69,6 +70,7 @@ class GameManagment {
 		this.AssetsManagment.add(Player, "player", LayersScene.PLAYER);
 		this.AssetsManagment.add(Door, "exit room", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Key, "key", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(Life, "life", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(SkillItem, "new skill", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Witch, "wicth", LayersScene.ENEMIES);
 		this.AssetsManagment.add(Spider, "spider", LayersScene.ENEMIES);
