@@ -150,11 +150,56 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
     "sourceSize": { "w": 128, "h": 128 },
-    "duration": 100
+    "duration": 50
    },
    {
     "filename": "boss2 17.aseprite",
     "frame": { "x": 256, "y": 384, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 50
+   },
+   {
+    "filename": "boss2 18.aseprite",
+    "frame": { "x": 384, "y": 384, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 50
+   },
+   {
+    "filename": "boss2 19.aseprite",
+    "frame": { "x": 512, "y": 384, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 300
+   },
+   {
+    "filename": "boss2 20.aseprite",
+    "frame": { "x": 0, "y": 512, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   {
+    "filename": "boss2 21.aseprite",
+    "frame": { "x": 128, "y": 512, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 100
+   },
+   {
+    "filename": "boss2 22.aseprite",
+    "frame": { "x": 256, "y": 512, "w": 128, "h": 128 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
@@ -167,14 +212,15 @@
   "version": "1.2.25-x64",
   "image": "boss.png",
   "format": "RGBA8888",
-  "size": { "w": 640, "h": 512 },
+  "size": { "w": 640, "h": 640 },
   "scale": "1",
   "frameTags": [
    { "name": "idle", "from": 0, "to": 0, "direction": "forward" },
    { "name": "awake", "from": 1, "to": 1, "direction": "forward" },
    { "name": "idle-awake", "from": 2, "to": 2, "direction": "forward" },
    { "name": "walk", "from": 3, "to": 8, "direction": "forward" },
-   { "name": "atack", "from": 9, "to": 14, "direction": "forward" }
+   { "name": "atack", "from": 9, "to": 14, "direction": "forward" },
+   { "name": "death", "from": 15, "to": 19, "direction": "forward" }
   ]
  }
 }

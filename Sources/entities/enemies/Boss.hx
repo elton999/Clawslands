@@ -140,7 +140,7 @@ class Boss extends Enemy{
 		if(this.canFight()){
 			if(this.awake && this.isActive){
 				// looking for the player
-				if(this.walking && !this.startAttack){
+				if(this.walking && !this.startAttack && this.life > 0){
 					if(this.scene.AllActors[0].Position.x > this.Position.x){
 						this.mright = true;
 						moveX(this.speed * DeltaTime, null);
@@ -168,7 +168,7 @@ class Boss extends Enemy{
 					super.updateData(DeltaTime);
 
 					// attack player
-				} else if(attack){
+				} else if(attack && this.life > 0){
 					this.bossSword.updateData(DeltaTime);
 
 					if(this.mright)
@@ -177,13 +177,12 @@ class Boss extends Enemy{
 						moveX(-(this._attackSpeed * DeltaTime), null);
 
 					super.updateData(DeltaTime);
-				}else if(this.startAttack && !this.finishAttack){
+				}else if(this.startAttack && !this.finishAttack && this.life > 0){
 					super.updateData(DeltaTime);
 				}
 			}
-		} else {
+		} else
 			this.spawWicths();
-		}
 		
 	}
 
@@ -198,13 +197,14 @@ class Boss extends Enemy{
 		}
 
 		//cut-scene
-		this.scene.camera.follow = this._gate[0];
-		this.scene.cameraLerpSpeed = 1;
-		this.scene.camera.allowFollowY = false;
-
-		wait(3, function () { this._gate[0].callFunction("open"); });
-		wait(4, function (){ this.scene.camera.follow = this.scene.AllActors[0]; });
-		wait(7, function (){
+		wait(2, function (){
+			this.scene.camera.follow = this._gate[0];
+			this.scene.cameraLerpSpeed = 1;
+			this.scene.camera.allowFollowY = false;
+		});
+		wait(5, function () { this._gate[0].callFunction("open"); });
+		wait(6, function (){ this.scene.camera.follow = this.scene.AllActors[0]; });
+		wait(8, function (){
 			this.scene.gameManagment.canPlay = true;
 			this.scene.camera.allowFollowY = true;
 			this.scene.cameraLerpSpeed = 8;
@@ -252,7 +252,9 @@ class Boss extends Enemy{
 	public var finishAttack:Bool= false;
 	public var startAttack:Bool = false;
 	public function spriteAnimation(DeltaTime:Float){
-		if(!this.awake && !this._firtAttack)
+		if(this.life <= 0)
+			this.animation.play(DeltaTime, "death", AnimationDirection.FORWARD);
+		else if(!this.awake && !this._firtAttack)
 			this.animation.play(DeltaTime, "idle", AnimationDirection.LOOP);
 		else if(this.attack && this.life > 0){
 			this.animation.play(DeltaTime, "atack", AnimationDirection.FORWARD);
