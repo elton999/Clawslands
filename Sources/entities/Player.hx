@@ -74,7 +74,6 @@ class Player extends Actor{
 		if(this.scene.camera != null && this.scene.camera.follow == null && this.scene.gameManagment.canPlay && !this._isFallingStart)
 			this.scene.camera.follow = this;
 		
-
 		// check fall
 		if(!this.isGrounded){
 			if(this.speedGravity.y < 0) this.isFalling = true;
@@ -289,6 +288,7 @@ class Player extends Actor{
 	var _startGetUp:Bool = false;
 	var _startShowPlayer:Bool = false; 
 	var _getup:Bool = false;
+	var _walterImpactSound:Bool = false;
 	public function AnimationController(DeltaTime:Float){
 		this.splashAnimation();
 
@@ -348,6 +348,11 @@ class Player extends Actor{
 			}
 		} else {
 			if(this.isGrounded){
+				if(!_walterImpactSound){
+					this._walterImpactSound = true;
+					this.scene.gameManagment.soundManagement.play("walter");
+				}
+
 				if(_waterImpact){
 					this.animation.play(DeltaTime, "water-impact", AnimationDirection.FORWARD);
 					if(this.animation.lastFrame() && !_startShowPlayer){

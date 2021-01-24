@@ -94,8 +94,11 @@ class GameManagment {
 		if(this.Scene.scene != null){
 			if(this.canRestart)
 				this.restart();
-			if(this.startThegame)
+			if(this.startThegame){
+				if(!this._pressAnyButtonHUD.Destroy)
+					this.soundManagement.play("press button");
 				this._pressAnyButtonHUD.Destroy = true;
+			}
 			this.Scene.scene.update(DeltaTime);
 		}
 	}
