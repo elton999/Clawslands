@@ -1,5 +1,8 @@
 package entities.solids;
 
+import kha.Image;
+import kha.Assets;
+import umbrellatoolkit.sprite.Animation;
 import kha.math.Vector2;
 import kha.Color;
 import kha.graphics2.Graphics;
@@ -18,12 +21,23 @@ class MovePlatform extends Solid{
 		this.positionNodes.push(new Vector2(this.Position.x, this.Position.y));
 		this.intialPosition = new Vector2(this.positions.x, this.positions.y);
 		this.valeus.speed = 1;
+
+		Assets.loadImage("Content_Sprites_platform", function (done:Image){
+			this.Sprite = done;
+			this.animation.start("Content_Sprites_platform_json");
+		});
 	}
 
+	public var animation:Animation = new Animation();
 	public override function restart() {
 		super.restart();
 		this.back = false;
 		this.positions = new Vector2(this.intialPosition.x, this.intialPosition.y);
+	}
+
+	public override function update(DeltaTime:Float) {
+		super.update(DeltaTime);
+		this.animation.play(DeltaTime, "idle", AnimationDirection.LOOP);
 	}
 
 	private var back:Bool = false;
@@ -72,10 +86,19 @@ class MovePlatform extends Solid{
 
 	public override  function render(g2:Graphics) {
 		super.render(g2);
-	
-		g2.color = Color.Blue;
-		g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
-		g2.color = Color.White;
+		// g2.color = Color.Blue;
+		// g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
+		// g2.color = Color.White;
+
+		g2.drawSubImage(
+			this.Sprite,
+			this.positions.x,
+			this.positions.y,
+			this.animation.body.x,
+			this.animation.body.y,
+			this.animation.body.width,
+			this.animation.body.height
+		);
 	}
 
 }
