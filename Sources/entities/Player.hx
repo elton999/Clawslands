@@ -69,6 +69,7 @@ class Player extends Actor{
 
 
 	var _lastPosition:Vector2 =  new Vector2(0,0);
+	var _groundLastFrame:Bool = true;
 	public override function update(DeltaTime:Float) {
 
 		if(this.scene.camera != null && this.scene.camera.follow == null && this.scene.gameManagment.canPlay && !this._isFallingStart)
@@ -87,6 +88,23 @@ class Player extends Actor{
 		this.takeDamage(DeltaTime);
 
 		_lastPosition = new Vector2(this.Position.x, this.Position.y);
+
+		if(_groundLastFrame && !this.isGrounded && this.cJump)
+			this.scene.gameManagment.soundManagement.play("jump");
+		else if(!_groundLastFrame && this.isGrounded)
+			this.scene.gameManagment.soundManagement.play("grounded");
+
+		if(this.isGrounded){
+			if(!_walterImpactSound){
+				this._walterImpactSound = true;
+				this.scene.gameManagment.soundManagement.play("walter");
+			}
+		}
+
+		if(_fast_attack)
+			this.scene.gameManagment.soundManagement.play("sword1");
+
+		_groundLastFrame = this.isGrounded;
 	}
 
 	public override function OnCollide(?tag:String) {
@@ -263,6 +281,7 @@ class Player extends Actor{
 
 	// sword settings
 	public var sword:SwordPlayer;
+	var _fast_attack:Bool = false;
 	public function checkAttackArea(){
 		if(this.cAttack){
 			this.sword._fastAttack();
@@ -309,6 +328,9 @@ class Player extends Actor{
 				else{
 					if(this.cAttack){
 						this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
+						_fast_attack = false;
+						if(!_attackAnimation)
+							_fast_attack = true;
 						_attackAnimation = true;
 						if(this.animation.lastFrame()){
 							_attackAnimation = false;
@@ -327,6 +349,9 @@ class Player extends Actor{
 			} else {
 				if(this.cAttack){
 					this.animation.play(DeltaTime, "Fast-Attack", AnimationDirection.FORWARD);
+					_fast_attack = false;
+					if(!_attackAnimation)
+						_fast_attack = true;
 					_attackAnimation = true;
 					if(this.animation.lastFrame()){
 						_attackAnimation = false;
@@ -348,11 +373,6 @@ class Player extends Actor{
 			}
 		} else {
 			if(this.isGrounded){
-				if(!_walterImpactSound){
-					this._walterImpactSound = true;
-					this.scene.gameManagment.soundManagement.play("walter");
-				}
-
 				if(_waterImpact){
 					this.animation.play(DeltaTime, "water-impact", AnimationDirection.FORWARD);
 					if(this.animation.lastFrame() && !_startShowPlayer){

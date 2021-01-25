@@ -81,9 +81,11 @@ class Witch extends Enemy {
 	}
 
 	public override function death() {
+		this.scene.gameManagment.soundManagement.play("deathWitch");
 		if(!this.canDestroy)
 			super.death();
 		else{
+			
 			this.Destroy = true;
 			this.scene.AllActors.remove(this);
 		}
