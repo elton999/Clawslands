@@ -30,6 +30,7 @@ class Key extends Actor{
 			this.textBox.positionSpace = new Vector2(10, 0);
 			this.textBox.start();
 			this.scene.UI.push(this.textBox);
+			this.scene.gameManagment.soundManagement.play("collect_item");
 		}
 	}
 

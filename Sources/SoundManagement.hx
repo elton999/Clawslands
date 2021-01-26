@@ -11,6 +11,7 @@ class SoundManagement {
     public var btn_press_sound:Sound;
     public var btn_press:AudioChannel;
 
+    // player sounds
     public var jump_sound:Sound;
     public var jump:AudioChannel;
 
@@ -19,6 +20,22 @@ class SoundManagement {
 
     public var sword1_sound:Sound;
     public var sword1:AudioChannel;
+
+    public var death_sound:Sound;
+    public var death:AudioChannel;
+
+    public var take_damage_sound:Sound;
+    public var take_damage:AudioChannel;
+    // end player sounds
+
+    public var collect_item_sound:Sound;
+    public var collect_item:AudioChannel;
+
+    public var open_gate_sound:Sound;
+    public var open_gate:AudioChannel;
+
+    public var death_alien_sound:Sound;
+    public var death_alien:AudioChannel;
 
     public var deathWitch_sound:Sound;
     public var deathWitch:AudioChannel;
@@ -32,6 +49,8 @@ class SoundManagement {
         this.btn_press = Audio.play(this.btn_press_sound);
         this.btn_press.pause();
 
+
+        // player
         jump_sound = Assets.sounds.Content_Sound_sfx_movement_jump;
         this.jump = Audio.play(this.jump_sound);
         this.jump.pause();
@@ -44,9 +63,32 @@ class SoundManagement {
         this.sword1 = Audio.play(this.sword1_sound);
         this.sword1.pause();
 
+        take_damage_sound = Assets.sounds.Content_Sound_sfx_damage_hit1;
+        this.take_damage = Audio.play(this.take_damage_sound);
+        this.take_damage.pause();
+
+        death_sound = Assets.sounds.Content_Sound_sfx_death;
+        this.death = Audio.play(this.death_sound);
+        this.death.pause();
+        // end player
+
         deathWitch_sound = Assets.sounds.Content_Sound_sfx_deathscream_human10;
         this.deathWitch = Audio.play(this.deathWitch_sound);
         this.deathWitch.pause();
+
+        death_alien_sound = Assets.sounds.Content_Sound_sfx_deathscream_alien2;
+        this.death_alien = Audio.play(this.death_alien_sound);
+        this.death_alien.pause();
+
+        // items and gate
+        collect_item_sound = Assets.sounds.Content_Sound_sfx_collect_item;
+        this.collect_item = Audio.play(this.collect_item_sound);
+        this.collect_item.pause();
+
+        open_gate_sound = Assets.sounds.Content_Sound_sfx_open_gate;
+        this.open_gate = Audio.play(this.open_gate_sound);
+        this.open_gate.pause();
+
     }
 
     public function play(tag:String):Void {
@@ -60,8 +102,18 @@ class SoundManagement {
             this.touch_ground.play();
         else if(tag == "sword1")
             this.sword1.play();
+        else if(tag == "take_damage")
+            this.take_damage.play();
+        else if(tag == "death")
+            this.death.play();
         else if(tag == "deathWitch")
             this.deathWitch.play();
+        else if(tag == "death_enemies")
+            this.death_alien.play();
+        else if(tag == "collect_item")
+            this.collect_item.play();
+        else if(tag == "open_gate")
+            this.open_gate.play();
     }
 
     public function Update(){

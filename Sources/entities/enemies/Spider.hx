@@ -53,6 +53,11 @@ class Spider extends Enemy{
 		super.onTakeDamage();
 	}
 
+	public override function death() {
+		this.scene.gameManagment.soundManagement.play("death_enemies");
+		super.death();
+	}
+
 
 	var _moveB:Bool = false;
 	var _moveT:Bool = false;

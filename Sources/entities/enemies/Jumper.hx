@@ -75,6 +75,11 @@ class Jumper extends Enemy{
 	public override function onTakeDamage() {
 		super.onTakeDamage();
 	}
+
+	public override function death() {
+		this.scene.gameManagment.soundManagement.play("death_enemies");
+		super.death();
+	}
 	// end take damege
 
 	var moveRight:Bool = false;

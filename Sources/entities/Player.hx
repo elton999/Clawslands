@@ -112,8 +112,11 @@ class Player extends Actor{
 			if(!this._isTakingDamange){
 				this.scene.gameManagment.life -= 1;
 				this._isTakingDamange = true;
-				if(this.scene.gameManagment.life == 0)
+				if(this.scene.gameManagment.life == 0){
 					this.scene.gameManagment.HUD.hideUI();
+					this.scene.gameManagment.soundManagement.play("death");
+				} else 
+					this.scene.gameManagment.soundManagement.play("take_damage");
 			}
 		}
 	}

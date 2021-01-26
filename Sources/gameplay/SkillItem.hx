@@ -27,6 +27,7 @@ class SkillItem extends Actor{
 			this.textBox.positionSpace = new Vector2(150, 0);
 			this.textBox.start();
 			this.scene.UI.push(this.textBox);
+			this.scene.gameManagment.soundManagement.play("collect_item");
 		}
 	}
 

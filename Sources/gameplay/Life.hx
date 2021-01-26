@@ -24,6 +24,7 @@ class Life extends Actor{
 			this.scene.gameManagment.totalLife++;
 			this.Destroy = true;
 			this.scene.AllActors.remove(this);
+			this.scene.gameManagment.soundManagement.play("collect_item");
 		}
 	}
 
