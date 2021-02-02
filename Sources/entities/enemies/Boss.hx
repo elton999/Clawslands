@@ -65,6 +65,8 @@ class Boss extends Enemy{
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
 		this.spriteAnimation(DeltaTime);
+		if(_attack)
+			this.scene.gameManagment.soundManagement.play("sword_boss");
 	}
 
 	private var _spawEnemies:Bool = false;
@@ -156,7 +158,7 @@ class Boss extends Enemy{
 						this.mright = false;
 						moveX(-(this.speed * DeltaTime), null);
 						if(this.Position.x - this.scene.AllActors[0].Position.x  <= _maxSpaceToAttack){
-							wait(1, function () { 
+							wait(1, function () {
 								this.attack = true;
 								this.finishAttack = false;
 							});
@@ -177,9 +179,8 @@ class Boss extends Enemy{
 						moveX(-(this._attackSpeed * DeltaTime), null);
 
 					super.updateData(DeltaTime);
-				}else if(this.startAttack && !this.finishAttack && this.life > 0){
+				}else if(this.startAttack && !this.finishAttack && this.life > 0)
 					super.updateData(DeltaTime);
-				}
 			}
 		} else
 			this.spawWicths();
@@ -251,6 +252,8 @@ class Boss extends Enemy{
 	public var attack:Bool = false;
 	public var finishAttack:Bool= false;
 	public var startAttack:Bool = false;
+	var _attackAnimation:Bool = false;
+	var _attack:Bool = false;
 	public function spriteAnimation(DeltaTime:Float){
 		if(this.life <= 0)
 			this.animation.play(DeltaTime, "death", AnimationDirection.FORWARD);
@@ -258,6 +261,12 @@ class Boss extends Enemy{
 			this.animation.play(DeltaTime, "idle", AnimationDirection.LOOP);
 		else if(this.attack && this.life > 0){
 			this.animation.play(DeltaTime, "atack", AnimationDirection.FORWARD);
+
+			_attack = false;
+			if(!_attackAnimation)
+				_attack = true;
+			_attackAnimation = true;
+
 			if(this.animation.getCurrentFrame() > 1 && this.animation.getCurrentFrame() < 4)
 				this.bossSword.checkAttack();
 
@@ -265,6 +274,7 @@ class Boss extends Enemy{
 				this.attack = false;
 				this.finishAttack = true;
 				wait(2, function (){ this.walking = true; this.startAttack = false; this.finishAttack = false; });
+				_attackAnimation = false;
 			}
 		}
 		else if(this._spawEnemies && !this._finishSpawEnemies)

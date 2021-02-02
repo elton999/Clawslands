@@ -1,4 +1,7 @@
 package;
+import ui.FinalCredits;
+import sprite.PlayerAnimation;
+import sprite.Background.Background;
 import kha.Sound;
 import kha.audio1.Audio;
 import kha.math.Vector2;
@@ -41,11 +44,13 @@ class GameManagment {
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = true;
+	public var hasStrongAttack:Bool = false;
 	public var haskey: Bool = false;
 	public var canPlay: Bool = false;
 	public var currentRoom:Int = 1;
 	public var canRestart:Bool = false;
+
+	public var isUsingGamepad:Bool = false;
 
 	public var playerCollideDamange:Array<String> = [
 		"spider",
@@ -120,7 +125,7 @@ class GameManagment {
 	private var _initialCredits:TextBox;
 	public function loadLevels(){
 		// loading tilemap
-		kha.Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
+		Assets.loadImage("Content_Maps_tilemap", function (done:kha.Image){
 			this.GameObject.Sprite = done;
 			HUD.Sprite = done;
 		});
@@ -142,18 +147,31 @@ class GameManagment {
 		}
 
 		this.finalScene = new Scene();
-		var titleFinal:Title = new Title();
-		titleFinal.scene = this.finalScene;
 		this.finalScene.gameManagment = this;
 		this.finalScene.BackgroundColor = Color.Black;
-		this.finalScene.UI.push(titleFinal);
 		this.finalScene.SceneReady = true;
 		this.finalScene.camera = new Camera();
 		this.finalScene.camera.scene = this.finalScene;
+		this.finalScene.camera.position = new Vector2(this.finalScene.ScreemSize.x / 2, this.finalScene.ScreemSize.y / 2);
+		// background 
+		var bg:Background = new Background();
+		bg.start();
+
+		var credits:FinalCredits = new FinalCredits();
+		credits.start();
+		// player animation cutscene
+		var playerAnimation:PlayerAnimation = new PlayerAnimation();
+		playerAnimation.start();
+		
+		this.finalScene.Player.push(playerAnimation);
+		this.finalScene.Background.push(bg);
+		this.finalScene.UI.push(credits);
 		
 		this.rooms[0].UI.push(_pressAnyButtonHUD);
 		_pressAnyButtonHUD.scene = this.rooms[0];
+		
 		this.Scene.scene = this.rooms[0];
+		//this.Scene.scene = this.finalScene;
 
 		this.LoadScene = true;
 	}

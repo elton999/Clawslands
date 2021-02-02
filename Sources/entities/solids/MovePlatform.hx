@@ -86,9 +86,6 @@ class MovePlatform extends Solid{
 
 	public override  function render(g2:Graphics) {
 		super.render(g2);
-		// g2.color = Color.Blue;
-		// g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
-		// g2.color = Color.White;
 
 		g2.drawSubImage(
 			this.Sprite,

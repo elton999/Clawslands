@@ -53,26 +53,31 @@ class HUD extends GameObject{
 		// life
 		for(i in 0...this.scene.gameManagment.totalLife)
 			if(i < this.life)
-				g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i * 11), this.Position.y + 5, 0,72, 10, 9);
+				g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i < 3? i * 11 : 11 *(i - 3)), this.Position.y + (i < 3 ? 5 : 16), 0,72, 10, 9);
 			else
-				g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i * 11), this.Position.y + 5, 48,72, 10, 9);
+				g2.drawSubImage(this.Sprite, this.Position.x + 8 + (i < 3? i * 11 : 11 *(i - 3)), this.Position.y + (i < 3 ? 5 : 16), 48,72, 10, 9);
 
 		//keys
-		g2.drawSubImage(this.Sprite, this.Position.x + 8, this.Position.y + 17, 10, 72, 10, 10);
+		g2.drawSubImage(this.Sprite, this.Position.x + 58, this.Position.y + 5, 10, 72, 10, 10);
 		if(this.hasKey)
-			g2.drawSubImage(this.Sprite, this.Position.x + 20, this.Position.y + 17, 34, 72, 4, 8);
+			g2.drawSubImage(this.Sprite, this.Position.x + 70, this.Position.y + 5, 34, 72, 4, 8);
 		else
-			g2.drawSubImage(this.Sprite, this.Position.x + 20, this.Position.y + 17, 26, 72, 4, 8);
-		g2.drawSubImage(this.Sprite, this.Position.x + 24, this.Position.y + 17, 40, 72, 8, 8);
+			g2.drawSubImage(this.Sprite, this.Position.x + 70, this.Position.y + 5, 26, 72, 4, 8);
+		g2.drawSubImage(this.Sprite, this.Position.x + 74, this.Position.y + 5, 40, 72, 8, 8);
 
 		// box
-		g2.drawRect(this.Position.x + 210, this.Position.y + 6, 20, 20);
+		g2.drawRect(this.Position.x + this.scene.ScreemSize.x - 28, this.Position.y + 6, 20, 20);
 
 		//strong attack
 		if(this.scene.gameManagment.hasStrongAttack){
-			g2.color = Color.Orange;
-			g2.fillRect(this.Position.x + this.scene.ScreemSize.x - 16, this.Position.y + 8, 8,8);
-			g2.color = Color.White;
+			//g2.color = Color.Orange;
+			//g2.fillRect(this.Position.x + this.scene.ScreemSize.x - 23, this.Position.y + 11, 8,8);
+			//g2.color = Color.White;
+
+			if(this.scene.gameManagment.isUsingGamepad)
+				g2.drawSubImage(this.Sprite, this.Position.x + this.scene.ScreemSize.x - 23, this.Position.y + 11, 40,88, 9, 20);
+			else
+				g2.drawSubImage(this.Sprite, this.Position.x + this.scene.ScreemSize.x - 23, this.Position.y + 11, 56,88, 9,20);
 		}
 
 	}

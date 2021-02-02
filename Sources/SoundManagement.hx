@@ -21,6 +21,9 @@ class SoundManagement {
     public var sword1_sound:Sound;
     public var sword1:AudioChannel;
 
+    public var sword2_sound:Sound;
+    public var sword2:AudioChannel;
+
     public var death_sound:Sound;
     public var death:AudioChannel;
 
@@ -39,6 +42,9 @@ class SoundManagement {
 
     public var deathWitch_sound:Sound;
     public var deathWitch:AudioChannel;
+
+    public var sword_boss_sound:Sound;
+    public var sword_boss:AudioChannel;
 
     public function new() {
         walter_impact = Assets.sounds.Content_Sound_sfx_exp_long2;
@@ -62,6 +68,10 @@ class SoundManagement {
         sword1_sound = Assets.sounds.Content_Sound_sfx_wpn_sword1;
         this.sword1 = Audio.play(this.sword1_sound);
         this.sword1.pause();
+
+        sword2_sound = Assets.sounds.Content_Sound_sfx_wpn_sword2;
+        this.sword2 = Audio.play(this.sword2_sound);
+        this.sword2.pause();
 
         take_damage_sound = Assets.sounds.Content_Sound_sfx_damage_hit1;
         this.take_damage = Audio.play(this.take_damage_sound);
@@ -89,6 +99,10 @@ class SoundManagement {
         this.open_gate = Audio.play(this.open_gate_sound);
         this.open_gate.pause();
 
+        sword_boss_sound = Assets.sounds.Content_Sound_sfx_wpn_sword_boss;
+        this.sword_boss = Audio.play(this.sword_boss_sound);
+        this.sword_boss.pause();
+
     }
 
     public function play(tag:String):Void {
@@ -102,6 +116,8 @@ class SoundManagement {
             this.touch_ground.play();
         else if(tag == "sword1")
             this.sword1.play();
+        else if(tag == "sword2")
+            this.sword2.play();
         else if(tag == "take_damage")
             this.take_damage.play();
         else if(tag == "death")
@@ -114,6 +130,8 @@ class SoundManagement {
             this.collect_item.play();
         else if(tag == "open_gate")
             this.open_gate.play();
+        else if(tag == "sword_boss")
+            this.sword_boss.play();
     }
 
     public function Update(){

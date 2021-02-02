@@ -7,7 +7,7 @@ import kha.graphics2.Graphics;
 import umbrellatoolkit.collision.Actor;
 import umbrellatoolkit.helpers.Point;
 
-class Key extends Actor{
+class Key extends Item{
 	public override function start() {
 		super.start();
 
@@ -19,6 +19,7 @@ class Key extends Actor{
 
 	public var textBox:TextBox;
 	public override function updateData(DeltaTime:Float) {
+		super.updateData(DeltaTime);
 		if(this.overlapCheck(this.scene.AllActors[0])){
 			this.scene.gameManagment.haskey = true;
 			this.Destroy = true;

@@ -103,6 +103,9 @@ class Player extends Actor{
 
 		if(_fast_attack)
 			this.scene.gameManagment.soundManagement.play("sword1");
+		if(_strong_attack)
+			this.scene.gameManagment.soundManagement.play("sword2");
+		
 
 		_groundLastFrame = this.isGrounded;
 	}
@@ -203,6 +206,7 @@ class Player extends Actor{
 	private function OnkeyDown(key:kha.input.KeyCode):Void{
 		this.scene.gameManagment.startThegame = true;
 		_isgamepad = false;
+		this.scene.gameManagment.isUsingGamepad = false;
 		if(this.scene.gameManagment.canPlay){
 			switch (key){
 				case Up:
@@ -248,6 +252,7 @@ class Player extends Actor{
 	private var _isgamepad:Bool = false;
 	private function ButtonGamepad(button:Int, value:Float){
 		this._isgamepad = true;
+		this.scene.gameManagment.isUsingGamepad = true;
 		this.scene.gameManagment.startThegame = true;
 		if(this.scene.gameManagment.canPlay){
 			if(button == 15)
@@ -285,6 +290,7 @@ class Player extends Actor{
 	// sword settings
 	public var sword:SwordPlayer;
 	var _fast_attack:Bool = false;
+	var _strong_attack:Bool = false;
 	public function checkAttackArea(){
 		if(this.cAttack){
 			this.sword._fastAttack();
@@ -341,6 +347,9 @@ class Player extends Actor{
 						}
 					} else if(this.cStrongAttack){
 						this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
+						_strong_attack = false;
+						if(!_attackAnimation)
+							_strong_attack = true;
 						_attackAnimation = true;
 						if(this.animation.lastFrame()){
 							_attackAnimation = false;
@@ -362,6 +371,9 @@ class Player extends Actor{
 					}
 				}else if(this.cStrongAttack){
 						this.animation.play(DeltaTime, "Attack-Right", AnimationDirection.FORWARD);
+						_strong_attack = false;
+						if(!_attackAnimation)
+							_strong_attack = true;
 						_attackAnimation = true;
 						if(this.animation.lastFrame()){
 							_attackAnimation = false;

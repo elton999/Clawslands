@@ -8,7 +8,7 @@ import umbrellatoolkit.collision.Actor;
 import umbrellatoolkit.helpers.Point;
 
 
-class Life extends Actor{
+class Life extends Item{
 		public override function start() {
 		super.start();
 
@@ -19,6 +19,7 @@ class Life extends Actor{
 	}
 
 	public override function updateData(DeltaTime:Float) {
+		super.updateData(DeltaTime);
 		if(this.overlapCheck(this.scene.AllActors[0])){
 			this.scene.gameManagment.life++;
 			this.scene.gameManagment.totalLife++;

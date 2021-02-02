@@ -7,15 +7,17 @@ import kha.graphics2.Graphics;
 import umbrellatoolkit.collision.Actor;
 import umbrellatoolkit.helpers.Point;
 
-class SkillItem extends Actor{
+class SkillItem extends Item{
 	public override function start() {
 		super.start();
 		this.tag = "skill";
 		this.size = new Point(8,8);
+		this.Sprite = this.scene.gameManagment.GameObject.Sprite;
 	}
 
 	public var textBox:TextBox;
 	public override function updateData(DeltaTime:Float) {
+		super.updateData(DeltaTime);
 		if(this.overlapCheck(this.scene.AllActors[0])){
 			this.scene.gameManagment.hasStrongAttack = true;
 			this.Destroy = true;
@@ -33,8 +35,10 @@ class SkillItem extends Actor{
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		g2.color = Color.Orange;
-		g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		g2.color = Color.White;
+		//g2.color = Color.Orange;
+		//g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+		//g2.color = Color.White;
+
+		g2.drawSubImage(this.Sprite, this.Position.x, this.Position.y, 40,88, 9, 9);
 	}
 }

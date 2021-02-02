@@ -25,7 +25,6 @@ class Gate extends Solid{
 				if(this.scene.gameManagment.haskey){
 					this.open();
 					this.scene.gameManagment.haskey = false;
-					this.scene.gameManagment.soundManagement.play("open_gate");
 				} else if(this.textBox == null){
 					this.textBox = new TextBox();
 					this.textBox.scene = this.scene;
@@ -45,6 +44,8 @@ class Gate extends Solid{
 	public function open():Void{
 		this.Destroy = true;
 		this.scene.AllSolids.remove(this);
+
+		this.scene.gameManagment.soundManagement.play("open_gate");
 
 		var gate:Gate = new Gate();
 		gate.opened = true;

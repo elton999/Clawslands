@@ -44,6 +44,7 @@ class StrongRock extends Solid{
 		if(this._hits == 4){
 			if(tag == "player strong attack"){
 				this.scene.AllSolids.remove(this);
+				this.scene.gameManagment.soundManagement.play("open_gate");
 			}
 		} else if(this._canHitAgain){
 			this._canHitAgain = false;
