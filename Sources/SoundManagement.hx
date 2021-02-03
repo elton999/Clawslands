@@ -154,7 +154,7 @@ class SoundManagement {
         isplaymusic = false;
         this.music.stop();
         this.music_boss = Audio.play(this.music_boss_sound, true);
-        this.music_boss.volume = 0.7;
+        this.music_boss.volume = 0.5;
     }
 
     public function playMusic(){
