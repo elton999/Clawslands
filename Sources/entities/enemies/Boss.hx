@@ -222,6 +222,7 @@ class Boss extends Enemy{
 				super.takeDamage(hit);
 		}else{
 			if(!this._firtAttack){
+				this.scene.gameManagment.soundManagement.playMusicBoss();
 				this.animation.play(0, "awake", AnimationDirection.FORWARD);
 				this._firtAttack = true;
 

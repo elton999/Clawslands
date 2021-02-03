@@ -3,8 +3,8 @@ import umbrellatoolkit.helpers.Point;
 import ui.FinalCredits;
 import sprite.PlayerAnimation;
 import sprite.Background.Background;
-import sprite.Walter;
-import sprite.WalterFall;
+import sprite.Water;
+import sprite.WaterFall;
 import kha.Sound;
 import kha.audio1.Audio;
 import kha.math.Vector2;
@@ -47,7 +47,7 @@ class GameManagment {
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = true;
+	public var hasStrongAttack:Bool = false;
 	public var haskey: Bool = false;
 	public var canPlay: Bool = false;
 	public var currentRoom:Int = 1;
@@ -89,8 +89,8 @@ class GameManagment {
 		this.AssetsManagment.add(Gate, "gate", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(StrongRock, "strong rock", LayersScene.MIDDLEGROUND);
 
-		this.AssetsManagment.add(Walter, "walter", LayersScene.MIDDLEGROUND);
-		this.AssetsManagment.add(WalterFall, "walter fall", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(Water, "water", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(WaterFall, "water fall", LayersScene.MIDDLEGROUND);
 	}
 
 	private var LoadScene:Bool = false;
@@ -173,6 +173,7 @@ class GameManagment {
 		credits.start();
 		// player animation cutscene
 		var playerAnimation:PlayerAnimation = new PlayerAnimation();
+		playerAnimation.scene = this.finalScene;
 		playerAnimation.start();
 		
 		this.finalScene.Player.push(playerAnimation);
@@ -217,6 +218,7 @@ class GameManagment {
 	public function restart(){
 		this.canRestart = false;
 
+		this.soundManagement.playMusic();
 		var _player:Actor = this.rooms[this.currentRoom - 1].AllActors.shift();
 		this.rooms[this.currentRoom - 1].Player.shift();
 		var _HUD:GameObject = this.rooms[this.currentRoom - 1].UI.shift();

@@ -642,7 +642,7 @@
     },
     {
       "exportID": "29415209",
-      "name": "walter",
+      "name": "water",
       "limit": -1,
       "size": {"x": 8, "y": 8},
       "origin": {"x": 0, "y": 0},
@@ -678,7 +678,7 @@
     },
     {
       "exportID": "29982028",
-      "name": "walter fall",
+      "name": "water fall",
       "limit": -1,
       "size": {"x": 16, "y": 16},
       "origin": {"x": 0, "y": 0},

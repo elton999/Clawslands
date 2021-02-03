@@ -17,9 +17,7 @@ class Logo extends GameObject{
 		if(this.scene.gameManagment.startThegame && this.transparent < 1){
 			this.transparent += 0.1;
 			this.color.A = this.transparent;
-			trace(this.transparent);
 			if(this.transparent > 1){
-				
 				this.scene.UI.remove(this);
 			}
 		}

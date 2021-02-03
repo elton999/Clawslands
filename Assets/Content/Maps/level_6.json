@@ -19207,7 +19207,7 @@
       "gridCellsX": 205,
       "gridCellsY": 91,
       "entities": [
-        {"name": "walter", "id": 0, "_eid": "29415209", "x": 368, "y": 488, "width": 448, "height": 8, "originX": 0, "originY": 0}
+        {"name": "water", "id": 0, "_eid": "29415209", "x": 368, "y": 488, "width": 448, "height": 8, "originX": 0, "originY": 0}
       ]
     }
   ]

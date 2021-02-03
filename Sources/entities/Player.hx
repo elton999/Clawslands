@@ -95,9 +95,9 @@ class Player extends Actor{
 			this.scene.gameManagment.soundManagement.play("grounded");
 
 		if(this.isGrounded){
-			if(!_walterImpactSound){
-				this._walterImpactSound = true;
-				this.scene.gameManagment.soundManagement.play("walter");
+			if(!_waterImpactSound){
+				this._waterImpactSound = true;
+				this.scene.gameManagment.soundManagement.play("water");
 			}
 		}
 
@@ -316,7 +316,7 @@ class Player extends Actor{
 	var _startGetUp:Bool = false;
 	var _startShowPlayer:Bool = false; 
 	var _getup:Bool = false;
-	var _walterImpactSound:Bool = false;
+	var _waterImpactSound:Bool = false;
 	public function AnimationController(DeltaTime:Float){
 		this.splashAnimation();
 
@@ -330,8 +330,9 @@ class Player extends Actor{
 				if(this.scene.gameManagment.life < 1){
 					this.animation.play(DeltaTime, "death", AnimationDirection.FORWARD);
 					this.scene.gameManagment.canPlay = false;
-					if(this.animation.lastFrame())
+					if(this.animation.lastFrame()){
 						this.scene.gameManagment.canRestart = true;
+					}
 				}else if(this.velocity.x != 0)
 					this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
 				else{

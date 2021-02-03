@@ -5,8 +5,8 @@ import kha.audio1.AudioChannel;
 import kha.Assets;
 
 class SoundManagement {
-    public var walter_impact:Sound;
-    public var walter:AudioChannel;
+    public var water_impact:Sound;
+    public var water:AudioChannel;
 
     public var btn_press_sound:Sound;
     public var btn_press:AudioChannel;
@@ -50,14 +50,21 @@ class SoundManagement {
     public var music_sound:Sound;
     public var music:AudioChannel;
 
+    public var music_boss_sound:Sound;
+    public var music_boss:AudioChannel;
+
     public function new() {
 
         music_sound = Assets.sounds.Content_Sound_Music_Contemplation;
         this.music = Audio.play(music_sound, true);
 
-        walter_impact = Assets.sounds.Content_Sound_sfx_exp_long2;
-        this.walter =  Audio.play(walter_impact);
-        this.walter.pause();
+        music_boss_sound = Assets.sounds.Content_Sound_Music_battleThemeA;
+        this.music_boss = Audio.play(this.music_boss_sound, true);
+        this.music_boss.stop();
+
+        water_impact = Assets.sounds.Content_Sound_sfx_exp_long2;
+        this.water =  Audio.play(water_impact);
+        this.water.pause();
 
         btn_press_sound = Assets.sounds.Content_Sound_select_005;
         this.btn_press = Audio.play(this.btn_press_sound);
@@ -116,8 +123,8 @@ class SoundManagement {
     public function play(tag:String):Void {
         if(tag == "press button")
             this.btn_press.play();
-        else if(tag == "walter")
-            this.walter.play();
+        else if(tag == "water")
+            this.water.play();
         else if(tag == "jump")
             this.jump.play();
         else if(tag == "grounded")
@@ -140,6 +147,23 @@ class SoundManagement {
             this.open_gate.play();
         else if(tag == "sword_boss")
             this.sword_boss.play();
+    }
+
+    public var isplaymusic:Bool = true;
+    public function playMusicBoss(){
+        isplaymusic = false;
+        this.music.stop();
+        this.music_boss = Audio.play(this.music_boss_sound, true);
+        this.music_boss.volume = 0.7;
+    }
+
+    public function playMusic(){
+        if(!isplaymusic){
+            this.music_boss.stop();
+            this.music = Audio.play(this.music_sound, true);
+            isplaymusic = true;
+        }
+       
     }
 
     public function Update(){

@@ -23,6 +23,7 @@ class PlayerAnimation extends GameObject{
 	public override function update(DeltaTime:Float) {
 		super.update(DeltaTime);
 		this.animation.play(DeltaTime, "walk-black", LOOP);
+		this.scene.gameManagment.soundManagement.playMusic();
 
 		this.Position = new Vector2(this.Position.x + (DeltaTime * 5), this.Position.y);
 	}
