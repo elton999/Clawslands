@@ -46,7 +46,15 @@ class SoundManagement {
     public var sword_boss_sound:Sound;
     public var sword_boss:AudioChannel;
 
+    // music
+    public var music_sound:Sound;
+    public var music:AudioChannel;
+
     public function new() {
+
+        music_sound = Assets.sounds.Content_Sound_Music_Contemplation;
+        this.music = Audio.play(music_sound, true);
+
         walter_impact = Assets.sounds.Content_Sound_sfx_exp_long2;
         this.walter =  Audio.play(walter_impact);
         this.walter.pause();

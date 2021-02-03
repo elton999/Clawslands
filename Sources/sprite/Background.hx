@@ -12,6 +12,6 @@ class Background extends GameObject{
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		g2.drawImage(this.Sprite, 0,0);
+		g2.drawScaledImage(this.Sprite, 0,0, this.Sprite.width*this.Scale, this.Sprite.height*this.Scale);
 	}
 }

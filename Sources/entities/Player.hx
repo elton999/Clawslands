@@ -140,7 +140,7 @@ class Player extends Actor{
 			g2.drawScaledSubImage(
 				this.Sprite, 
 				this.animation.body.x, 
-				this.animation.body.y + (_waterImpact ? 8 : 0), 
+				this.animation.body.y + (_waterImpact ? 5 : 0), 
 				this.animation.body.width + _widthSmash, 
 				this.animation.body.height + _heightSmash,
 				this.mright ? this.Position.x - 27 + _positionXSmash : this.Position.x + 37 - _positionXSmash, 

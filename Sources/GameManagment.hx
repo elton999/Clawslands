@@ -1,7 +1,10 @@
 package;
+import umbrellatoolkit.helpers.Point;
 import ui.FinalCredits;
 import sprite.PlayerAnimation;
 import sprite.Background.Background;
+import sprite.Walter;
+import sprite.WalterFall;
 import kha.Sound;
 import kha.audio1.Audio;
 import kha.math.Vector2;
@@ -44,7 +47,7 @@ class GameManagment {
 	// player infos
 	public var totalLife: Int = 5;
 	public var life: Int = 5;
-	public var hasStrongAttack:Bool = false;
+	public var hasStrongAttack:Bool = true;
 	public var haskey: Bool = false;
 	public var canPlay: Bool = false;
 	public var currentRoom:Int = 1;
@@ -85,6 +88,9 @@ class GameManagment {
 		this.AssetsManagment.add(MovePlatform, "move platform", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(Gate, "gate", LayersScene.MIDDLEGROUND);
 		this.AssetsManagment.add(StrongRock, "strong rock", LayersScene.MIDDLEGROUND);
+
+		this.AssetsManagment.add(Walter, "walter", LayersScene.MIDDLEGROUND);
+		this.AssetsManagment.add(WalterFall, "walter fall", LayersScene.MIDDLEGROUND);
 	}
 
 	private var LoadScene:Bool = false;
@@ -105,6 +111,7 @@ class GameManagment {
 				this._pressAnyButtonHUD.Destroy = true;
 			}
 			this.Scene.scene.update(DeltaTime);
+			this.logoScene.update(DeltaTime);
 		}
 	}
 
@@ -116,10 +123,15 @@ class GameManagment {
 	public function render(framebuffer: Framebuffer): Void {
 		if(this.Scene.scene != null && this.LoadDone){
 			this.Scene.scene.render(framebuffer);
+			if(this.logoScene.UI.length > 0){
+				this.logoScene.Background[0].Sprite = this.Scene.scene._BackBuffer;
+				this.logoScene.render(framebuffer);
+			}
 		}
 	}
 
 	public var finalScene:Scene;
+	public var logoScene:Scene;
 	public var HUD:HUD = new HUD();
 	private var _pressAnyButtonHUD:TextBox;
 	private var _initialCredits:TextBox;
@@ -166,6 +178,23 @@ class GameManagment {
 		this.finalScene.Player.push(playerAnimation);
 		this.finalScene.Background.push(bg);
 		this.finalScene.UI.push(credits);
+
+		//logo
+		this.logoScene = new Scene();
+		this.logoScene.BackgroundColor = Color.Transparent;
+		this.logoScene.camera = new Camera();
+		this.logoScene.camera.scene = this.logoScene;
+		this.logoScene.gameManagment = this;
+		this.logoScene.ScreemSize = new Point(Std.int(this.logoScene.ScreemSize.x * 2), Std.int(this.logoScene.ScreemSize.y * 2));
+		this.logoScene.camera.position = new Vector2(this.logoScene.ScreemSize.x / 2, this.logoScene.ScreemSize.y / 2);
+		var logo:ui.Logo = new ui.Logo();
+		logo.start();
+		logo.scene = this.logoScene;
+		this.logoScene.UI.push(logo);
+		this.logoScene.SceneReady = true;
+		var bgscene = new Background();
+		bgscene.Scale = 2;
+		this.logoScene.Background.push(bgscene);
 		
 		this.rooms[0].UI.push(_pressAnyButtonHUD);
 		_pressAnyButtonHUD.scene = this.rooms[0];

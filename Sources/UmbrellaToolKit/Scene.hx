@@ -142,6 +142,7 @@ class Scene {
 		if(this._BackBuffer != null)
 			this._BackBuffer.unload();
 		this._BackBuffer = Image.createRenderTarget(this.ScreemSize.x, this.ScreemSize.y);
+		
 		var graphics = this._BackBuffer.g2;
 		graphics.begin(this.BackgroundColor);
 			if(this.SceneReady){
