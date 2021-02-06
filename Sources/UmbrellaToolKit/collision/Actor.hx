@@ -1,5 +1,6 @@
 package umbrellatoolkit.collision;
 
+import kha.Color;
 import umbrellatoolkit.GameObject;
 import umbrellatoolkit.helpers.Point;
 import umbrellatoolkit.collision.Solid;
@@ -163,5 +164,13 @@ class Actor extends GameObject{
 			return -1;
 		else
 			return 0;
+	}
+
+
+	public override function render(g2:kha.graphics2.Graphics): Void{
+		super.render(g2);
+		g2.color = Color.Red;
+		g2.drawRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+		g2.color = Color.White;
 	}
 }

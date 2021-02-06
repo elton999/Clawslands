@@ -1,17 +1,13 @@
 package entities;
 
-import kha.math.FastMatrix3;
 import kha.Image;
 import kha.Assets;
-import kha.Color;
 import kha.input.Keyboard;
 import kha.input.Gamepad;
 import kha.math.Vector2;
 import kha.graphics2.Graphics;
 import entities.SwordPlayer;
-import umbrellatoolkit.GameObject;
 import umbrellatoolkit.collision.Actor;
-import umbrellatoolkit.collision.Solid;
 import umbrellatoolkit.sprite.Animation;
 import umbrellatoolkit.helpers.Point;
 

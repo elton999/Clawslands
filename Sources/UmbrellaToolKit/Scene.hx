@@ -1,5 +1,11 @@
 package umbrellatoolkit;
 
+import kha.Scaler;
+import kha.Image;
+import kha.Assets;
+import kha.Framebuffer;
+import kha.System;
+import kha.Color;
 import umbrellatoolkit.GameObject;
 import umbrellatoolkit.Camera;
 import umbrellatoolkit.helpers.Point;
@@ -8,14 +14,6 @@ import umbrellatoolkit.level.TileMap;
 import umbrellatoolkit.collision.Actor;
 import umbrellatoolkit.collision.Solid;
 import umbrellatoolkit.level.AssetsManagment;
-import kha.Scaler;
-import kha.Image;
-import kha.Assets;
-import kha.Framebuffer;
-import kha.Scheduler;
-import kha.System;
-import kha.Blob;
-import kha.Color;
 
 enum LayersScene {
 	UI;

@@ -7,10 +7,6 @@ import umbrellatoolkit.helpers.BoxSprite;
 import umbrellatoolkit.Scene;
 import kha.math.Vector2;
 import kha.Image;
-import kha.Assets;
-import kha.Framebuffer;
-import kha.Scheduler;
-import kha.System;
 
 class GameObject {
 	public function new (){

@@ -35,7 +35,6 @@ class Enemy extends Actor{
 	}
 
 	public function death(){
-		//this.isActive = false;
 		this.isActive = false;
 	}
 

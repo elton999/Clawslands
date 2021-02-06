@@ -2,7 +2,6 @@ package entities.solids;
 
 import kha.math.Vector2;
 import ui.TextBox;
-import kha.Color;
 import kha.graphics2.Graphics;
 import umbrellatoolkit.collision.Solid;
 

@@ -153,6 +153,24 @@ class GameManagment {
 			}
 		}
 
+		//logo
+		this.logoScene = new Scene();
+		this.logoScene.BackgroundColor = Color.Transparent;
+		this.logoScene.camera = new Camera();
+		this.logoScene.camera.scene = this.logoScene;
+		this.logoScene.gameManagment = this;
+		this.logoScene.ScreemSize = new Point(Std.int(this.logoScene.ScreemSize.x * 2), Std.int(this.logoScene.ScreemSize.y * 2));
+		this.logoScene.camera.position = new Vector2(this.logoScene.ScreemSize.x / 2, this.logoScene.ScreemSize.y / 2);
+		var logo:ui.Logo = new ui.Logo();
+		logo.start();
+		logo.scene = this.logoScene;
+		this.logoScene.UI.push(logo);
+		this.logoScene.SceneReady = true;
+		var bgscene = new Background();
+		bgscene.Scale = 2;
+		this.logoScene.Background.push(bgscene);
+
+		// cut scene final
 		this.finalScene = new Scene();
 		this.finalScene.gameManagment = this;
 		this.finalScene.BackgroundColor = Color.Black;
@@ -174,23 +192,6 @@ class GameManagment {
 		this.finalScene.Player.push(playerAnimation);
 		this.finalScene.Background.push(bg);
 		this.finalScene.UI.push(credits);
-
-		//logo
-		this.logoScene = new Scene();
-		this.logoScene.BackgroundColor = Color.Transparent;
-		this.logoScene.camera = new Camera();
-		this.logoScene.camera.scene = this.logoScene;
-		this.logoScene.gameManagment = this;
-		this.logoScene.ScreemSize = new Point(Std.int(this.logoScene.ScreemSize.x * 2), Std.int(this.logoScene.ScreemSize.y * 2));
-		this.logoScene.camera.position = new Vector2(this.logoScene.ScreemSize.x / 2, this.logoScene.ScreemSize.y / 2);
-		var logo:ui.Logo = new ui.Logo();
-		logo.start();
-		logo.scene = this.logoScene;
-		this.logoScene.UI.push(logo);
-		this.logoScene.SceneReady = true;
-		var bgscene = new Background();
-		bgscene.Scale = 2;
-		this.logoScene.Background.push(bgscene);
 		
 		this.rooms[0].UI.push(_pressAnyButtonHUD);
 		_pressAnyButtonHUD.scene = this.rooms[0];

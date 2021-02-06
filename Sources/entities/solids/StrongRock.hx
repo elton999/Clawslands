@@ -54,10 +54,6 @@ class StrongRock extends Solid{
 		
 	}
 	public override function render(g2:Graphics) {
-		//g2.color = Color.Green;
-		//g2.fillRect(this.positions.x, this.positions.y, this.sizes.x, this.sizes.y);
-		//g2.color = Color.White;
-
 		g2.drawSubImage(
 				this.Sprite, 
 				this.positions.x,

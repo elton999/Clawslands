@@ -1,7 +1,6 @@
 package umbrellatoolkit;
 
 import umbrellatoolkit.Scene;
-import umbrellatoolkit.helpers.Point;
 import kha.math.Vector2;
 import umbrellatoolkit.GameObject;
 import kha.graphics2.Graphics;

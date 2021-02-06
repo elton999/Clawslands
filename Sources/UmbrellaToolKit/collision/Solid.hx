@@ -1,4 +1,5 @@
 package umbrellatoolkit.collision;
+import kha.Color;
 import kha.math.Vector2;
 import umbrellatoolkit.collision.Actor;
 import umbrellatoolkit.collision.Solid;
@@ -146,6 +147,13 @@ class Solid extends GameObject {
 		}
 
 		return rt;
+	}
+
+	public override function render(g2:kha.graphics2.Graphics): Void{
+		super.render(g2);
+		g2.color = Color.Yellow;
+		g2.drawRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+		g2.color = Color.White;
 	}
 }
 
