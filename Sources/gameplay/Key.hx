@@ -36,7 +36,6 @@ class Key extends Item{
 	}
 
 	public override function render(g2:Graphics) {
-		super.render(g2);
 		g2.drawSubImage(this.Sprite, this.Position.x, this.Position.y, 10, 72, 10, 10);
 	}
 }

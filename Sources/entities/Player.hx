@@ -60,7 +60,7 @@ class Player extends Actor{
 		this.cRight = false;
 		this.cJump = false;
 
-		this.scene.gameManagment.HUD.showUI();
+		this.scene.gameManagment.sceneManagement.HUD.showUI();
 	}
 
 
@@ -112,7 +112,7 @@ class Player extends Actor{
 				this.scene.gameManagment.life -= 1;
 				this._isTakingDamange = true;
 				if(this.scene.gameManagment.life == 0){
-					this.scene.gameManagment.HUD.hideUI();
+					this.scene.gameManagment.sceneManagement.HUD.hideUI();
 					this.scene.gameManagment.soundManagement.play("death");
 				} else 
 					this.scene.gameManagment.soundManagement.play("take_damage");
@@ -131,7 +131,7 @@ class Player extends Actor{
 
 	public var animation:Animation = new Animation();
 	public override function render(g2:Graphics) {
-		super.render(g2);
+		//super.render(g2);
 		if(this.isVisible && this.animation != null && this.Sprite != null){
 			g2.drawScaledSubImage(
 				this.Sprite, 
@@ -327,7 +327,7 @@ class Player extends Actor{
 					this.animation.play(DeltaTime, "death", AnimationDirection.FORWARD);
 					this.scene.gameManagment.canPlay = false;
 					if(this.animation.lastFrame()){
-						this.scene.gameManagment.canRestart = true;
+						this.scene.gameManagment.sceneManagement.canRestart = true;
 					}
 				}else if(this.velocity.x != 0)
 					this.animation.play(DeltaTime, "Run-Right", AnimationDirection.LOOP);
@@ -389,7 +389,7 @@ class Player extends Actor{
 					this.animation.play(DeltaTime, "water-impact", AnimationDirection.FORWARD);
 					if(this.animation.lastFrame() && !_startShowPlayer){
 						_startShowPlayer = true;
-						this.scene.gameManagment.showInitialCredits();
+						this.scene.gameManagment.sceneManagement.showInitialCredits();
 						wait(6, function () {
 							_waterImpact = false;
 						});
@@ -399,7 +399,7 @@ class Player extends Actor{
 					if(this.animation.lastFrame()){
 						_isFallingStart = false;
 						this.scene.gameManagment.canPlay = true;
-						this.scene.gameManagment.HUD.showUI();
+						this.scene.gameManagment.sceneManagement.HUD.showUI();
 					}
 				}else{
 					this.animation.play(DeltaTime, "on the ground", AnimationDirection.FORWARD);

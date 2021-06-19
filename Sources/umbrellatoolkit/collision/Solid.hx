@@ -151,9 +151,10 @@ class Solid extends GameObject {
 
 	public override function render(g2:kha.graphics2.Graphics): Void{
 		super.render(g2);
-		g2.color = Color.Yellow;
-		g2.drawRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		g2.color = Color.White;
+		
+		//g2.color = Color.Yellow;
+		//g2.drawRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
+		//g2.color = Color.White;
 	}
 }
 

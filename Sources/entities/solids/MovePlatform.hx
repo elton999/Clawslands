@@ -85,7 +85,7 @@ class MovePlatform extends Solid{
 
 
 	public override  function render(g2:Graphics) {
-		super.render(g2);
+		//super.render(g2);
 
 		g2.drawSubImage(
 			this.Sprite,

@@ -144,7 +144,7 @@ class Witch extends Enemy {
 	public var mright:Bool = true;
 
 	public override function render(g2:Graphics) {
-		super.render(g2);
+		//super.render(g2);
 		if(!this.valeus.spaw_here){
 			if(this.isVisible && !this.isHide && this.animation != null){
 				g2.drawScaledSubImage(

@@ -34,11 +34,6 @@ class SkillItem extends Item{
 	}
 
 	public override function render(g2:Graphics) {
-		super.render(g2);
-		//g2.color = Color.Orange;
-		//g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		//g2.color = Color.White;
-
 		g2.drawSubImage(this.Sprite, this.Position.x, this.Position.y, 40,88, 9, 9);
 	}
 }

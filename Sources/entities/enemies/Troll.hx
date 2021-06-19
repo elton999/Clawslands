@@ -21,7 +21,7 @@ class Troll extends Enemy{
 	}
 
 	public override function render(g2:kha.graphics2.Graphics): Void{
-		super.render(g2);
+		//super.render(g2);
 		g2.color = Color.Red;
 		g2.fillRect(this.Position.x, this.Position.y, 16, 32);
 		g2.color = Color.White;

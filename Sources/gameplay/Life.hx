@@ -30,7 +30,6 @@ class Life extends Item{
 	}
 
 	public override function render(g2:Graphics) {
-		super.render(g2);
 		g2.drawSubImage(this.Sprite, this.Position.x, this.Position.y, 0, 72, 10, 9);
 	}
 }

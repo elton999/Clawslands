@@ -1,12 +1,9 @@
 package gameplay;
 
 import umbrellatoolkit.GameObject;
-import ui.HUD;
 import umbrellatoolkit.Camera;
 import kha.math.Vector2;
-import kha.Color;
 import kha.graphics2.Graphics;
-import umbrellatoolkit.helpers.Point;
 import umbrellatoolkit.collision.Actor;
 
 class Door extends Actor{
@@ -18,6 +15,7 @@ class Door extends Actor{
 	}
 
 	public override function updateData(DeltaTime:Float) {
+		var sceneManagement:SceneManagement = this.scene.gameManagment.sceneManagement;
 		if(this.scene.AllActors.length > 0){
 			if(this.overlapCheck(this.scene.AllActors[0])){
 				if(this.valeus.room != 100){
@@ -27,20 +25,20 @@ class Door extends Actor{
 					this.scene.AllActors.shift();
 					this.scene.UI.shift();
 					this.scene.Player.shift();
-					
-					this.scene.gameManagment.currentRoom = this.valeus.room;
-					this.scene.gameManagment.Scene.scene = this.scene.gameManagment.rooms[this.scene.gameManagment.currentRoom - 1];
 
-					this.Player.scene = this.scene.gameManagment.Scene.scene;
-					this.Hud.scene = this.scene.gameManagment.Scene.scene;
-					this.scene.gameManagment.Scene.scene.Player.push(this.Player);
-					this.scene.gameManagment.Scene.scene.AllActors.unshift(this.Player);
-					this.scene.gameManagment.Scene.scene.UI.push(this.Hud);
-					this.scene.gameManagment.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
+					sceneManagement.currentRoom = this.valeus.room;
+					sceneManagement.Scene.scene = sceneManagement.rooms[sceneManagement.currentRoom - 1];
 
-					this.fixCameraPosition(this.scene.gameManagment.Scene.scene.camera);
+					this.Player.scene = sceneManagement.Scene.scene;
+					this.Hud.scene = sceneManagement.Scene.scene;
+					sceneManagement.Scene.scene.Player.push(this.Player);
+					sceneManagement.Scene.scene.AllActors.unshift(this.Player);
+					sceneManagement.Scene.scene.UI.push(this.Hud);
+					sceneManagement.Scene.scene.camera.position = new Vector2 (this.Player.Position.x, this.Player.Position.y);
+
+					this.fixCameraPosition(sceneManagement.Scene.scene.camera);
 				} else {
-					this.scene.gameManagment.Scene.scene = this.scene.gameManagment.finalScene;
+					sceneManagement.Scene.scene = sceneManagement.finalScene;
 				}
 				
 			}
@@ -61,9 +59,5 @@ class Door extends Actor{
 
 	public override function render(g2:Graphics) {
 		super.render(g2);
-		
-		//g2.color = Color.Green;
-		//g2.fillRect(this.Position.x, this.Position.y, this.size.x, this.size.y);
-		//g2.color = Color.White;
 	}
 }

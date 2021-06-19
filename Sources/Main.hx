@@ -6,6 +6,7 @@ import kha.Assets;
 import kha.Framebuffer;
 import kha.Scheduler;
 import kha.System;
+import umbrellatoolkit.helpers.Timer;
 
 class Main {
 	public static function main() {

@@ -102,21 +102,21 @@ class Boss extends Enemy{
 			this._nextSpawEnemies = false;
 
 			for(i in 0...2){
-				var _wicth:Witch = new Witch();
-				_wicth.scene = this.scene;
-				_wicth.Position = new Vector2(this._spawEnemiesPositions[i].Position.x, this._spawEnemiesPositions[i].Position.y);
-				_wicth.valeus = this._spawEnemiesPositions[i].valeus;
-				_wicth.valeus.spaw_here = false;
-				_wicth.valeus.can_follow_when_see = true;
-				_wicth.canDestroy = true;
-				_wicth.loadingAnimation = true;
+				var wicth:Witch = new Witch();
+				wicth.scene = this.scene;
+				wicth.Position = new Vector2(this._spawEnemiesPositions[i].Position.x, this._spawEnemiesPositions[i].Position.y);
+				wicth.valeus = this._spawEnemiesPositions[i].valeus;
+				wicth.valeus.spaw_here = false;
+				wicth.valeus.can_follow_when_see = true;
+				wicth.canDestroy = true;
+				wicth.loadingAnimation = true;
 				if(i == 1)
-					_wicth.flipX = true;
-				this.scene.Enemies.push(_wicth);
-				_wicth.start();
-				_wicth.visible();
+					wicth.flipX = true;
+				this.scene.Enemies.push(wicth);
+				wicth.start();
+				wicth.visible();
 
-				_allWichts.push(_wicth);
+				_allWichts.push(wicth);
 			}
 
 			this._spawTimes++;
